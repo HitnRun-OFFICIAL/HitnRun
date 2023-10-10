@@ -8,8 +8,16 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          MSSQL_SA_PASSWORD: admin!23
+          ACCEPT_EULA: 'Y'
+        ports:
+          - 1433:1433
 
     steps:
       - uses: actions/checkout@v3
@@ -18,7 +26,9 @@ jobs:
           java-version: "20"
           distribution: "temurin"
           cache: maven
+      - name: populate database
+        run: mvn -B -e -X compile exec:java@populate-database --file pom.xml
       - name: run unit tests
         uses: coactions/setup-xvfb@v1
         with:
-          run: mvn -B test --file pom.xml
+          run: mvn -B -e -X test --file pom.xml
