@@ -27,8 +27,8 @@ jobs:
           distribution: "temurin"
           cache: maven
       - name: populate database
-        run: mvn -B exec:java@populate-database
+        run: mvn -B -e -X compile exec:java@populate-database --file pom.xml
       - name: run unit tests
         uses: coactions/setup-xvfb@v1
         with:
-          run: mvn -B test --file pom.xml
+          run: mvn -B -e -X test --file pom.xml
