@@ -6,7 +6,8 @@ public class Customerdata{
     private string Email ;
     private string Phone ;
     private string Username ; 
-    private string Password ;
+    private string Password ; //Security Issue may need to change Data type 
+    //Might need to implement a User Interface to make user accounts more managable 
 
     public CustomerDTO() {
         //constructor
