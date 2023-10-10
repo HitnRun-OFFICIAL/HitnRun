@@ -24,9 +24,9 @@ public class VehicleDao {
             preparedStatement.setInt(4, vehicle.getYear());
             preparedStatement.setString(5, vehicle.getLicensePlate());
             preparedStatement.setString(6, vehicle.getDescription());
-            preparedStatement.setString(7, vehicle.getColor);
-            preparedStatement.setDouble(8, vehicle.getRating);
-            preparedStatement.setString(9, vehicle.getImagePath);
+            preparedStatement.setString(7, vehicle.getColor));
+            preparedStatement.setDouble(8, vehicle.getRating));
+            preparedStatement.setString(9, vehicle.getImagePath));
             preparedStatement.executeUpdate();
 
     }
