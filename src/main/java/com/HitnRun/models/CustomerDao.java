@@ -8,8 +8,8 @@ import java.util.List;
 public class CustomerDao {
     private Connection connection ;
 
-    public CustomerDao(Connection C){
-        Connection = C ;
+    public CustomerDao(Connection connection){
+        this.connection = connection ;
     }
 
     
