@@ -16,7 +16,7 @@ public class VehicleDao {
     
    
     public void createVehicle(VehicleDao vehicle) throws SQLException{
-        String sql = "INSERT INTO Vehicles (VehicleID, Make, Model, Year, LicensePlate, Description, Color,Rating,ImagePath) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Vehicles (VehicleID, Make, Model, Year, LicensePlate, Description, Color, Rating, ImagePath) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, vehicle.getVechileID());
             preparedStatement.setString(2, vehicle.getMake());
@@ -39,7 +39,7 @@ public class VehicleDao {
             preparedStatement.setInt(1, vehicleID);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return mapResultSetToCustomer(resultSet);
+                    return mapResultSetToVehicle(resultSet);
                 }
             }
         }
@@ -51,7 +51,7 @@ public class VehicleDao {
     
     
  
-    // Read all customers
+    // Read all Vehicles
     public List<VehicleDTO> readAllVehicles() throws SQLException {
         List<VehicleDTO> vehicles = new ArrayList<>();
         String sql = "SELECT * FROM Vehicles";
@@ -64,7 +64,7 @@ public class VehicleDao {
         return vehicle;
     }
  
-    // Update a customer
+    // Update a Vehicle
     public void updateVehicle(VehicleDTO vehicle) throws SQLException {
         String sql = "UPDATE Vehicles SET Make = ? , Model = ? , Year = ? , LicensePlate = ? , Description = ?, Color = ?,Rating = ?,ImagePath = ? WHERE VehicleID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -81,7 +81,7 @@ public class VehicleDao {
         }
     }
  
-    // Delete a customer by ID
+    // Delete a Vehicle by ID
     public void deleteVehicle(int vehicleID) throws SQLException {
         String sql = "DELETE FROM Vehicles WHERE VehicleID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -90,8 +90,8 @@ public class VehicleDao {
         }
     }
  
-    // Helper method to map ResultSet to CustomerDTO
-    private VehicleDTO mapResultSetToCustomer(ResultSet resultSet) throws SQLException {
+    // Helper method to map ResultSet to VehicleDTO
+    private VehicleDTO mapResultSetToVehicle(ResultSet resultSet) throws SQLException {
         VehicleDTO vehicle = new VehicleDTO();
         
         
