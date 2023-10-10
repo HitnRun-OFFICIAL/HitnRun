@@ -9,8 +9,8 @@ import java.math.Double;
 public class VehicleDao {
     private Connection connection ;
     
-    public VehicleDao(Connection C){
-        Connection = C ;
+    public VehicleDao(Connection connection){
+        this.connection = connection ;
     }
 
     
