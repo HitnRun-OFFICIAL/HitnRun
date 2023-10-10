@@ -65,7 +65,7 @@ public class VehicleDao {
     }
  
     // Update a customer
-    public void updateCustomer(CustomerDTO customer) throws SQLException {
+    public void updateVehicle(VehicleDTO vehicle) throws SQLException {
         String sql = "UPDATE Vehicles SET Make = ? , Model = ? , Year = ? , LicensePlate = ? , Description = ?, Color = ?,Rating = ?,ImagePath = ? WHERE VehicleID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, vehicle.getVechileID());
