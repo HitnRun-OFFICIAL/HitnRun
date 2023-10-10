@@ -93,9 +93,6 @@ public class VehicleDao {
     // Helper method to map ResultSet to VehicleDTO
     private VehicleDTO mapResultSetToVehicle(ResultSet resultSet) throws SQLException {
         VehicleDTO vehicle = new VehicleDTO();
-        
-        
-        
         vehicle.setVehicleID(resultSet.getInt("VehicleID"));
         vehicle.setMake(resultSet.getString("Make"));
         vehicle.setModel(resultSet.getString("Model"));
