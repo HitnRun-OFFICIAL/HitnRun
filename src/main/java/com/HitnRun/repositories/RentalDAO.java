@@ -1,14 +1,15 @@
 package com.HitnRun.repositories;
+
+import com.HitnRun.handlers.DatabaseOperationException;
+import com.HitnRun.handlers.RentalNotFoundException;
+import com.HitnRun.models.RentalDTO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.HitnRun.handlers.DatabaseOperationException;
-import com.HitnRun.handlers.RentalNotFoundException;
-import com.HitnRun.models.RentalDTO;
 
 public class RentalDAO {
     private Connection connection;
@@ -17,10 +18,27 @@ public class RentalDAO {
         this.connection = connection;
     }
 
+    public int generateRentalID() throws DatabaseOperationException {
+        String sql = "SELECT MAX(RentalID) FROM Rental";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) + 1;
+            } else {
+                return 1;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("Error in generating new RentalID", e);
+        }
+    }
+
     // Create a Rental record
     public void createRental(RentalDTO rental) throws DatabaseOperationException {
-        String sql = "INSERT INTO Rental (RentalID, CustomerID, VehicleID, StaffID, RentalDate, ReturnDate, RentalFee) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql =
+                "INSERT INTO Rental (RentalID, CustomerID, VehicleID, StaffID, RentalDate,"
+                    + " ReturnDate, RentalFee) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            rental.setRentalID(generateRentalID());
             preparedStatement.setInt(1, rental.getRentalID());
             preparedStatement.setInt(2, rental.getCustomerID());
             preparedStatement.setInt(3, rental.getVehicleID());
@@ -29,13 +47,17 @@ public class RentalDAO {
             preparedStatement.setDate(6, rental.getReturnDate());
             preparedStatement.setDouble(7, rental.getRentalFee());
             preparedStatement.executeUpdate();
-        } catch(SQLException e) {
-            throw new DatabaseOperationException("Error while creating rental: " + rental.getRentalID(), e);
+        } catch (SQLException e) {
+            throw new DatabaseOperationException(
+                    "Error while creating rental: " + rental.getRentalID(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     // Read a Rental record by ID
-    public RentalDTO readRental(int rentalID) throws DatabaseOperationException, RentalNotFoundException {
+    public RentalDTO readRental(int rentalID)
+            throws DatabaseOperationException, RentalNotFoundException {
         String sql = "SELECT * FROM Rental WHERE RentalID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, rentalID);
@@ -52,7 +74,8 @@ public class RentalDAO {
     }
 
     // Read all Rental records for a specific customer
-    public List<RentalDTO> readAllRentalsForCustomer(int customerID) throws DatabaseOperationException {
+    public List<RentalDTO> readAllRentalsForCustomer(int customerID)
+            throws DatabaseOperationException {
         List<RentalDTO> rentals = new ArrayList<>();
         String sql = "SELECT * FROM Rental WHERE CustomerID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -62,15 +85,18 @@ public class RentalDAO {
                     rentals.add(mapResultSetToRental(resultSet));
                 }
             }
-        } catch(SQLException e) {
-            throw new DatabaseOperationException("Error while reading rentals for customer: " + customerID, e);
+        } catch (SQLException e) {
+            throw new DatabaseOperationException(
+                    "Error while reading rentals for customer: " + customerID, e);
         }
         return rentals;
     }
 
     // Update a Rental record
     public void updateRental(RentalDTO rental) throws DatabaseOperationException {
-        String sql = "UPDATE Rental SET CustomerID = ?, VehicleID = ?, StaffID = ?, RentalDate = ?, ReturnDate = ?, RentalFee = ? WHERE RentalID = ?";
+        String sql =
+                "UPDATE Rental SET CustomerID = ?, VehicleID = ?, StaffID = ?, RentalDate = ?,"
+                    + " ReturnDate = ?, RentalFee = ? WHERE RentalID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, rental.getCustomerID());
             preparedStatement.setInt(2, rental.getVehicleID());
@@ -80,8 +106,9 @@ public class RentalDAO {
             preparedStatement.setDouble(6, rental.getRentalFee());
             preparedStatement.setInt(7, rental.getRentalID());
             preparedStatement.executeUpdate();
-        } catch(SQLException e) {
-            throw new DatabaseOperationException("Error while updating rental: " + rental.getRentalID(), e);
+        } catch (SQLException e) {
+            throw new DatabaseOperationException(
+                    "Error while updating rental: " + rental.getRentalID(), e);
         }
     }
 
@@ -91,23 +118,27 @@ public class RentalDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, rentalID);
             preparedStatement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseOperationException("Error while deleting rental: " + rentalID, e);
         }
     }
 
     // Helper method to map ResultSet to RentalDTO
-    private RentalDTO mapResultSetToRental(ResultSet resultSet) throws SQLException {
-        RentalDTO rental = new RentalDTO();
+    private RentalDTO mapResultSetToRental(ResultSet resultSet) throws DatabaseOperationException {
+        try {
+            RentalDTO rental = new RentalDTO();
 
-        rental.setRentalID(resultSet.getInt("RentalID"));
-        rental.setCustomerID(resultSet.getInt("CustomerID"));
-        rental.setVehicleID(resultSet.getInt("VehicleID"));
-        rental.setStaffID(resultSet.getInt("StaffID"));
-        rental.setRentalDate(resultSet.getDate("RentalDate"));
-        rental.setReturnDate(resultSet.getDate("ReturnDate"));
-        rental.setRentalFee(resultSet.getDouble("RentalFee"));
+            rental.setRentalID(resultSet.getInt("RentalID"));
+            rental.setCustomerID(resultSet.getInt("CustomerID"));
+            rental.setVehicleID(resultSet.getInt("VehicleID"));
+            rental.setStaffID(resultSet.getInt("StaffID"));
+            rental.setRentalDate(resultSet.getDate("RentalDate"));
+            rental.setReturnDate(resultSet.getDate("ReturnDate"));
+            rental.setRentalFee(resultSet.getDouble("RentalFee"));
 
-        return rental;
+            return rental;
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("Error while mapping rental", e);
+        }
     }
 }

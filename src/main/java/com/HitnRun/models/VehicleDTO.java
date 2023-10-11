@@ -16,9 +16,15 @@ public class VehicleDTO {
         // Default constructor
     }
 
-    public VehicleDTO(int vehicleID, String make, String model, int year, String licensePlate, String description,
-            String color, double rating, String imagePath) {
-        this.vehicleID = vehicleID;
+    public VehicleDTO(
+            String make,
+            String model,
+            int year,
+            String licensePlate,
+            String description,
+            String color,
+            double rating,
+            String imagePath) {
         this.make = make;
         this.model = model;
         this.year = year;

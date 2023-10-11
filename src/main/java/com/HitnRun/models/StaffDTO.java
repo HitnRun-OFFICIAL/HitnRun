@@ -15,10 +15,14 @@ public class StaffDTO {
         // default constructor
     }
 
-    public StaffDTO(int staffID, String firstName, String lastName,
-            String position, String email, String phone, String userName,
+    public StaffDTO(
+            String firstName,
+            String lastName,
+            String position,
+            String email,
+            String phone,
+            String userName,
             String password) {
-        this.staffID = staffID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
@@ -91,5 +95,4 @@ public class StaffDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

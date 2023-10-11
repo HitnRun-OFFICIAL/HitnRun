@@ -12,12 +12,17 @@ public class CustomerDTO {
     // Might need to implement a User Interface to make user accounts more managable
 
     public CustomerDTO() {
-        //default constructor
+        // default constructor
     }
 
-    public CustomerDTO(int customerID, String firstName, String lastName, String email, String phone, String username, String password) {
-        //constructor
-        this.customerID = customerID;
+    public CustomerDTO(
+            String firstName,
+            String lastName,
+            String email,
+            String phone,
+            String username,
+            String password) {
+        // constructor
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -30,7 +35,7 @@ public class CustomerDTO {
         return this.customerID;
     }
 
-    public void setCustomerID(int customerID){
+    public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
 
@@ -38,7 +43,7 @@ public class CustomerDTO {
         return this.firstName;
     }
 
-    public void setFirstName(String firstName){
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 

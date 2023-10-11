@@ -1,11 +1,12 @@
 package com.HitnRun;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.HitnRun.utils.MSSQLJDBConnector;
+
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HitnRunTest {
 
