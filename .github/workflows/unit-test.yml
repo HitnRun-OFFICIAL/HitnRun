@@ -24,9 +24,6 @@ jobs:
       - name: Setup mssql container
         run: docker-compose -f "docker-compose.yml" up -d --build
       
-      - name: Populate database
-        run: mvn -B clean exec:java@populate-test-database
-      
       - name: Run unit tests
         uses: coactions/setup-xvfb@v1
         with:
