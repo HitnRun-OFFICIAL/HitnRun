@@ -13,9 +13,7 @@ public class PaymentsDTO {
         // Default constructor
     }
 
-    public PaymentsDTO(int paymentID, int rentalID, Date paymentDate,
-            double amount) {
-        PaymentID = paymentID;
+    public PaymentsDTO(int rentalID, Date paymentDate, double amount) {
         this.rentalID = rentalID;
         PaymentDate = paymentDate;
         Amount = amount;
@@ -52,5 +50,4 @@ public class PaymentsDTO {
     public void setAmount(double amount) {
         Amount = amount;
     }
-
 }

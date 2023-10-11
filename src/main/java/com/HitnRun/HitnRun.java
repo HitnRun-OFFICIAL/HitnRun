@@ -1,9 +1,9 @@
 package com.HitnRun;
 
-import java.sql.Connection;
-
 import com.HitnRun.handlers.DatabaseException;
 import com.HitnRun.utils.MSSQLJDBConnector;
+
+import java.sql.Connection;
 
 public class HitnRun {
     public static void main(String[] args) {

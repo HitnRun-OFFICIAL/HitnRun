@@ -1,15 +1,15 @@
 package com.HitnRun.repositories;
 
+import com.HitnRun.handlers.DatabaseOperationException;
+import com.HitnRun.handlers.StaffNotFoundException;
+import com.HitnRun.models.StaffDTO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.HitnRun.handlers.DatabaseOperationException;
-import com.HitnRun.handlers.StaffNotFoundException;
-import com.HitnRun.models.StaffDTO;
 
 public class StaffDAO {
     private Connection connection;
@@ -18,10 +18,27 @@ public class StaffDAO {
         this.connection = connection;
     }
 
+    public int generateStaffID() throws DatabaseOperationException {
+        String sql = "SELECT MAX(StaffID) FROM Staff";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) + 1;
+            } else {
+                return 1;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("Error in generating new staffID", e);
+        }
+    }
+
     // Create a Staff member
     public void createStaff(StaffDTO staff) throws DatabaseOperationException {
-        String sql = "INSERT INTO Staff (FirstName, LastName, Position, Email, Phone, Username, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql =
+                "INSERT INTO Staff (StaffID, FirstName, LastName, Position, Email, Phone, Username,"
+                    + " Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            staff.setStaffID(generateStaffID());
             preparedStatement.setInt(1, staff.getStaffID());
             preparedStatement.setString(2, staff.getFirstName());
             preparedStatement.setString(3, staff.getLastName());
@@ -32,12 +49,16 @@ public class StaffDAO {
             preparedStatement.setString(8, staff.getPassword());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseOperationException("Error while creating staff: " + staff.getStaffID(), e);
+            throw new DatabaseOperationException(
+                    "Error while creating staff: " + staff.getStaffID(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     // Read a Staff member by ID
-    public StaffDTO readStaff(int staffID) throws DatabaseOperationException, StaffNotFoundException {
+    public StaffDTO readStaff(int staffID)
+            throws DatabaseOperationException, StaffNotFoundException {
         String sql = "SELECT * FROM Staff WHERE StaffID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, staffID);
@@ -62,7 +83,7 @@ public class StaffDAO {
             while (resultSet.next()) {
                 staffList.add(mapResultSetToStaff(resultSet));
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseOperationException("Error while reading all staffs.", e);
         }
         return staffList;
@@ -70,7 +91,9 @@ public class StaffDAO {
 
     // Update a Staff member
     public void updateStaff(StaffDTO staff) throws DatabaseOperationException {
-        String sql = "UPDATE Staff SET FirstName = ?, LastName = ?, Position = ?, Email = ?, Phone = ?, Username = ?, Password = ? WHERE StaffID = ?";
+        String sql =
+                "UPDATE Staff SET FirstName = ?, LastName = ?, Position = ?, Email = ?, Phone = ?,"
+                    + " Username = ?, Password = ? WHERE StaffID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, staff.getFirstName());
             preparedStatement.setString(2, staff.getLastName());
@@ -82,7 +105,8 @@ public class StaffDAO {
             preparedStatement.setInt(8, staff.getStaffID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DatabaseOperationException("Error while updating staff: " + staff.getStaffID(), e);
+            throw new DatabaseOperationException(
+                    "Error while updating staff: " + staff.getStaffID(), e);
         }
     }
 
@@ -92,24 +116,28 @@ public class StaffDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, staffID);
             preparedStatement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseOperationException("Error while deleting staff: " + staffID, e);
         }
     }
 
     // Helper method to map ResultSet to StaffDTO
-    private StaffDTO mapResultSetToStaff(ResultSet resultSet) throws SQLException {
-        StaffDTO staff = new StaffDTO();
+    private StaffDTO mapResultSetToStaff(ResultSet resultSet) throws DatabaseOperationException {
+        try {    
+            StaffDTO staff = new StaffDTO();
 
-        staff.setStaffID(resultSet.getInt("StaffID"));
-        staff.setFirstName(resultSet.getString("FirstName"));
-        staff.setLastName(resultSet.getString("LastName"));
-        staff.setPosition(resultSet.getString("Position"));
-        staff.setEmail(resultSet.getString("Email"));
-        staff.setPhone(resultSet.getString("Phone"));
-        staff.setUserName(resultSet.getString("Username"));
-        staff.setPassword(resultSet.getString("Password"));
+            staff.setStaffID(resultSet.getInt("StaffID"));
+            staff.setFirstName(resultSet.getString("FirstName"));
+            staff.setLastName(resultSet.getString("LastName"));
+            staff.setPosition(resultSet.getString("Position"));
+            staff.setEmail(resultSet.getString("Email"));
+            staff.setPhone(resultSet.getString("Phone"));
+            staff.setUserName(resultSet.getString("Username"));
+            staff.setPassword(resultSet.getString("Password"));
 
-        return staff;
+            return staff;
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("Error while mapping staff", e);
+        }
     }
 }

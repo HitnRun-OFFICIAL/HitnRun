@@ -1,23 +1,17 @@
 name: HitnRun unit tests
+
 on:
   push:
     branches: [ "main", "master", "dev" ]
   pull_request:
     branches: [ "main", "master", "dev" ]
+
 jobs:
-  test:
+  unit-tests:
     strategy:
       matrix:
         os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
-    services:
-      mssql:
-        image: mcr.microsoft.com/mssql/server:2022-latest
-        env:
-          MSSQL_SA_PASSWORD: admin!23
-          ACCEPT_EULA: 'Y'
-        ports:
-          - 1433:1433
 
     steps:
       - uses: actions/checkout@v3
@@ -26,9 +20,17 @@ jobs:
           java-version: "20"
           distribution: "temurin"
           cache: maven
-      - name: populate database
-        run: mvn -B -e -X compile exec:java@populate-database --file pom.xml
-      - name: run unit tests
+      
+      - name: Setup mssql container
+        run: docker-compose -f "docker-compose.yml" up -d --build
+      
+      - name: Populate database
+        run: mvn -B compile exec:java@populate-test-database --file pom.xml
+      
+      - name: Run unit tests
         uses: coactions/setup-xvfb@v1
         with:
-          run: mvn -B -e -X test --file pom.xml
+          run: mvn -B test --file pom.xml
+      
+      - name: Stop container
+        run: docker-compose -f "docker-compose.yml" down

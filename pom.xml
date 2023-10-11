@@ -56,6 +56,16 @@
                             <mainClass>com.HitnRun.utils.PrepareDatabase</mainClass>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>populate-test-database</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <classpathScope>test</classpathScope>
+                            <mainClass>com.HitnRun.utils.PrepareTestDatabase</mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
                 <configuration>
                     <mainClass>com.HitnRun.HitnRun</mainClass>

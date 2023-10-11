@@ -14,9 +14,11 @@ public class MaintenanceDTO {
         // Default constructor
     }
 
-    public MaintenanceDTO(int maintenanceID, int vehicleID, Date maintenanceDate, String description,
+    public MaintenanceDTO(
+            int vehicleID,
+            Date maintenanceDate,
+            String description,
             double cost) {
-        this.maintenanceID = maintenanceID;
         this.vehicleID = vehicleID;
         this.maintenanceDate = maintenanceDate;
         this.description = description;

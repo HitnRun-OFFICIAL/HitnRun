@@ -4,35 +4,39 @@ import java.sql.Date;
 
 public class RentalDTO {
 
-    private int RentalID;
+    private int rentalID;
     private int customerID;
     private int vehicleID;
     private int staffID;
-    private Date RentalDate;
-    private Date ReturnDate;
-    private double RentalFee;
+    private Date rentalDate;
+    private Date returnDate;
+    private double rentalFee;
 
     public RentalDTO() {
         // Default constructor
     }
 
-    public RentalDTO(int rentalID, int customerID, int vehicleID, int staffID,
-            Date rentalDate, Date returnDate, double rentalFee) {
-        RentalID = rentalID;
+    public RentalDTO(
+            int customerID,
+            int vehicleID,
+            int staffID,
+            Date rentalDate,
+            Date returnDate,
+            double rentalFee) {
         this.customerID = customerID;
         this.vehicleID = vehicleID;
         this.staffID = staffID;
-        RentalDate = rentalDate;
-        ReturnDate = returnDate;
-        RentalFee = rentalFee;
+        this.rentalDate = rentalDate;
+        this.returnDate = returnDate;
+        this.rentalFee = rentalFee;
     }
 
     public int getRentalID() {
-        return RentalID;
+        return rentalID;
     }
 
     public void setRentalID(int rentalID) {
-        RentalID = rentalID;
+        this.rentalID = rentalID;
     }
 
     public int getCustomerID() {
@@ -60,27 +64,28 @@ public class RentalDTO {
     }
 
     public Date getRentalDate() {
-        return RentalDate;
+        return rentalDate;
     }
 
     public void setRentalDate(Date rentalDate) {
-        RentalDate = rentalDate;
+        this.rentalDate = rentalDate;
     }
 
     public Date getReturnDate() {
-        return ReturnDate;
+        return returnDate;
     }
 
     public void setReturnDate(Date returnDate) {
-        ReturnDate = returnDate;
+        this.returnDate = returnDate;
     }
 
     public double getRentalFee() {
-        return RentalFee;
+        return rentalFee;
     }
 
     public void setRentalFee(double rentalFee) {
-        RentalFee = rentalFee;
+        this.rentalFee = rentalFee;
     }
 
+    
 }

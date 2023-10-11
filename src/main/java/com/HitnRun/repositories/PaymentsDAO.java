@@ -18,11 +18,27 @@ public class PaymentsDAO {
         this.connection = connection;
     }
 
+    public int generatePaymentID() throws DatabaseOperationException {
+        String sql = "SELECT MAX(PaymentID) FROM Payments";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) + 1;
+            } else {
+                return 1;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("Error in generating new paymentID", e);
+        }
+    }
+
     // Create a Payment record
     public void createPayment(PaymentsDTO payment) throws DatabaseOperationException {
-        String sql = "INSERT INTO Payments (PaymentID, RentalID, PaymentDate, Amount) VALUES (?, ?, ?,"
-                + " ?)";
+        String sql =
+                "INSERT INTO Payments (PaymentID, RentalID, PaymentDate, Amount) VALUES (?, ?, ?,"
+                        + " ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            payment.setPaymentID(generatePaymentID());
             preparedStatement.setInt(1, payment.getPaymentID());
             preparedStatement.setInt(2, payment.getRentalID());
             preparedStatement.setDate(3, payment.getPaymentDate());
@@ -31,6 +47,8 @@ public class PaymentsDAO {
         } catch (SQLException e) {
             throw new DatabaseOperationException(
                     "Error while creating payment: " + payment.getPaymentID(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -53,7 +71,8 @@ public class PaymentsDAO {
     }
 
     // Read all Payment records for a specific rental
-    public List<PaymentsDTO> readAllPaymentsForRental(int rentalID) throws DatabaseOperationException {
+    public List<PaymentsDTO> readAllPaymentsForRental(int rentalID)
+            throws DatabaseOperationException {
         List<PaymentsDTO> payments = new ArrayList<>();
         String sql = "SELECT * FROM Payments WHERE RentalID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -64,22 +83,25 @@ public class PaymentsDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new DatabaseOperationException("Error while reading payment for rental: " + rentalID, e);
+            throw new DatabaseOperationException(
+                    "Error while reading payment for rental: " + rentalID, e);
         }
         return payments;
     }
 
     // Update a Payment record
     public void updatePayment(PaymentsDTO payment) throws DatabaseOperationException {
-        String sql = "UPDATE Payments SET RentalID = ?, PaymentDate = ?, Amount = ? WHERE PaymentID = ?";
+        String sql =
+                "UPDATE Payments SET RentalID = ?, PaymentDate = ?, Amount = ? WHERE PaymentID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, payment.getRentalID());
             preparedStatement.setDate(2, payment.getPaymentDate());
             preparedStatement.setDouble(3, payment.getAmount());
             preparedStatement.setInt(4, payment.getPaymentID());
             preparedStatement.executeUpdate();
-        } catch(SQLException e) {
-            throw new DatabaseOperationException("Error while updating payment: " + payment.getPaymentID(), e);
+        } catch (SQLException e) {
+            throw new DatabaseOperationException(
+                    "Error while updating payment: " + payment.getPaymentID(), e);
         }
     }
 
@@ -89,20 +111,24 @@ public class PaymentsDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, paymentID);
             preparedStatement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseOperationException("Error while deleting payment: " + paymentID, e);
         }
     }
 
     // Helper method to map ResultSet to PaymentsDTO
-    private PaymentsDTO mapResultSetToPayment(ResultSet resultSet) throws SQLException {
-        PaymentsDTO payment = new PaymentsDTO();
+    private PaymentsDTO mapResultSetToPayment(ResultSet resultSet) throws DatabaseOperationException {
+        try {
+            PaymentsDTO payment = new PaymentsDTO();
 
-        payment.setPaymentID(resultSet.getInt("PaymentID"));
-        payment.setRentalID(resultSet.getInt("RentalID"));
-        payment.setPaymentDate(resultSet.getDate("PaymentDate"));
-        payment.setAmount(resultSet.getDouble("Amount"));
+            payment.setPaymentID(resultSet.getInt("PaymentID"));
+            payment.setRentalID(resultSet.getInt("RentalID"));
+            payment.setPaymentDate(resultSet.getDate("PaymentDate"));
+            payment.setAmount(resultSet.getDouble("Amount"));
 
-        return payment;
+            return payment;
+        } catch (SQLException e) {
+            throw new DatabaseOperationException("Error while mapping payment", e);
+        }
     }
 }
