@@ -2,108 +2,108 @@ package com.HitnRun.models;
 
 public class VehicleDTO {
 
-    private int vehicleID;
-    private String make;
-    private String model;
-    private int year;
-    private String licensePlate;
-    private String description;
-    private String color;
-    private double rating;
-    private String imagePath;
+  private int vehicleID;
+  private String make;
+  private String model;
+  private int year;
+  private String licensePlate;
+  private String description;
+  private String color;
+  private double rating;
+  private String imagePath;
 
-    public VehicleDTO() {
-        // Default constructor
-    }
+  public VehicleDTO() {
+    // Default constructor
+  }
 
-    public VehicleDTO(
-            String make,
-            String model,
-            int year,
-            String licensePlate,
-            String description,
-            String color,
-            double rating,
-            String imagePath) {
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.licensePlate = licensePlate;
-        this.description = description;
-        this.color = color;
-        this.rating = rating;
-        this.imagePath = imagePath;
-    }
+  public VehicleDTO(
+      String make,
+      String model,
+      int year,
+      String licensePlate,
+      String description,
+      String color,
+      double rating,
+      String imagePath) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.licensePlate = licensePlate;
+    this.description = description;
+    this.color = color;
+    this.rating = rating;
+    this.imagePath = imagePath;
+  }
 
-    public int getVehicleID() {
-        return this.vehicleID;
-    }
+  public int getVehicleID() {
+    return this.vehicleID;
+  }
 
-    public void setVehicleID(int vehicleID) {
-        this.vehicleID = vehicleID;
-    }
+  public void setVehicleID(int vehicleID) {
+    this.vehicleID = vehicleID;
+  }
 
-    public String getMake() {
-        return this.make;
-    }
+  public String getMake() {
+    return this.make;
+  }
 
-    public void setMake(String make) {
-        this.make = make;
-    }
+  public void setMake(String make) {
+    this.make = make;
+  }
 
-    public String getModel() {
-        return this.model;
-    }
+  public String getModel() {
+    return this.model;
+  }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
+  public void setModel(String model) {
+    this.model = model;
+  }
 
-    public int getYear() {
-        return this.year;
-    }
+  public int getYear() {
+    return this.year;
+  }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
+  public void setYear(int year) {
+    this.year = year;
+  }
 
-    public String getLicensePlate() {
-        return this.licensePlate;
-    }
+  public String getLicensePlate() {
+    return this.licensePlate;
+  }
 
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
+  public void setLicensePlate(String licensePlate) {
+    this.licensePlate = licensePlate;
+  }
 
-    public String getDescription() {
-        return this.description;
-    }
+  public String getDescription() {
+    return this.description;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public String getColor() {
-        return this.color;
-    }
+  public String getColor() {
+    return this.color;
+  }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+  public void setColor(String color) {
+    this.color = color;
+  }
 
-    public double getRating() {
-        return this.rating;
-    }
+  public double getRating() {
+    return this.rating;
+  }
 
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
+  public void setRating(double rating) {
+    this.rating = rating;
+  }
 
-    public String getImagePath() {
-        return this.imagePath;
-    }
+  public String getImagePath() {
+    return this.imagePath;
+  }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
+  public void setImagePath(String imagePath) {
+    this.imagePath = imagePath;
+  }
 }
