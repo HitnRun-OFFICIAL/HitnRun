@@ -25,12 +25,12 @@ jobs:
         run: docker-compose -f "docker-compose.yml" up -d --build
       
       - name: Populate database
-        run: mvn -B compile exec:java@populate-test-database --file pom.xml
+        run: mvn -B exec:java@populate-test-database
       
       - name: Run unit tests
         uses: coactions/setup-xvfb@v1
         with:
-          run: mvn -B test --file pom.xml
+          run: mvn -B test
       
       - name: Stop container
         run: docker-compose -f "docker-compose.yml" down
