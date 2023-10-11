@@ -62,7 +62,6 @@
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <classpathScope>test</classpathScope>
                             <mainClass>com.HitnRun.utils.PrepareTestDatabase</mainClass>
                         </configuration>
                     </execution>
