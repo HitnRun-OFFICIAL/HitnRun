@@ -34,7 +34,7 @@ public class VehicleDAO {
   public void createVehicle(VehicleDTO vehicle) throws DatabaseOperationException {
     String sql =
         "INSERT INTO Vehicles (VehicleID, Make, Model, Year, LicensePlate, Description,"
-            + " Color, Rating, ImagePath) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + " Color, Rating, Rent, ImagePath) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       vehicle.setVehicleID(generateVehicleID());
       preparedStatement.setInt(1, vehicle.getVehicleID());
@@ -45,7 +45,8 @@ public class VehicleDAO {
       preparedStatement.setString(6, vehicle.getDescription());
       preparedStatement.setString(7, vehicle.getColor());
       preparedStatement.setDouble(8, vehicle.getRating());
-      preparedStatement.setString(9, vehicle.getImagePath());
+      preparedStatement.setDouble(9, vehicle.getRent());
+      preparedStatement.setString(10, vehicle.getImagePath());
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       throw new DatabaseOperationException(
@@ -103,8 +104,9 @@ public class VehicleDAO {
       preparedStatement.setString(5, vehicle.getDescription());
       preparedStatement.setString(6, vehicle.getColor());
       preparedStatement.setDouble(7, vehicle.getRating());
-      preparedStatement.setString(8, vehicle.getImagePath());
-      preparedStatement.setInt(9, vehicle.getVehicleID());
+      preparedStatement.setDouble(8, vehicle.getRent());
+      preparedStatement.setString(9, vehicle.getImagePath());
+      preparedStatement.setInt(10, vehicle.getVehicleID());
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       throw new DatabaseOperationException(
@@ -132,8 +134,10 @@ public class VehicleDAO {
       vehicle.setModel(resultSet.getString("Model"));
       vehicle.setYear(resultSet.getInt("Year"));
       vehicle.setLicensePlate(resultSet.getString("LicensePlate"));
-      vehicle.setMake(resultSet.getString("Make"));
+      vehicle.setDescription(resultSet.getString("Description"));
+      vehicle.setColor(resultSet.getString("Color"));
       vehicle.setRating(resultSet.getDouble("Rating"));
+      vehicle.setRent(resultSet.getDouble("Rent"));
       vehicle.setImagePath(resultSet.getString("ImagePath"));
       return vehicle;
     } catch (SQLException e) {

@@ -47,6 +47,8 @@ public class PrepareDatabase {
           + //
           "    Rating DECIMAL(3, 2),"
           + //
+          "    Rent DECIMAL(10, 2),"
+          + //
           "    ImagePath VARCHAR(255)"
           + //
           ");"
@@ -182,54 +184,54 @@ public class PrepareDatabase {
       ""
           + //
           "INSERT INTO Vehicles (VehicleID, Make, Model, Year, LicensePlate, Description,"
-          + " Color, Rating, ImagePath)"
+          + " Color, Rating, Rent, ImagePath)"
           + //
           "VALUES"
           + //
           "    (201, 'Toyota', 'Corolla', 2020, 'WP AB 1234', 'Compact sedan', 'Red',"
-          + " 4.5, 'images/toyota_corolla.jpg'),"
+          + " 4.5, 2000.0, 'images/toyota_corolla.jpg'),"
           + //
           "    (202, 'Honda', 'Civic', 2019, 'WP CD 5678', 'Mid-size sedan', 'Blue', 4.2,"
-          + " 'images/honda_civic.jpg'),"
+          + " 5000.0, 'images/honda_civic.jpg'),"
           + //
           "    (203, 'Suzuki', 'Swift', 2021, 'WP EF 9012', 'Hatchback', 'Silver', 4.0,"
-          + " 'images/suzuki_swift.jpg'),"
+          + " 3000.0, 'images/suzuki_swift.jpg'),"
           + //
           "    (204, 'Nissan', 'Altima', 2022, 'WP GH 3456', 'Full-size sedan', 'Black',"
-          + " 4.4, 'images/nissan_altima.jpg'),"
+          + " 4.4, 2500.0, 'images/nissan_altima.jpg'),"
           + //
           "    (205, 'Ford', 'Fiesta', 2018, 'WP IJ 7890', 'Compact car', 'White', 3.8,"
-          + " 'images/ford_fiesta.jpg'),"
+          + " 1000.0, 'images/ford_fiesta.jpg'),"
           + //
           "    (206, 'Chevrolet', 'Malibu', 2021, 'WP KL 2345', 'Mid-size sedan', 'Gray',"
-          + " 4.1, 'images/chevrolet_malibu.jpg'),"
+          + " 4.1, 8000.0, 'images/chevrolet_malibu.jpg'),"
           + //
           "    (207, 'Hyundai', 'Elantra', 2020, 'WP MN 6789', 'Compact sedan', 'Blue',"
-          + " 4.3, 'images/hyundai_elantra.jpg'),"
+          + " 4.3, 2000.0, 'images/hyundai_elantra.jpg'),"
           + //
           "    (208, 'Kia', 'Seltos', 2022, 'WP OP 1234', 'Compact SUV', 'Black', 4.2,"
-          + " 'images/kia_seltos.jpg'),"
+          + " 5500.0, 'images/kia_seltos.jpg'),"
           + //
           "    (209, 'Mazda', 'CX-5', 2022, 'WP QR 5678', 'SUV', 'Silver', 4.6,"
-          + " 'images/mazda_cx5.jpg'),"
+          + " 6000.0, 'images/mazda_cx5.jpg'),"
           + //
           "    (210, 'Volkswagen', 'Jetta', 2019, 'WP ST 9012', 'Compact sedan', 'Red',"
-          + " 4.4, 'images/volkswagen_jetta.jpg'),"
+          + " 4.4, 7000.0, 'images/volkswagen_jetta.jpg'),"
           + //
           "    (211, 'Subaru', 'Impreza', 2021, 'WP UV 3456', 'Hatchback', 'Blue', 4.0,"
-          + " 'images/subaru_impreza.jpg'),"
+          + " 3000.0, 'images/subaru_impreza.jpg'),"
           + //
           "    (212, 'Audi', 'A4', 2022, 'WP WX 7890', 'Luxury sedan', 'Black', 4.7,"
-          + " 'images/audi_a4.jpg'),"
+          + " 666.0, 'images/audi_a4.jpg'),"
           + //
           "    (213, 'BMW', '3 Series', 2021, 'WP YZ 2345', 'Luxury sedan', 'White', 4.8,"
-          + " 'images/bmw_3series.jpg'),"
+          + " 1.0, 'images/bmw_3series.jpg'),"
           + //
           "    (214, 'Mercedes-Benz', 'C-Class', 2020, 'WP 1AB 6789', 'Luxury sedan',"
-          + " 'Silver', 4.6, 'images/mercedes_cclass.jpg'),"
+          + " 'Silver', 4.6, 69.0, 'images/mercedes_cclass.jpg'),"
           + //
           "    (215, 'Lexus', 'ES', 2022, 'WP 2CD 1234', 'Luxury sedan', 'Black', 4.5,"
-          + " 'images/lexus_es.jpg');";
+          + " 5.0, 'images/lexus_es.jpg');";
 
   private static final String INSERT_STAFF =
       ""

@@ -22,7 +22,7 @@ class VehicleDAOTest {
     vehicleDAO = new VehicleDAO(MSSQLJDBConnector.getConnection("hitnruntest"));
 
     // Create a test vehicle to be used in various test methods
-    vehicle = new VehicleDTO("test", "test", 1000, "test", "test", "test", 5, "path");
+    vehicle = new VehicleDTO("test", "test", 1000, "test", "test", "test", 5, 69.0, "path");
   }
 
   @AfterAll

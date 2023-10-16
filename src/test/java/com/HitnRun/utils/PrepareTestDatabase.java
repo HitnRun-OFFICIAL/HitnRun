@@ -47,6 +47,8 @@ public class PrepareTestDatabase {
           + //
           "    Rating DECIMAL(3, 2),"
           + //
+          "    Rent DECIMAL(10, 2),"
+          + //
           "    ImagePath VARCHAR(255)"
           + //
           ");"

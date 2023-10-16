@@ -10,6 +10,7 @@ public class VehicleDTO {
   private String description;
   private String color;
   private double rating;
+  private double rent;
   private String imagePath;
 
   public VehicleDTO() {
@@ -24,6 +25,7 @@ public class VehicleDTO {
       String description,
       String color,
       double rating,
+      double rent,
       String imagePath) {
     this.make = make;
     this.model = model;
@@ -32,6 +34,7 @@ public class VehicleDTO {
     this.description = description;
     this.color = color;
     this.rating = rating;
+    this.rent = rent;
     this.imagePath = imagePath;
   }
 
@@ -97,6 +100,14 @@ public class VehicleDTO {
 
   public void setRating(double rating) {
     this.rating = rating;
+  }
+
+  public double getRent() {
+    return this.rent;
+  }
+
+  public void setRent(double rent) {
+    this.rent = rent;
   }
 
   public String getImagePath() {

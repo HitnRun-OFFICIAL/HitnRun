@@ -42,7 +42,7 @@ class RentalDAOTest {
 
     try {
       vehicleDAO = new VehicleDAO(connection);
-      vehicle = new VehicleDTO("test", "test", 1000, "test", "test", "test", 5, "test");
+      vehicle = new VehicleDTO("test", "test", 1000, "test", "test", "test", 5, 69.0, "test");
       vehicleDAO.createVehicle(vehicle);
     } catch (DatabaseOperationException e) {
       fail(e.getMessage(), e);

@@ -69,6 +69,25 @@ public class CustomerDAO {
     }
   }
 
+  // Read a customer by username
+  public CustomerDTO readCustomerByUsername(String username)
+      throws DatabaseOperationException, CustomerNotFoundException {
+    String sql = "SELECT TOP 1 * FROM Customers WHERE Username = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setString(1, username);
+      try (ResultSet resultSet = preparedStatement.executeQuery()) {
+        if (resultSet.next()) {
+          return mapResultSetToCustomer(resultSet);
+        } else {
+          throw new CustomerNotFoundException("Customer not found with username: " + username);
+        }
+      }
+    } catch (SQLException e) {
+      throw new DatabaseOperationException(
+          "Error while reading customer by username: " + username, e);
+    }
+  }
+
   // Read all customers
   public List<CustomerDTO> readAllCustomers() throws DatabaseOperationException {
     List<CustomerDTO> customers = new ArrayList<>();
