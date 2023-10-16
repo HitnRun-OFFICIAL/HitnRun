@@ -95,7 +95,7 @@ public class VehicleDAO {
   public void updateVehicle(VehicleDTO vehicle) throws DatabaseOperationException {
     String sql =
         "UPDATE Vehicles SET Make = ? , Model = ? , Year = ? , LicensePlate = ? ,"
-            + " Description = ?, Color = ?,Rating = ?,ImagePath = ? WHERE VehicleID = ?";
+            + " Description = ?, Color = ?,Rating = ?, Rent = ?,ImagePath = ? WHERE VehicleID = ?";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setString(1, vehicle.getMake());
       preparedStatement.setString(2, vehicle.getModel());
