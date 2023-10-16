@@ -79,7 +79,7 @@ public class VehiclePanel extends JPanel {
     setMinimumSize(new Dimension(1280, 728));
     setPreferredSize(new Dimension(1280, 728));
 
-    searchTop.setBackground(new Color(0, 0, 0));
+    searchTop.setBackground(new Color(18, 18, 20));
     searchTop.setPreferredSize(new Dimension(1280, 40));
 
     makeCombo.setModel(
@@ -159,7 +159,7 @@ public class VehiclePanel extends JPanel {
     itemView.setLayout(gridLayout);
     jScrollPane1.setViewportView(itemView);
 
-    jPanel3.setBackground(new Color(0, 0, 0));
+    jPanel3.setBackground(new Color(18, 18, 20));
     jPanel3.setPreferredSize(new Dimension(400, 688));
 
     vehiclePreImg.setVerticalAlignment(SwingConstants.CENTER);
