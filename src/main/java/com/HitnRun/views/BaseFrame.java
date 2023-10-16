@@ -1,6 +1,7 @@
 package com.HitnRun.views;
 
 import com.HitnRun.utils.Authenticator;
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -13,9 +14,6 @@ import java.util.Arrays;
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.LayoutStyle;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.kordamp.ikonli.swing.FontIcon;
@@ -23,6 +21,7 @@ import org.kordamp.ikonli.swing.FontIcon;
 /** @author 5H4D0W */
 public class BaseFrame extends JFrame {
 
+  private JPanel loginnPanel;
   private JPanel profilePanel;
   private JPanel vehiclePanel;
   private JPanel contactPanel;
@@ -44,6 +43,7 @@ public class BaseFrame extends JFrame {
 
   public BaseFrame() {
     initComponents();
+    login();
   }
 
   private void initComponents() {
@@ -90,8 +90,10 @@ public class BaseFrame extends JFrame {
         };
 
     topBar = new TopBar(this);
-    login();
     baseContent = new JPanel();
+
+    loginnPanel = new LoginPanel();
+
     profilePanel = new ProfilePanel();
 
     vehiclePanel = new VehiclePanel();
@@ -117,6 +119,8 @@ public class BaseFrame extends JFrame {
     baseContent.setBackground(new Color(40, 43, 48));
     baseContent.setPreferredSize(new Dimension(1280, 728));
     baseContent.setLayout(cardLayout);
+
+    baseContent.add(loginnPanel, "login");
 
     baseContent.add(profilePanel, "profile");
 
@@ -146,8 +150,7 @@ public class BaseFrame extends JFrame {
                                 topBar,
                                 GroupLayout.DEFAULT_SIZE,
                                 GroupLayout.DEFAULT_SIZE,
-                                Short.MAX_VALUE))
-                    .addGap(0, 0, Short.MAX_VALUE)));
+                                Short.MAX_VALUE))));
     basePanelLayout.setVerticalGroup(
         basePanelLayout
             .createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -159,10 +162,6 @@ public class BaseFrame extends JFrame {
                         GroupLayout.PREFERRED_SIZE,
                         GroupLayout.DEFAULT_SIZE,
                         GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(
-                        LayoutStyle.ComponentPlacement.RELATED,
-                        GroupLayout.DEFAULT_SIZE,
-                        Short.MAX_VALUE)
                     .addComponent(
                         baseContent,
                         GroupLayout.DEFAULT_SIZE,
@@ -175,30 +174,7 @@ public class BaseFrame extends JFrame {
   }
 
   public static void main(String args[]) {
-
-    try {
-      for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-          UIManager.setLookAndFeel(info.getClassName());
-          break;
-        }
-      }
-    } catch (ClassNotFoundException ex) {
-      java.util.logging.Logger.getLogger(BaseFrame.class.getName())
-          .log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-      java.util.logging.Logger.getLogger(BaseFrame.class.getName())
-          .log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-      java.util.logging.Logger.getLogger(BaseFrame.class.getName())
-          .log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (UnsupportedLookAndFeelException ex) {
-      java.util.logging.Logger.getLogger(BaseFrame.class.getName())
-          .log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    // </editor-fold>
-
-    /* Create and display the form */
+    FlatDarkLaf.setup();
     EventQueue.invokeLater(
         new Runnable() {
           public void run() {
@@ -208,11 +184,13 @@ public class BaseFrame extends JFrame {
   }
 
   private final void login() {
-    if (Authenticator.AuthenticateCustomer("saman_customer", "customer_password")) {
+    if (Authenticator.getProfile() == null) {
       topBar.setButtons(
           new ArrayList<TopBarButton>(Arrays.asList(accountLbl, vehicleLbl, contactLbl, aboutLbl)));
+      cardLayout.show(baseContent, "profile");
     } else {
       topBar.setButtons(new ArrayList<TopBarButton>(Arrays.asList(loginLbl, registerLbl)));
+      cardLayout.show(baseContent, "login");
     }
   }
 }

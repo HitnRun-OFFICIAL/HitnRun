@@ -50,11 +50,11 @@ abstract class TopBarButton extends JLabel {
         });
   }
 
-  private final void lblMouseMoved(MouseEvent evt) {
+  public void lblMouseMoved(MouseEvent evt) {
     this.setBackground(Color.GRAY);
   }
 
-  private final void lblMouseExited(MouseEvent evt) {
+  public void lblMouseExited(MouseEvent evt) {
     this.setBackground(Color.BLACK);
   }
 

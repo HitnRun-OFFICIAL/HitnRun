@@ -71,6 +71,11 @@ class TopBar extends JPanel {
           void lblMousePressed(MouseEvent evt) {
             System.exit(0);
           }
+
+          @Override
+          public void lblMouseMoved(MouseEvent evt) {
+            this.setBackground(Color.RED);
+          }
         };
   }
 
