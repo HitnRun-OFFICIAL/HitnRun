@@ -23,6 +23,10 @@ public class Authenticator {
     return false;
   }
 
+  public static void logout() {
+    profile = new CustomerDTO(null, null, null, null, null, null);
+  }
+
   public static CustomerDTO getProfile() {
     return profile;
   }

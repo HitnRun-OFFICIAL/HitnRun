@@ -81,8 +81,6 @@ public class PrepareDatabase {
           + //
           "    VehicleID INT,"
           + //
-          "    StaffID INT,"
-          + //
           "    RentalDate DATETIME,"
           + //
           "    ReturnDate DATETIME,"
@@ -91,23 +89,7 @@ public class PrepareDatabase {
           + //
           "    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),"
           + //
-          "    FOREIGN KEY (VehicleID) REFERENCES Vehicles(VehicleID),"
-          + //
-          "    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)"
-          + //
-          ");"
-          + //
-          "CREATE TABLE Payments ("
-          + //
-          "    PaymentID INT PRIMARY KEY,"
-          + //
-          "    RentalID INT,"
-          + //
-          "    PaymentDate DATETIME,"
-          + //
-          "    Amount DECIMAL(10, 2),"
-          + //
-          "    FOREIGN KEY (RentalID) REFERENCES Rental(RentalID)"
+          "    FOREIGN KEY (VehicleID) REFERENCES Vehicles(VehicleID)"
           + //
           ");"
           + //
@@ -136,49 +118,49 @@ public class PrepareDatabase {
           "VALUES"
           + //
           "    (101, 'Saman', 'Perera', 'saman@example.com', '+94 77 123"
-          + " 4567','saman_customer', 'customer_password'),"
+          + " 4567','saman', '123'),"
           + //
           "    (102, 'Nimal', 'Fernando', 'nimal@example.com', '+94 71 234 5678',"
-          + " 'nimal_customer', 'customer_password'),"
+          + " 'nimal', '123'),"
           + //
           "    (103, 'Kamal', 'Silva', 'kamal@example.com', '+94 76 345 6789',"
-          + " 'kamal_customer', 'customer_password'),"
+          + " 'kamal', '123'),"
           + //
           "    (104, 'Priyantha', 'Gunasekara', 'priyantha@example.com', '+94 77 987"
-          + " 6543', 'priyantha_customer', 'customer_password'),"
+          + " 6543', 'priyantha', '123'),"
           + //
           "    (105, 'Dilini', 'Rathnayake', 'dilini@example.com', '+94 71 876 5432',"
-          + " 'dilini_customer', 'customer_password'),"
+          + " 'dilini', '123'),"
           + //
           "    (106, 'Ranjith', 'Rajapaksa', 'ranjith@example.com', '+94 76 765 4321',"
-          + " 'ranjith_customer', 'customer_password'),"
+          + " 'ranjith', '123'),"
           + //
           "    (107, 'Lalith', 'Fernando', 'lalith@example.com', '+94 77 654 3210',"
-          + " 'lalith_customer', 'customer_password'),"
+          + " 'lalith', '123'),"
           + //
           "    (108, 'Thilini', 'De Silva', 'thilini@example.com', '+94 71 543 2109',"
-          + " 'thilini_customer', 'customer_password'),"
+          + " 'thilini', '123'),"
           + //
           "    (109, 'Amila', 'Perera', 'amila@example.com', '+94 76 432 1098',"
-          + " 'amila_customer', 'customer_password'),"
+          + " 'amila', '123'),"
           + //
           "    (110, 'Chamara', 'Fernando', 'chamara@example.com', '+94 77 321 0987',"
-          + " 'chamara_customer', 'customer_password'),"
+          + " 'chamara', '123'),"
           + //
           "    (111, 'Nadeeka', 'Wijesinghe', 'nadeeka@example.com', '+94 71 210 9876',"
-          + " 'nadeeka_customer', 'customer_password'),"
+          + " 'nadeeka', '123'),"
           + //
           "    (112, 'Dinusha', 'Silva', 'dinusha@example.com', '+94 76 109 8765',"
-          + " 'dinusha_customer', 'customer_password'),"
+          + " 'dinusha', '123'),"
           + //
           "    (113, 'Kusal', 'Rathnayake', 'kusal@example.com', '+94 77 098 7654',"
-          + " 'kusal_customer', 'customer_password'),"
+          + " 'kusal', '123'),"
           + //
           "    (114, 'Anjali', 'Gunaratne', 'anjali@example.com', '+94 71 987 6543',"
-          + " 'anjali_customer', 'customer_password'),"
+          + " 'anjali', '123'),"
           + //
           "    (115, 'Chathura', 'Fernando', 'chathura@example.com', '+94 76 876 5432',"
-          + " 'chathura_customer', 'customer_password');";
+          + " 'chathura', '123');";
 
   private static final String INSERT_VEHICLE =
       ""
@@ -189,49 +171,49 @@ public class PrepareDatabase {
           "VALUES"
           + //
           "    (201, 'Toyota', 'Corolla', 2020, 'WP AB 1234', 'Compact sedan', 'Red',"
-          + " 4.5, 2000.0, 'images/toyota_corolla.jpg'),"
+          + " 4.5, 2000.0, '/img/toyota_corolla.jpg'),"
           + //
           "    (202, 'Honda', 'Civic', 2019, 'WP CD 5678', 'Mid-size sedan', 'Blue', 4.2,"
-          + " 5000.0, 'images/honda_civic.jpg'),"
+          + " 5000.0, '/img/honda_civic.jpg'),"
           + //
-          "    (203, 'Suzuki', 'Swift', 2021, 'WP EF 9012', 'Hatchback', 'Silver', 4.0,"
-          + " 3000.0, 'images/suzuki_swift.jpg'),"
+          "    (203, 'Suzuki', 'Swift', 2021, 'WP EF 9012', 'Hatchback', 'Red', 4.0,"
+          + " 3000.0, '/img/suzuki_swift.jpg'),"
           + //
           "    (204, 'Nissan', 'Altima', 2022, 'WP GH 3456', 'Full-size sedan', 'Black',"
-          + " 4.4, 2500.0, 'images/nissan_altima.jpg'),"
+          + " 4.4, 2500.0, '/img/nissan_altima.jpg'),"
           + //
           "    (205, 'Ford', 'Fiesta', 2018, 'WP IJ 7890', 'Compact car', 'White', 3.8,"
-          + " 1000.0, 'images/ford_fiesta.jpg'),"
+          + " 1000.0, '/img/ford_fiesta.jpg'),"
           + //
-          "    (206, 'Chevrolet', 'Malibu', 2021, 'WP KL 2345', 'Mid-size sedan', 'Gray',"
-          + " 4.1, 8000.0, 'images/chevrolet_malibu.jpg'),"
+          "    (206, 'Chevrolet', 'Malibu', 2021, 'WP KL 2345', 'Mid-size sedan', 'Black',"
+          + " 4.1, 8000.0, '/img/chevrolet_malibu.jpg'),"
           + //
           "    (207, 'Hyundai', 'Elantra', 2020, 'WP MN 6789', 'Compact sedan', 'Blue',"
-          + " 4.3, 2000.0, 'images/hyundai_elantra.jpg'),"
+          + " 4.3, 2000.0, '/img/hyundai_elantra.jpg'),"
           + //
           "    (208, 'Kia', 'Seltos', 2022, 'WP OP 1234', 'Compact SUV', 'Black', 4.2,"
-          + " 5500.0, 'images/kia_seltos.jpg'),"
+          + " 5500.0, '/img/kia_seltos.jpg'),"
           + //
           "    (209, 'Mazda', 'CX-5', 2022, 'WP QR 5678', 'SUV', 'Silver', 4.6,"
-          + " 6000.0, 'images/mazda_cx5.jpg'),"
+          + " 6000.0, '/img/mazda_cx5.jpg'),"
           + //
           "    (210, 'Volkswagen', 'Jetta', 2019, 'WP ST 9012', 'Compact sedan', 'Red',"
-          + " 4.4, 7000.0, 'images/volkswagen_jetta.jpg'),"
+          + " 4.4, 7000.0, '/img/volkswagen_jetta.jpg'),"
           + //
           "    (211, 'Subaru', 'Impreza', 2021, 'WP UV 3456', 'Hatchback', 'Blue', 4.0,"
-          + " 3000.0, 'images/subaru_impreza.jpg'),"
+          + " 3000.0, '/img/subaru_impreza.jpg'),"
           + //
           "    (212, 'Audi', 'A4', 2022, 'WP WX 7890', 'Luxury sedan', 'Black', 4.7,"
-          + " 666.0, 'images/audi_a4.jpg'),"
+          + " 666.0, '/img/audi_a4.jpg'),"
           + //
           "    (213, 'BMW', '3 Series', 2021, 'WP YZ 2345', 'Luxury sedan', 'White', 4.8,"
-          + " 1.0, 'images/bmw_3series.jpg'),"
+          + " 1.0, '/img/bmw_3series.jpg'),"
           + //
           "    (214, 'Mercedes-Benz', 'C-Class', 2020, 'WP 1AB 6789', 'Luxury sedan',"
-          + " 'Silver', 4.6, 69.0, 'images/mercedes_cclass.jpg'),"
+          + " 'Silver', 4.6, 69.0, '/img/mercedes_cclass.jpg'),"
           + //
           "    (215, 'Lexus', 'ES', 2022, 'WP 2CD 1234', 'Luxury sedan', 'Black', 4.5,"
-          + " 5.0, 'images/lexus_es.jpg');";
+          + " 5.0, '/img/lexus_es.jpg');";
 
   private static final String INSERT_STAFF =
       ""
@@ -292,92 +274,55 @@ public class PrepareDatabase {
   private static final String INSERT_RENTAL =
       ""
           + //
-          "INSERT INTO Rental (RentalID, CustomerID, VehicleID, StaffID, RentalDate,"
+          "INSERT INTO Rental (RentalID, CustomerID, VehicleID, RentalDate,"
           + " ReturnDate, RentalFee)"
           + //
           "VALUES"
           + //
-          "    (401, 101, 201, 302, '2023-10-01 09:00:00', '2023-10-05 11:00:00',"
+          "    (401, 101, 201, '2023-10-01 09:00:00', '2023-10-05 11:00:00',"
           + " 2500.00),"
           + //
-          "    (402, 102, 203, 304, '2023-10-02 14:00:00', '2023-10-07 16:00:00',"
+          "    (402, 102, 203, '2023-10-02 14:00:00', '2023-10-07 16:00:00',"
           + " 3200.00),"
           + //
-          "    (403, 103, 202, 303, '2023-10-03 10:00:00', '2023-10-06 13:00:00',"
+          "    (403, 103, 202, '2023-10-03 10:00:00', '2023-10-06 13:00:00',"
           + " 2800.00),"
           + //
-          "    (404, 104, 205, 307, '2023-10-04 11:30:00', '2023-10-08 09:00:00',"
+          "    (404, 104, 205, '2023-10-04 11:30:00', '2023-10-08 09:00:00',"
           + " 1800.00),"
           + //
-          "    (405, 105, 211, 309, '2023-10-05 15:45:00', '2023-10-09 12:30:00',"
+          "    (405, 105, 211, '2023-10-05 15:45:00', '2023-10-09 12:30:00',"
           + " 3000.00),"
           + //
-          "    (406, 106, 206, 308, '2023-10-06 08:00:00', '2023-10-10 14:00:00',"
+          "    (406, 106, 206, '2023-10-06 08:00:00', '2023-10-10 14:00:00',"
           + " 2200.00),"
           + //
-          "    (407, 107, 204, 302, '2023-10-07 12:15:00', '2023-10-11 10:45:00',"
+          "    (407, 107, 204, '2023-10-07 12:15:00', '2023-10-11 10:45:00',"
           + " 2700.00),"
           + //
-          "    (408, 108, 210, 301, '2023-10-08 16:30:00', '2023-10-12 15:00:00',"
+          "    (408, 108, 210, '2023-10-08 16:30:00', '2023-10-12 15:00:00',"
           + " 2600.00),"
           + //
-          "    (409, 109, 215, 312, '2023-10-09 07:45:00', '2023-10-13 11:15:00',"
+          "    (409, 109, 215, '2023-10-09 07:45:00', '2023-10-13 11:15:00',"
           + " 3500.00),"
           + //
-          "    (410, 110, 213, 315, '2023-10-10 10:30:00', '2023-10-14 08:30:00',"
+          "    (410, 110, 213, '2023-10-10 10:30:00', '2023-10-14 08:30:00',"
           + " 2800.00),"
           + //
-          "    (411, 111, 209, 314, '2023-10-11 14:00:00', '2023-10-15 16:00:00',"
+          "    (411, 111, 209, '2023-10-11 14:00:00', '2023-10-15 16:00:00',"
           + " 3200.00),"
           + //
-          "    (412, 112, 207, 306, '2023-10-12 13:15:00', '2023-10-16 09:45:00',"
+          "    (412, 112, 207, '2023-10-12 13:15:00', '2023-10-16 09:45:00',"
           + " 2400.00),"
           + //
-          "    (413, 113, 212, 303, '2023-10-13 09:30:00', '2023-10-17 12:30:00',"
+          "    (413, 113, 212, '2023-10-13 09:30:00', '2023-10-17 12:30:00',"
           + " 2900.00),"
           + //
-          "    (414, 114, 208, 310, '2023-10-14 11:00:00', '2023-10-18 14:15:00',"
+          "    (414, 114, 208, '2023-10-14 11:00:00', '2023-10-18 14:15:00',"
           + " 2700.00),"
           + //
-          "    (415, 115, 214, 305, '2023-10-15 08:45:00', '2023-10-19 10:30:00',"
+          "    (415, 115, 214, '2023-10-15 08:45:00', '2023-10-19 10:30:00',"
           + " 3100.00);";
-
-  private static final String INSERT_PAYMENTS =
-      ""
-          + //
-          "INSERT INTO Payments (PaymentID, RentalID, PaymentDate, Amount)"
-          + //
-          "VALUES"
-          + //
-          "    (501, 401, '2023-10-06 15:30:00', 2500.00),"
-          + //
-          "    (502, 402, '2023-10-08 10:15:00', 3200.00),"
-          + //
-          "    (503, 403, '2023-10-07 14:45:00', 2800.00),"
-          + //
-          "    (504, 404, '2023-10-10 11:00:00', 1800.00),"
-          + //
-          "    (505, 405, '2023-10-11 17:30:00', 3000.00),"
-          + //
-          "    (506, 406, '2023-10-12 13:15:00', 2200.00),"
-          + //
-          "    (507, 407, '2023-10-14 09:45:00', 2700.00),"
-          + //
-          "    (508, 408, '2023-10-15 16:30:00', 2600.00),"
-          + //
-          "    (509, 409, '2023-10-18 08:15:00', 3500.00),"
-          + //
-          "    (510, 410, '2023-10-19 10:00:00', 2800.00),"
-          + //
-          "    (511, 411, '2023-10-21 14:45:00', 3200.00),"
-          + //
-          "    (512, 412, '2023-10-22 11:30:00', 2400.00),"
-          + //
-          "    (513, 413, '2023-10-24 09:00:00', 2900.00),"
-          + //
-          "    (514, 414, '2023-10-25 16:00:00', 2700.00),"
-          + //
-          "    (515, 415, '2023-10-28 12:45:00', 3100.00);";
 
   private static final String INSERT_MAINTENANCE =
       ""
@@ -433,7 +378,6 @@ public class PrepareDatabase {
       statement.executeUpdate(INSERT_VEHICLE);
       statement.executeUpdate(INSERT_STAFF);
       statement.executeUpdate(INSERT_RENTAL);
-      statement.executeUpdate(INSERT_PAYMENTS);
       statement.executeUpdate(INSERT_MAINTENANCE);
     } catch (SQLException e) {
       throw new DatabaseException("Failed to create the database or tables.", e);

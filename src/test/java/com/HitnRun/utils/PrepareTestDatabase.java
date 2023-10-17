@@ -81,8 +81,6 @@ public class PrepareTestDatabase {
           + //
           "    VehicleID INT,"
           + //
-          "    StaffID INT,"
-          + //
           "    RentalDate DATETIME,"
           + //
           "    ReturnDate DATETIME,"
@@ -91,23 +89,7 @@ public class PrepareTestDatabase {
           + //
           "    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),"
           + //
-          "    FOREIGN KEY (VehicleID) REFERENCES Vehicles(VehicleID),"
-          + //
-          "    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)"
-          + //
-          ");"
-          + //
-          "CREATE TABLE Payments ("
-          + //
-          "    PaymentID INT PRIMARY KEY,"
-          + //
-          "    RentalID INT,"
-          + //
-          "    PaymentDate DATETIME,"
-          + //
-          "    Amount DECIMAL(10, 2),"
-          + //
-          "    FOREIGN KEY (RentalID) REFERENCES Rental(RentalID)"
+          "    FOREIGN KEY (VehicleID) REFERENCES Vehicles(VehicleID)"
           + //
           ");"
           + //

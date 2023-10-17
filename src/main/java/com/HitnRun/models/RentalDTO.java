@@ -7,7 +7,6 @@ public class RentalDTO {
   private int rentalID;
   private int customerID;
   private int vehicleID;
-  private int staffID;
   private Date rentalDate;
   private Date returnDate;
   private double rentalFee;
@@ -17,15 +16,9 @@ public class RentalDTO {
   }
 
   public RentalDTO(
-      int customerID,
-      int vehicleID,
-      int staffID,
-      Date rentalDate,
-      Date returnDate,
-      double rentalFee) {
+      int customerID, int vehicleID, Date rentalDate, Date returnDate, double rentalFee) {
     this.customerID = customerID;
     this.vehicleID = vehicleID;
-    this.staffID = staffID;
     this.rentalDate = rentalDate;
     this.returnDate = returnDate;
     this.rentalFee = rentalFee;
@@ -53,14 +46,6 @@ public class RentalDTO {
 
   public void setVehicleID(int vehicleID) {
     this.vehicleID = vehicleID;
-  }
-
-  public int getStaffID() {
-    return staffID;
-  }
-
-  public void setStaffID(int staffID) {
-    this.staffID = staffID;
   }
 
   public Date getRentalDate() {

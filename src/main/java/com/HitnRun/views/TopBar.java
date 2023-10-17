@@ -96,39 +96,31 @@ class TopBar extends JPanel {
           GroupLayout.PREFERRED_SIZE);
       if (label != labels.get(labels.size() - 1)) {
         hGroup.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED);
-      } else {
-        hGroup.addPreferredGap(
-            LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        hGroup.addComponent(
-            minimizeLbl,
-            GroupLayout.PREFERRED_SIZE,
-            GroupLayout.DEFAULT_SIZE,
-            GroupLayout.PREFERRED_SIZE);
-        hGroup.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED);
-        hGroup.addComponent(
-            closeLbl,
-            GroupLayout.PREFERRED_SIZE,
-            GroupLayout.DEFAULT_SIZE,
-            GroupLayout.PREFERRED_SIZE);
       }
 
       vGroup.addComponent(
           label, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
-      if (label == labels.get(labels.size() - 1)) {
-        vGroup.addComponent(
-            minimizeLbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
-        vGroup.addComponent(
-            closeLbl,
-            GroupLayout.DEFAULT_SIZE,
-            GroupLayout.DEFAULT_SIZE,
-            GroupLayout.PREFERRED_SIZE);
-      }
     }
 
+    hGroup.addPreferredGap(
+        LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+    hGroup.addComponent(
+        minimizeLbl,
+        GroupLayout.PREFERRED_SIZE,
+        GroupLayout.DEFAULT_SIZE,
+        GroupLayout.PREFERRED_SIZE);
+    hGroup.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED);
+    hGroup.addComponent(
+        closeLbl, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
     topBarLayout.setHorizontalGroup(
         topBarLayout
             .createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(hGroup.addContainerGap()));
+
+    vGroup.addComponent(
+        minimizeLbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+    vGroup.addComponent(
+        closeLbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE);
 
     topBarLayout.setVerticalGroup(
         topBarLayout

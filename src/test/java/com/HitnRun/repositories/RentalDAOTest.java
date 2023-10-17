@@ -6,7 +6,6 @@ import com.HitnRun.handlers.DatabaseOperationException;
 import com.HitnRun.handlers.RentalNotFoundException;
 import com.HitnRun.models.CustomerDTO;
 import com.HitnRun.models.RentalDTO;
-import com.HitnRun.models.StaffDTO;
 import com.HitnRun.models.VehicleDTO;
 import com.HitnRun.utils.MSSQLJDBConnector;
 import java.sql.Connection;
@@ -20,8 +19,6 @@ import org.junit.jupiter.api.*;
 class RentalDAOTest {
   private RentalDAO rentalDAO;
   private RentalDTO rental;
-  private StaffDAO staffDAO;
-  private StaffDTO staff;
   private VehicleDAO vehicleDAO;
   private VehicleDTO vehicle;
   private CustomerDAO customerDAO;
@@ -31,14 +28,6 @@ class RentalDAOTest {
   void setUp() {
 
     Connection connection = MSSQLJDBConnector.getConnection("hitnruntest");
-
-    try {
-      staffDAO = new StaffDAO(connection);
-      staff = new StaffDTO("test", "test", "test", "test", "test", "test", "test");
-      staffDAO.createStaff(staff);
-    } catch (DatabaseOperationException e) {
-      fail(e.getMessage(), e);
-    }
 
     try {
       vehicleDAO = new VehicleDAO(connection);
@@ -59,7 +48,7 @@ class RentalDAOTest {
     rentalDAO = new RentalDAO(connection);
 
     // Create a test rental record to be used in various test methods
-    rental = new RentalDTO(1, 1, 1, new Date(0), new Date(0), 1000);
+    rental = new RentalDTO(1, 1, new Date(0), new Date(0), 1000);
   }
 
   @AfterAll

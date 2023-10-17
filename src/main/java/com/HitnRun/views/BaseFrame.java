@@ -18,120 +18,75 @@ import javax.swing.WindowConstants;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.kordamp.ikonli.swing.FontIcon;
 
-/** @author 5H4D0W */
-public class BaseFrame extends JFrame {
-
-  private JPanel loginnPanel;
-  private JPanel profilePanel;
-  private JPanel vehiclePanel;
-  private JPanel contactPanel;
-  private JPanel aboutPanel;
-
+class BasePanel extends JPanel {
+  private JFrame parent;
+  private JPanel baseContent;
   private TopBarButton accountLbl;
   private TopBarButton vehicleLbl;
   private TopBarButton contactLbl;
   private TopBarButton aboutLbl;
-  private TopBarButton loginLbl;
-  private TopBarButton registerLbl;
-
-  private JPanel baseContent;
-  private JPanel basePanel;
-
+  private TopBarButton logoutLbl;
   private TopBar topBar;
+  private CardLayout basePanelCardLayout;
 
-  private CardLayout cardLayout;
-
-  public BaseFrame() {
+  BasePanel(JFrame parent) {
+    this.parent = parent;
     initComponents();
-    login();
+    checkAuth();
   }
 
-  private void initComponents() {
+  void initComponents() {
+    topBar = new TopBar(parent);
+    baseContent = new JPanel();
 
-    cardLayout = new CardLayout();
-    basePanel = new JPanel();
+    basePanelCardLayout = new CardLayout();
 
-    loginLbl =
-        new TopBarButton("login", FontIcon.of(MaterialDesign.MDI_LOGIN, 32, Color.WHITE)) {
+    logoutLbl =
+        new TopBarButton("logout", FontIcon.of(MaterialDesign.MDI_LOGIN, 32, Color.WHITE)) {
           void lblMousePressed(MouseEvent evt) {
-            cardLayout.show(baseContent, this.getToolTipText());
-          }
-        };
-    registerLbl =
-        new TopBarButton(
-            "register", FontIcon.of(MaterialDesign.MDI_CLIPBOARD_ACCOUNT, 32, Color.WHITE)) {
-          void lblMousePressed(MouseEvent evt) {
-            cardLayout.show(baseContent, this.getToolTipText());
+            Authenticator.logout();
+            basePanelCardLayout.show(baseContent, "login");
           }
         };
     accountLbl =
         new TopBarButton("profile", FontIcon.of(MaterialDesign.MDI_ACCOUNT, 32, Color.WHITE)) {
           void lblMousePressed(MouseEvent evt) {
-            cardLayout.show(baseContent, this.getToolTipText());
+            basePanelCardLayout.show(baseContent, this.getToolTipText());
           }
         };
     vehicleLbl =
         new TopBarButton("vehicle", FontIcon.of(MaterialDesign.MDI_CAR, 32, Color.WHITE)) {
           void lblMousePressed(MouseEvent evt) {
-            cardLayout.show(baseContent, this.getToolTipText());
+            basePanelCardLayout.show(baseContent, this.getToolTipText());
           }
         };
     contactLbl =
         new TopBarButton("contact", FontIcon.of(MaterialDesign.MDI_PHONE, 32, Color.WHITE)) {
           void lblMousePressed(MouseEvent evt) {
-            cardLayout.show(baseContent, this.getToolTipText());
+            basePanelCardLayout.show(baseContent, this.getToolTipText());
           }
         };
     aboutLbl =
         new TopBarButton("about", FontIcon.of(MaterialDesign.MDI_ALERT_CIRCLE, 32, Color.WHITE)) {
           void lblMousePressed(MouseEvent evt) {
-            cardLayout.show(baseContent, this.getToolTipText());
+            basePanelCardLayout.show(baseContent, this.getToolTipText());
           }
         };
 
-    topBar = new TopBar(this);
-    baseContent = new JPanel();
-
-    loginnPanel = new LoginPanel();
-
-    profilePanel = new ProfilePanel();
-
-    vehiclePanel = new VehiclePanel();
-
-    contactPanel = new ContactPanel();
-
-    aboutPanel = new AboutPanel();
-
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setBackground(new Color(40, 43, 48));
-    setForeground(Color.black);
-    setLocationByPlatform(true);
-    setMinimumSize(new Dimension(1280, 768));
-    setName("base"); // NOI18N
-    setUndecorated(true);
-    setResizable(false);
-
-    basePanel.setBackground(new Color(40, 43, 48));
-    basePanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    basePanel.setMaximumSize(new Dimension(1280, 768));
-    basePanel.setPreferredSize(new Dimension(1280, 768));
+    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    setMaximumSize(new Dimension(1280, 768));
+    setPreferredSize(new Dimension(1280, 768));
 
     baseContent.setBackground(new Color(40, 43, 48));
     baseContent.setPreferredSize(new Dimension(1280, 728));
-    baseContent.setLayout(cardLayout);
+    baseContent.setLayout(basePanelCardLayout);
 
-    baseContent.add(loginnPanel, "login");
+    topBar.setButtons(new ArrayList<TopBarButton>());
+    baseContent.add(new LoginPanel(this), "login");
 
-    baseContent.add(profilePanel, "profile");
-
-    baseContent.add(vehiclePanel, "vehicle");
-
-    baseContent.add(contactPanel, "contact");
-
-    baseContent.add(aboutPanel, "about");
-
-    GroupLayout basePanelLayout = new GroupLayout(basePanel);
-    basePanel.setLayout(basePanelLayout);
+    GroupLayout basePanelLayout = new GroupLayout(this);
+    setLayout(basePanelLayout);
     basePanelLayout.setHorizontalGroup(
         basePanelLayout
             .createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -167,6 +122,46 @@ public class BaseFrame extends JFrame {
                         GroupLayout.DEFAULT_SIZE,
                         GroupLayout.DEFAULT_SIZE,
                         GroupLayout.PREFERRED_SIZE)));
+  }
+
+  public final void checkAuth() {
+    if (Authenticator.getProfile().getUsername() == null) {
+      topBar.setButtons(new ArrayList<TopBarButton>());
+      basePanelCardLayout.show(baseContent, "login");
+    } else {
+      baseContent.add(new ProfilePanel(parent), "profile");
+      baseContent.add(new VehiclePanel(), "vehicle");
+      baseContent.add(new ContactPanel(), "contact");
+      baseContent.add(new AboutPanel(), "about");
+      topBar.setButtons(
+          new ArrayList<TopBarButton>(
+              Arrays.asList(accountLbl, vehicleLbl, contactLbl, aboutLbl, logoutLbl)));
+      topBar.revalidate();
+      basePanelCardLayout.show(baseContent, "profile");
+    }
+  }
+}
+/** @author 5H4D0W */
+public class BaseFrame extends JFrame {
+
+  private JPanel basePanel;
+
+  public BaseFrame() {
+    initComponents();
+  }
+
+  private void initComponents() {
+
+    basePanel = new BasePanel(this);
+
+    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    setBackground(new Color(40, 43, 48));
+    setForeground(Color.black);
+    setLocationByPlatform(true);
+    setMinimumSize(new Dimension(1280, 768));
+    setName("base"); // NOI18N
+    setUndecorated(true);
+    setResizable(false);
 
     getContentPane().add(basePanel, BorderLayout.CENTER);
 
@@ -181,16 +176,5 @@ public class BaseFrame extends JFrame {
             new BaseFrame().setVisible(true);
           }
         });
-  }
-
-  private final void login() {
-    if (Authenticator.getProfile() == null) {
-      topBar.setButtons(
-          new ArrayList<TopBarButton>(Arrays.asList(accountLbl, vehicleLbl, contactLbl, aboutLbl)));
-      cardLayout.show(baseContent, "profile");
-    } else {
-      topBar.setButtons(new ArrayList<TopBarButton>(Arrays.asList(loginLbl, registerLbl)));
-      cardLayout.show(baseContent, "login");
-    }
   }
 }

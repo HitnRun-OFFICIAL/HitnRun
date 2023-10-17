@@ -165,11 +165,6 @@ public class VehiclePanel extends JPanel {
     vehiclePreImg.setVerticalAlignment(SwingConstants.CENTER);
     vehiclePreImg.setHorizontalAlignment(SwingConstants.CENTER);
     vehiclePreImg.setPreferredSize(new Dimension(400, 400));
-    vehiclePreImg.setIcon(
-        new ImageIcon(
-            new ImageIcon(getClass().getResource("/img/cars.png"))
-                .getImage()
-                .getScaledInstance(400, 400, Image.SCALE_SMOOTH)));
 
     descriptionLbl.setText("Description :");
     descriptionLbl.setForeground(Color.WHITE);
@@ -429,6 +424,11 @@ public class VehiclePanel extends JPanel {
     }
     oldItem = vi;
     VehicleDTO v = oldItem.getVehicle();
+    vehiclePreImg.setIcon(
+        new ImageIcon(
+            new ImageIcon(getClass().getResource(v.getImagePath()))
+                .getImage()
+                .getScaledInstance(400, 400, Image.SCALE_SMOOTH)));
     make.setText(v.getMake());
     model.setText(v.getModel());
     rating.setText(String.valueOf(v.getRating()));

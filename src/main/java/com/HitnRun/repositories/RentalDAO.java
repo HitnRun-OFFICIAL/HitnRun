@@ -34,17 +34,16 @@ public class RentalDAO {
   // Create a Rental record
   public void createRental(RentalDTO rental) throws DatabaseOperationException {
     String sql =
-        "INSERT INTO Rental (RentalID, CustomerID, VehicleID, StaffID, RentalDate,"
-            + " ReturnDate, RentalFee) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        "INSERT INTO Rental (RentalID, CustomerID, VehicleID, RentalDate,"
+            + " ReturnDate, RentalFee) VALUES (?, ?, ?, ?, ?, ?)";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       rental.setRentalID(generateRentalID());
       preparedStatement.setInt(1, rental.getRentalID());
       preparedStatement.setInt(2, rental.getCustomerID());
       preparedStatement.setInt(3, rental.getVehicleID());
-      preparedStatement.setInt(4, rental.getStaffID());
-      preparedStatement.setDate(5, rental.getRentalDate());
-      preparedStatement.setDate(6, rental.getReturnDate());
-      preparedStatement.setDouble(7, rental.getRentalFee());
+      preparedStatement.setDate(4, rental.getRentalDate());
+      preparedStatement.setDate(5, rental.getReturnDate());
+      preparedStatement.setDouble(6, rental.getRentalFee());
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       throw new DatabaseOperationException(
@@ -94,16 +93,15 @@ public class RentalDAO {
   // Update a Rental record
   public void updateRental(RentalDTO rental) throws DatabaseOperationException {
     String sql =
-        "UPDATE Rental SET CustomerID = ?, VehicleID = ?, StaffID = ?, RentalDate = ?,"
+        "UPDATE Rental SET CustomerID = ?, VehicleID = ?, RentalDate = ?,"
             + " ReturnDate = ?, RentalFee = ? WHERE RentalID = ?";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
       preparedStatement.setInt(1, rental.getCustomerID());
       preparedStatement.setInt(2, rental.getVehicleID());
-      preparedStatement.setInt(3, rental.getStaffID());
-      preparedStatement.setDate(4, rental.getRentalDate());
-      preparedStatement.setDate(5, rental.getReturnDate());
-      preparedStatement.setDouble(6, rental.getRentalFee());
-      preparedStatement.setInt(7, rental.getRentalID());
+      preparedStatement.setDate(3, rental.getRentalDate());
+      preparedStatement.setDate(4, rental.getReturnDate());
+      preparedStatement.setDouble(5, rental.getRentalFee());
+      preparedStatement.setInt(6, rental.getRentalID());
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       throw new DatabaseOperationException(
@@ -130,7 +128,6 @@ public class RentalDAO {
       rental.setRentalID(resultSet.getInt("RentalID"));
       rental.setCustomerID(resultSet.getInt("CustomerID"));
       rental.setVehicleID(resultSet.getInt("VehicleID"));
-      rental.setStaffID(resultSet.getInt("StaffID"));
       rental.setRentalDate(resultSet.getDate("RentalDate"));
       rental.setReturnDate(resultSet.getDate("ReturnDate"));
       rental.setRentalFee(resultSet.getDouble("RentalFee"));

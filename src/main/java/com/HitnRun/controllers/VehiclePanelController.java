@@ -22,7 +22,6 @@ public class VehiclePanelController {
   public List<VehicleDTO> getVehicleDTOs() {
     try {
       for (VehicleDTO v : vehicleDAO.readAllVehicles()) {
-        v.setImagePath("/img/cars.png");
         vehicles.add(v);
       }
     } catch (DatabaseOperationException e) {
