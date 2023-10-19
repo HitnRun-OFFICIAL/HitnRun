@@ -46,6 +46,8 @@ class BasePanel extends JPanel {
           void lblMousePressed(MouseEvent evt) {
             Authenticator.logout();
             basePanelCardLayout.show(baseContent, "login");
+            topBar.removeAll();
+            topBar.setButtons(new ArrayList<TopBarButton>());
           }
         };
     accountLbl =
@@ -129,7 +131,13 @@ class BasePanel extends JPanel {
       topBar.setButtons(new ArrayList<TopBarButton>());
       basePanelCardLayout.show(baseContent, "login");
     } else {
-      baseContent.add(new ProfilePanel(parent), "profile");
+      baseContent.add(
+          new ProfilePanel(parent) {
+            public void changeView() {
+              basePanelCardLayout.show(baseContent, "login");
+            }
+          },
+          "profile");
       baseContent.add(new VehiclePanel(), "vehicle");
       baseContent.add(new ContactPanel(), "contact");
       baseContent.add(new AboutPanel(), "about");

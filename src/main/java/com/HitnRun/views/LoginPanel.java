@@ -1,11 +1,20 @@
 package com.HitnRun.views;
 
+import com.HitnRun.controllers.ProfilePanelController;
+import com.HitnRun.handlers.CustomerNotFoundException;
+import com.HitnRun.handlers.DatabaseException;
+import com.HitnRun.handlers.DatabaseOperationException;
+import com.HitnRun.handlers.InvalidInputException;
+import com.HitnRun.models.CustomerDTO;
 import com.HitnRun.utils.Authenticator;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,7 +27,7 @@ class LoginForm extends JPanel {
   private JLabel jLogin1;
   private JLabel jLabel2;
   private JLabel jLabel3;
-  private JLabel jLogin;
+  private Button loginBtn;
   private JPanel jPanel1;
   private BasePanel parent;
   private JTextField loginUsername;
@@ -38,18 +47,58 @@ class LoginForm extends JPanel {
     jLabel3 = new JLabel();
     loginPassword = new JPasswordField();
     jPanel1 = new JPanel();
-    jLogin = new JLabel();
     jLabel1.setFont(new java.awt.Font("Cascadia Code", 1, 36));
     jLabel1.setForeground(new java.awt.Color(115, 138, 219));
     jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
     jLabel1.setText("LOGIN");
     jLabel1.setPreferredSize(new java.awt.Dimension(120, 50));
 
-    jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+    setBackground(new java.awt.Color(40, 43, 48));
+    setPreferredSize(new java.awt.Dimension(640, 728));
+
+    jPanel1.setBackground(new java.awt.Color(40, 43, 48));
+    jPanel1.setPreferredSize(new java.awt.Dimension(500, 432));
+
+    jLabel2.setFont(new java.awt.Font("Cascadia Code", 1, 24));
+    jLabel2.setForeground(new java.awt.Color(115, 138, 219));
+    jLabel2.setText("Username");
+
+    loginUsername.setFont(new java.awt.Font("Cascadia Code", 0, 18));
+    loginUsername.setMaximumSize(new java.awt.Dimension(60, 30));
+    loginUsername.setMinimumSize(new java.awt.Dimension(60, 30));
+    loginUsername.setPreferredSize(new java.awt.Dimension(60, 30));
+
+    jLabel3.setFont(new java.awt.Font("Cascadia Code", 1, 24));
+    jLabel3.setForeground(new java.awt.Color(115, 138, 219));
+    jLabel3.setText("Password");
+
+    loginPassword.setFont(new java.awt.Font("Cascadia Code", 0, 18));
+    loginPassword.setMaximumSize(new java.awt.Dimension(60, 30));
+    loginPassword.setMinimumSize(new java.awt.Dimension(60, 30));
+    loginPassword.setPreferredSize(new java.awt.Dimension(60, 30));
+
+    loginBtn =
+        new Button("Login") {
+          public void btnMousePressed(MouseEvent evt) {
+            try {
+              if (Authenticator.AuthenticateCustomer(
+                  loginUsername.getText(), new String(loginPassword.getPassword()))) {
+                parent.checkAuth();
+              }
+            } catch (DatabaseException e) {
+              JOptionPane.showMessageDialog(parent, e.getMessage());
+            } catch (CustomerNotFoundException e) {
+              JOptionPane.showMessageDialog(parent, e.getMessage());
+            } catch (DatabaseOperationException e) {
+              e.printStackTrace();
+            }
+          }
+        };
+
     jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+    jLabel4.setFont(new java.awt.Font("Cascadia Code", 1, 12));
     jLabel4.setText("I don't have an account");
 
-    jLogin1.setBackground(new java.awt.Color(255, 255, 255));
     jLogin1.setFont(new java.awt.Font("Cascadia Code", 1, 12));
     jLogin1.setForeground(new java.awt.Color(115, 138, 219));
     jLogin1.setText("Register");
@@ -81,7 +130,7 @@ class LoginForm extends JPanel {
                                     .addComponent(
                                         jLogin1,
                                         GroupLayout.PREFERRED_SIZE,
-                                        54,
+                                        140,
                                         GroupLayout.PREFERRED_SIZE))
                             .addGroup(
                                 jPanel1Layout
@@ -89,10 +138,9 @@ class LoginForm extends JPanel {
                                     .addGap(0, 0, 0)
                                     .addGroup(
                                         jPanel1Layout
-                                            .createParallelGroup(
-                                                GroupLayout.Alignment.LEADING, false)
+                                            .createParallelGroup(GroupLayout.Alignment.LEADING)
                                             .addComponent(
-                                                jLogin,
+                                                loginBtn,
                                                 GroupLayout.PREFERRED_SIZE,
                                                 140,
                                                 GroupLayout.PREFERRED_SIZE)
@@ -144,7 +192,7 @@ class LoginForm extends JPanel {
                         loginPassword, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                     .addGap(40, 40, 40)
                     .addComponent(
-                        jLogin, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                        loginBtn, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)
                     .addGroup(
                         jPanel1Layout
@@ -152,63 +200,6 @@ class LoginForm extends JPanel {
                             .addComponent(jLogin1)
                             .addComponent(jLabel4))
                     .addGap(0, 0, 0)));
-
-    setBackground(new java.awt.Color(40, 43, 48));
-    setPreferredSize(new java.awt.Dimension(640, 728));
-
-    jPanel1.setBackground(new java.awt.Color(40, 43, 48));
-    jPanel1.setPreferredSize(new java.awt.Dimension(500, 432));
-
-    jLabel2.setBackground(new java.awt.Color(102, 102, 102));
-    jLabel2.setFont(new java.awt.Font("Cascadia Code", 1, 24));
-    jLabel2.setForeground(new java.awt.Color(115, 138, 219));
-    jLabel2.setText("Username");
-
-    loginUsername.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    loginUsername.setMaximumSize(new java.awt.Dimension(60, 30));
-    loginUsername.setMinimumSize(new java.awt.Dimension(60, 30));
-    loginUsername.setPreferredSize(new java.awt.Dimension(60, 30));
-    loginUsername.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            loginUsernameActionPerformed(evt);
-          }
-        });
-
-    jLabel3.setBackground(new java.awt.Color(102, 102, 102));
-    jLabel3.setFont(new java.awt.Font("Cascadia Code", 1, 24));
-    jLabel3.setForeground(new java.awt.Color(115, 138, 219));
-    jLabel3.setText("Password");
-
-    loginPassword.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    loginPassword.setMaximumSize(new java.awt.Dimension(60, 30));
-    loginPassword.setMinimumSize(new java.awt.Dimension(60, 30));
-    loginPassword.setPreferredSize(new java.awt.Dimension(60, 30));
-
-    jLogin.setBackground(new java.awt.Color(115, 138, 219));
-    jLogin.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    jLogin.setForeground(new java.awt.Color(255, 255, 255));
-    jLogin.setHorizontalAlignment(SwingConstants.CENTER);
-    jLogin.setText("Login");
-    jLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    jLogin.setHorizontalTextPosition(SwingConstants.CENTER);
-    jLogin.setOpaque(true);
-    jLogin.addMouseMotionListener(
-        new java.awt.event.MouseMotionAdapter() {
-          public void mouseMoved(java.awt.event.MouseEvent evt) {
-            loginMouseMoved(evt);
-          }
-        });
-    jLogin.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseExited(java.awt.event.MouseEvent evt) {
-            loginMouseExited(evt);
-          }
-
-          public void mousePressed(java.awt.event.MouseEvent evt) {
-            loginMousePressed(evt);
-          }
-        });
 
     GroupLayout jPanel4Layout = new GroupLayout(this);
     setLayout(jPanel4Layout);
@@ -241,24 +232,62 @@ class LoginForm extends JPanel {
                     .addGap(148, 148, 148)));
   }
 
-  private void login1MousePressed(java.awt.event.MouseEvent evt) {}
+  public void login1MousePressed(java.awt.event.MouseEvent evt) {}
+}
 
-  private void loginMousePressed(java.awt.event.MouseEvent evt) {
-    if (Authenticator.AuthenticateCustomer(
-        loginUsername.getText(), new String(loginPassword.getPassword()))) {
-      parent.checkAuth();
-    }
+class Button extends JLabel {
+  private String btnText;
+  private Color bg;
+
+  Button(String btnText) {
+    this.btnText = btnText;
+    this.bg = new java.awt.Color(115, 138, 219);
+    initComponents();
   }
 
-  private void loginMouseExited(java.awt.event.MouseEvent evt) {
-    jLogin.setBackground(new java.awt.Color(115, 138, 219));
+  Button(String btnText, Color bg) {
+    this.btnText = btnText;
+    this.bg = bg;
+    initComponents();
   }
 
-  private void loginMouseMoved(java.awt.event.MouseEvent evt) {
-    jLogin.setBackground(Color.GRAY);
+  void initComponents() {
+    setBackground(bg);
+    setFont(new java.awt.Font("Cascadia Code", 0, 18));
+    setForeground(new java.awt.Color(255, 255, 255));
+    setHorizontalAlignment(SwingConstants.CENTER);
+    setText(btnText);
+    setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    setHorizontalTextPosition(SwingConstants.CENTER);
+    setOpaque(true);
+    addMouseMotionListener(
+        new java.awt.event.MouseMotionAdapter() {
+          public void mouseMoved(java.awt.event.MouseEvent evt) {
+            btnMouseMoved(evt);
+          }
+        });
+    addMouseListener(
+        new java.awt.event.MouseAdapter() {
+          public void mouseExited(java.awt.event.MouseEvent evt) {
+            btnMouseExited(evt);
+          }
+
+          public void mousePressed(java.awt.event.MouseEvent evt) {
+            btnMousePressed(evt);
+          }
+        });
   }
 
-  private void loginUsernameActionPerformed(java.awt.event.ActionEvent evt) {}
+  public void btnMouseMoved(MouseEvent evt) {
+    setBackground(
+        new Color((bg.getRed() + 10) % 256, (bg.getGreen() + 10) % 256, (bg.getBlue() + 10) % 256));
+  }
+
+  public void btnMouseExited(MouseEvent evt) {
+    setBackground(bg);
+  }
+
+  public void btnMousePressed(MouseEvent evt) {}
 }
 /** @author 5H4D0W */
 public class LoginPanel extends JPanel {
@@ -276,13 +305,14 @@ public class LoginPanel extends JPanel {
   private JLabel jLabel7;
   private JLabel jLabel8;
   private JLabel jLabel9;
-  private JLabel jLogin2;
   private JLabel jLogin3;
-  private JLabel jLogin4;
   private JLabel jLogin5;
-  private JLabel jLogin6;
+  private JLabel registerBtn;
   private JLabel jLogin7;
-  private JLabel backBtn;
+  private Button backBtn;
+  private Button backBtn1;
+  private Button nextBtn;
+  private Button nextBtn1;
   private JPanel jPanel10;
   private JPanel jPanel2;
   private JPanel jPanel3;
@@ -299,6 +329,7 @@ public class LoginPanel extends JPanel {
   private JTextField firstname;
   private JTextField phone;
   private JTextField registerUsername;
+  private ProfilePanelController profilePanelController;
   private CardLayout cardLayout;
 
   public LoginPanel(BasePanel parent) {
@@ -311,14 +342,18 @@ public class LoginPanel extends JPanel {
     jPanel2 = new JPanel();
     jLabel5 = new JLabel();
     jPanel3 = new JPanel();
-    jPanel4 = new LoginForm(parent);
+    jPanel4 =
+        new LoginForm(parent) {
+          public void login1MousePressed(MouseEvent evt) {
+            cardLayout.show(jPanel3, "card3");
+          }
+        };
     jPanel5 = new JPanel();
     jPanel6 = new JPanel();
     jLabel6 = new JLabel();
     firstname = new JTextField();
     jLabel7 = new JLabel();
     lastname = new JTextField();
-    jLogin2 = new JLabel();
     jLabel8 = new JLabel();
     jLabel9 = new JLabel();
     jLogin3 = new JLabel();
@@ -328,7 +363,6 @@ public class LoginPanel extends JPanel {
     phone = new JTextField();
     jLabel11 = new JLabel();
     email = new JTextField();
-    jLogin4 = new JLabel();
     jLabel12 = new JLabel();
     jLabel13 = new JLabel();
     jLogin5 = new JLabel();
@@ -338,11 +372,11 @@ public class LoginPanel extends JPanel {
     registerUsername = new JTextField();
     jLabel15 = new JLabel();
     registerPassword = new JPasswordField();
-    jLogin6 = new JLabel();
+    registerBtn = new JLabel();
     jLabel16 = new JLabel();
     jLabel17 = new JLabel();
     jLogin7 = new JLabel();
-    backBtn = new JLabel();
+    profilePanelController = new ProfilePanelController();
 
     setBackground(new java.awt.Color(40, 43, 48));
     setMaximumSize(new java.awt.Dimension(1280, 728));
@@ -390,16 +424,9 @@ public class LoginPanel extends JPanel {
     jLabel6.setText("Firstname");
 
     firstname.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    firstname.setForeground(new java.awt.Color(102, 102, 102));
     firstname.setMaximumSize(new java.awt.Dimension(60, 30));
     firstname.setMinimumSize(new java.awt.Dimension(60, 30));
     firstname.setPreferredSize(new java.awt.Dimension(60, 30));
-    firstname.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            firstnameActionPerformed(evt);
-          }
-        });
 
     jLabel7.setBackground(new java.awt.Color(102, 102, 102));
     jLabel7.setFont(new java.awt.Font("Cascadia Code", 1, 24));
@@ -411,59 +438,33 @@ public class LoginPanel extends JPanel {
     lastname.setMinimumSize(new java.awt.Dimension(60, 30));
     lastname.setPreferredSize(new java.awt.Dimension(60, 30));
 
-    jLogin2.setBackground(new java.awt.Color(115, 138, 219));
-    jLogin2.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    jLogin2.setForeground(new java.awt.Color(255, 255, 255));
-    jLogin2.setHorizontalAlignment(SwingConstants.CENTER);
-    jLogin2.setText("Next");
-    jLogin2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    jLogin2.setHorizontalTextPosition(SwingConstants.CENTER);
-    jLogin2.setOpaque(true);
-    jLogin2.addMouseMotionListener(
-        new java.awt.event.MouseMotionAdapter() {
-          public void mouseMoved(java.awt.event.MouseEvent evt) {
-            jLogin2MouseMoved(evt);
+    nextBtn =
+        new Button("Next") {
+          public void btnMousePressed(MouseEvent evt) {
+            cardLayout.next(jPanel3);
           }
-        });
-    jLogin2.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jLogin2MouseClicked(evt);
-          }
+        };
 
-          public void mouseExited(java.awt.event.MouseEvent evt) {
-            jLogin2MouseExited(evt);
+    backBtn =
+        new Button("Back", new java.awt.Color(18, 18, 20)) {
+          public void btnMousePressed(MouseEvent evt) {
+            cardLayout.previous(jPanel3);
           }
+        };
 
-          public void mousePressed(java.awt.event.MouseEvent evt) {
-            jLogin2MousePressed(evt);
+    nextBtn1 =
+        new Button("Next") {
+          public void btnMousePressed(MouseEvent evt) {
+            cardLayout.next(jPanel3);
           }
-        });
+        };
 
-    backBtn.setBackground(new java.awt.Color(18, 18, 20));
-    backBtn.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    backBtn.setForeground(new java.awt.Color(255, 255, 255));
-    backBtn.setHorizontalAlignment(SwingConstants.CENTER);
-    backBtn.setText("Back");
-    backBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    backBtn.setHorizontalTextPosition(SwingConstants.CENTER);
-    backBtn.setOpaque(true);
-    backBtn.addMouseMotionListener(
-        new java.awt.event.MouseMotionAdapter() {
-          public void mouseMoved(java.awt.event.MouseEvent evt) {
-            // backBtnMouseMoved(evt);
+    backBtn1 =
+        new Button("Back", new java.awt.Color(18, 18, 20)) {
+          public void btnMousePressed(MouseEvent evt) {
+            cardLayout.previous(jPanel3);
           }
-        });
-    backBtn.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseExited(java.awt.event.MouseEvent evt) {
-            // backBtnMouseExited(evt);
-          }
-
-          public void mousePressed(java.awt.event.MouseEvent evt) {
-            // backBtnMousePressed(evt);
-          }
-        });
+        };
 
     jLabel8.setFont(new java.awt.Font("Cascadia Code", 1, 36));
     jLabel8.setForeground(new java.awt.Color(115, 138, 219));
@@ -471,8 +472,8 @@ public class LoginPanel extends JPanel {
     jLabel8.setText("REGISTER");
     jLabel8.setPreferredSize(new java.awt.Dimension(120, 50));
 
-    jLabel9.setBackground(new java.awt.Color(255, 255, 255));
     jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+    jLabel9.setFont(new java.awt.Font("Cascadia Code", 1, 12));
     jLabel9.setText("I Already have an account");
 
     jLogin3.setBackground(new java.awt.Color(255, 255, 255));
@@ -481,9 +482,9 @@ public class LoginPanel extends JPanel {
     jLogin3.setText("Login");
     jLogin3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     jLogin3.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jLogin3MouseClicked(evt);
+        new MouseAdapter() {
+          public void mousePressed(MouseEvent evt) {
+            cardLayout.show(jPanel3, "card2");
           }
         });
 
@@ -519,13 +520,7 @@ public class LoginPanel extends JPanel {
                                 jPanel6Layout
                                     .createSequentialGroup()
                                     .addComponent(
-                                        jLogin2,
-                                        GroupLayout.PREFERRED_SIZE,
-                                        140,
-                                        GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(
-                                        backBtn,
+                                        nextBtn,
                                         GroupLayout.PREFERRED_SIZE,
                                         140,
                                         GroupLayout.PREFERRED_SIZE))
@@ -576,9 +571,7 @@ public class LoginPanel extends JPanel {
                         jPanel6Layout
                             .createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(
-                                jLogin2, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(
-                                backBtn,
+                                nextBtn,
                                 GroupLayout.PREFERRED_SIZE,
                                 37,
                                 GroupLayout.PREFERRED_SIZE))
@@ -633,16 +626,9 @@ public class LoginPanel extends JPanel {
     jLabel10.setText("Mobile");
 
     phone.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    phone.setForeground(new java.awt.Color(102, 102, 102));
     phone.setMaximumSize(new java.awt.Dimension(60, 30));
     phone.setMinimumSize(new java.awt.Dimension(60, 30));
     phone.setPreferredSize(new java.awt.Dimension(60, 30));
-    phone.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            phoneActionPerformed(evt);
-          }
-        });
 
     jLabel11.setBackground(new java.awt.Color(102, 102, 102));
     jLabel11.setFont(new java.awt.Font("Cascadia Code", 1, 24));
@@ -654,54 +640,24 @@ public class LoginPanel extends JPanel {
     email.setMinimumSize(new java.awt.Dimension(60, 30));
     email.setPreferredSize(new java.awt.Dimension(60, 30));
 
-    jLogin4.setBackground(new java.awt.Color(115, 138, 219));
-    jLogin4.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    jLogin4.setForeground(new java.awt.Color(255, 255, 255));
-    jLogin4.setHorizontalAlignment(SwingConstants.CENTER);
-    jLogin4.setText("Next");
-    jLogin4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    jLogin4.setHorizontalTextPosition(SwingConstants.CENTER);
-    jLogin4.setOpaque(true);
-    jLogin4.addMouseMotionListener(
-        new java.awt.event.MouseMotionAdapter() {
-          public void mouseMoved(java.awt.event.MouseEvent evt) {
-            jLogin4MouseMoved(evt);
-          }
-        });
-    jLogin4.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jLogin4MouseClicked(evt);
-          }
-
-          public void mouseExited(java.awt.event.MouseEvent evt) {
-            jLogin4MouseExited(evt);
-          }
-
-          public void mousePressed(java.awt.event.MouseEvent evt) {
-            jLogin4MousePressed(evt);
-          }
-        });
-
     jLabel12.setFont(new java.awt.Font("Cascadia Code", 1, 36));
     jLabel12.setForeground(new java.awt.Color(115, 138, 219));
     jLabel12.setHorizontalAlignment(SwingConstants.CENTER);
     jLabel12.setText("REGISTER");
     jLabel12.setPreferredSize(new java.awt.Dimension(120, 50));
 
-    jLabel13.setBackground(new java.awt.Color(255, 255, 255));
     jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+    jLabel13.setFont(new java.awt.Font("Cascadia Code", 1, 12));
     jLabel13.setText("I Already have an account");
 
-    jLogin5.setBackground(new java.awt.Color(255, 255, 255));
     jLogin5.setFont(new java.awt.Font("Cascadia Code", 1, 12));
     jLogin5.setForeground(new java.awt.Color(115, 138, 219));
     jLogin5.setText("Login");
     jLogin5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     jLogin5.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jLogin5MouseClicked(evt);
+        new MouseAdapter() {
+          public void mousePressed(MouseEvent evt) {
+            cardLayout.show(jPanel3, "card2");
           }
         });
 
@@ -732,12 +688,21 @@ public class LoginPanel extends JPanel {
                                         GroupLayout.PREFERRED_SIZE,
                                         54,
                                         GroupLayout.PREFERRED_SIZE))
-                            .addComponent(
-                                jLogin4,
+                            .addGroup(
                                 GroupLayout.Alignment.LEADING,
-                                GroupLayout.PREFERRED_SIZE,
-                                140,
-                                GroupLayout.PREFERRED_SIZE)
+                                jPanel8Layout
+                                    .createSequentialGroup()
+                                    .addComponent(
+                                        nextBtn1,
+                                        GroupLayout.PREFERRED_SIZE,
+                                        140,
+                                        GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(
+                                        backBtn,
+                                        GroupLayout.PREFERRED_SIZE,
+                                        140,
+                                        GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel11, GroupLayout.Alignment.LEADING)
                             .addComponent(email, GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
                     .addGap(0, 0, Short.MAX_VALUE))
@@ -779,8 +744,16 @@ public class LoginPanel extends JPanel {
                     .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(email, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                     .addGap(40, 40, 40)
-                    .addComponent(
-                        jLogin4, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(
+                        jPanel8Layout
+                            .createParallelGroup()
+                            .addComponent(
+                                backBtn, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(
+                                nextBtn1,
+                                GroupLayout.PREFERRED_SIZE,
+                                37,
+                                GroupLayout.PREFERRED_SIZE))
                     .addGap(27, 27, 27)
                     .addGroup(
                         jPanel8Layout
@@ -832,16 +805,9 @@ public class LoginPanel extends JPanel {
     jLabel14.setText("Username");
 
     registerUsername.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    registerUsername.setForeground(new java.awt.Color(102, 102, 102));
     registerUsername.setMaximumSize(new java.awt.Dimension(60, 30));
     registerUsername.setMinimumSize(new java.awt.Dimension(60, 30));
     registerUsername.setPreferredSize(new java.awt.Dimension(60, 30));
-    registerUsername.addActionListener(
-        new java.awt.event.ActionListener() {
-          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            registerUsernameActionPerformed(evt);
-          }
-        });
 
     jLabel15.setBackground(new java.awt.Color(102, 102, 102));
     jLabel15.setFont(new java.awt.Font("Cascadia Code", 1, 24));
@@ -853,34 +819,25 @@ public class LoginPanel extends JPanel {
     registerPassword.setMinimumSize(new java.awt.Dimension(60, 30));
     registerPassword.setPreferredSize(new java.awt.Dimension(60, 30));
 
-    jLogin6.setBackground(new java.awt.Color(115, 138, 219));
-    jLogin6.setFont(new java.awt.Font("Cascadia Code", 0, 18));
-    jLogin6.setForeground(new java.awt.Color(255, 255, 255));
-    jLogin6.setHorizontalAlignment(SwingConstants.CENTER);
-    jLogin6.setText("Register");
-    jLogin6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    jLogin6.setHorizontalTextPosition(SwingConstants.CENTER);
-    jLogin6.setOpaque(true);
-    jLogin6.addMouseMotionListener(
-        new java.awt.event.MouseMotionAdapter() {
-          public void mouseMoved(java.awt.event.MouseEvent evt) {
-            jLogin6MouseMoved(evt);
+    registerBtn =
+        new Button("Register") {
+          public void btnMousePressed(MouseEvent evt) {
+            CustomerDTO profile =
+                new CustomerDTO(
+                    firstname.getText(),
+                    lastname.getText(),
+                    email.getText(),
+                    phone.getText(),
+                    registerUsername.getText(),
+                    new String(registerPassword.getPassword()));
+            try {
+              profilePanelController.register(profile);
+              JOptionPane.showMessageDialog(parent, "Registration Successful!");
+            } catch (InvalidInputException e) {
+              JOptionPane.showMessageDialog(parent, e.getMessage());
+            }
           }
-        });
-    jLogin6.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jLogin6MouseClicked(evt);
-          }
-
-          public void mouseExited(java.awt.event.MouseEvent evt) {
-            jLogin6MouseExited(evt);
-          }
-
-          public void mousePressed(java.awt.event.MouseEvent evt) {
-            jLogin6MousePressed(evt);
-          }
-        });
+        };
 
     jLabel16.setFont(new java.awt.Font("Cascadia Code", 1, 36));
     jLabel16.setForeground(new java.awt.Color(115, 138, 219));
@@ -888,19 +845,18 @@ public class LoginPanel extends JPanel {
     jLabel16.setText("REGISTER");
     jLabel16.setPreferredSize(new java.awt.Dimension(120, 50));
 
-    jLabel17.setBackground(new java.awt.Color(255, 255, 255));
     jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+    jLabel17.setFont(new java.awt.Font("Cascadia Code", 1, 12));
     jLabel17.setText("I Already have an account");
 
-    jLogin7.setBackground(new java.awt.Color(255, 255, 255));
     jLogin7.setFont(new java.awt.Font("Cascadia Code", 1, 12));
     jLogin7.setForeground(new java.awt.Color(115, 138, 219));
-    jLogin7.setText("SignUp");
+    jLogin7.setText("Login");
     jLogin7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     jLogin7.addMouseListener(
-        new java.awt.event.MouseAdapter() {
-          public void mouseClicked(java.awt.event.MouseEvent evt) {
-            jLogin7MouseClicked(evt);
+        new MouseAdapter() {
+          public void mousePressed(MouseEvent evt) {
+            cardLayout.show(jPanel3, "card2");
           }
         });
 
@@ -931,12 +887,21 @@ public class LoginPanel extends JPanel {
                                         GroupLayout.PREFERRED_SIZE,
                                         54,
                                         GroupLayout.PREFERRED_SIZE))
-                            .addComponent(
-                                jLogin6,
+                            .addGroup(
                                 GroupLayout.Alignment.LEADING,
-                                GroupLayout.PREFERRED_SIZE,
-                                140,
-                                GroupLayout.PREFERRED_SIZE)
+                                jPanel10Layout
+                                    .createSequentialGroup()
+                                    .addComponent(
+                                        registerBtn,
+                                        GroupLayout.PREFERRED_SIZE,
+                                        140,
+                                        GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(
+                                        backBtn1,
+                                        GroupLayout.PREFERRED_SIZE,
+                                        140,
+                                        GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel15, GroupLayout.Alignment.LEADING)
                             .addComponent(
                                 registerPassword, GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
@@ -987,8 +952,19 @@ public class LoginPanel extends JPanel {
                         40,
                         GroupLayout.PREFERRED_SIZE)
                     .addGap(40, 40, 40)
-                    .addComponent(
-                        jLogin6, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+                    .addGroup(
+                        jPanel10Layout
+                            .createParallelGroup()
+                            .addComponent(
+                                registerBtn,
+                                GroupLayout.PREFERRED_SIZE,
+                                37,
+                                GroupLayout.PREFERRED_SIZE)
+                            .addComponent(
+                                backBtn1,
+                                GroupLayout.PREFERRED_SIZE,
+                                37,
+                                GroupLayout.PREFERRED_SIZE))
                     .addGap(27, 27, 27)
                     .addGroup(
                         jPanel10Layout
@@ -1059,40 +1035,4 @@ public class LoginPanel extends JPanel {
                 GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel3, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE));
   }
-
-  private void firstnameActionPerformed(java.awt.event.ActionEvent evt) {}
-
-  private void jLogin2MouseMoved(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin2MouseClicked(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin2MouseExited(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin2MousePressed(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin3MouseClicked(java.awt.event.MouseEvent evt) {}
-
-  private void phoneActionPerformed(java.awt.event.ActionEvent evt) {}
-
-  private void jLogin4MouseMoved(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin4MouseClicked(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin4MouseExited(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin4MousePressed(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin5MouseClicked(java.awt.event.MouseEvent evt) {}
-
-  private void registerUsernameActionPerformed(java.awt.event.ActionEvent evt) {}
-
-  private void jLogin6MouseMoved(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin6MouseClicked(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin6MouseExited(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin6MousePressed(java.awt.event.MouseEvent evt) {}
-
-  private void jLogin7MouseClicked(java.awt.event.MouseEvent evt) {}
 }

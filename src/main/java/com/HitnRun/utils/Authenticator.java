@@ -8,17 +8,14 @@ import com.HitnRun.repositories.CustomerDAO;
 public class Authenticator {
   private static CustomerDTO profile = new CustomerDTO(null, null, null, null, null, null);
 
-  public static boolean AuthenticateCustomer(String username, String password) {
-    try {
-      profile =
-          new CustomerDAO(MSSQLJDBConnector.getConnection("hitnrun"))
-              .readCustomerByUsername(username);
-      if (profile.getPassword().equals(password)) {
-        Authenticator.setProfile(profile);
-        return true;
-      }
-    } catch (DatabaseOperationException | CustomerNotFoundException e) {
-      e.printStackTrace();
+  public static boolean AuthenticateCustomer(String username, String password)
+      throws DatabaseOperationException, CustomerNotFoundException {
+    profile =
+        new CustomerDAO(MSSQLJDBConnector.getConnection("hitnrun"))
+            .readCustomerByUsername(username);
+    if (profile.getPassword().equals(password)) {
+      Authenticator.setProfile(profile);
+      return true;
     }
     return false;
   }

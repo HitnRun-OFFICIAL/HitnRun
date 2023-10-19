@@ -1,13 +1,14 @@
 package com.HitnRun.views;
 
 import com.HitnRun.controllers.ProfilePanelController;
+import com.HitnRun.handlers.InvalidInputException;
 import com.HitnRun.models.CustomerDTO;
 import com.HitnRun.models.RentalDTO;
 import com.HitnRun.utils.Authenticator;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.PopupFactory;
+import javax.swing.JOptionPane;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.kordamp.ikonli.swing.FontIcon;
 
@@ -39,8 +40,6 @@ public class ProfilePanel extends javax.swing.JPanel {
   private java.awt.GridLayout gridLayout;
   private CustomerDTO profile;
   private ProfilePanelController profilePanelController;
-  private PopupFactory pf;
-  private PopUpPanel popUpPanel;
 
   public ProfilePanel(JFrame parent) {
     this.parent = parent;
@@ -77,7 +76,6 @@ public class ProfilePanel extends javax.swing.JPanel {
     profile = new CustomerDTO();
     gridLayout = new java.awt.GridLayout(1, 0, 30, 30);
     profilePanelController = new ProfilePanelController();
-    pf = new PopupFactory();
 
     setBackground(new java.awt.Color(40, 43, 48));
     setMaximumSize(new java.awt.Dimension(1280, 728));
@@ -538,9 +536,12 @@ public class ProfilePanel extends javax.swing.JPanel {
     if (!pass.equals("********")) {
       profile.setPassword(pass);
     }
-    profilePanelController.updateProfile(profile);
-
-    pf.getPopup(parent, new PopUpPanel("Successfully Updated!"), 440, 284).show();
+    try {
+      profilePanelController.updateProfile(profile);
+      JOptionPane.showMessageDialog(parent, "Successfully Updated!");
+    } catch (InvalidInputException e) {
+      JOptionPane.showMessageDialog(parent, e.getMessage());
+    }
   }
 
   private void deleteBtnMouseMoved(java.awt.event.MouseEvent evt) {
@@ -554,9 +555,12 @@ public class ProfilePanel extends javax.swing.JPanel {
   private void deleteBtnMousePressed(java.awt.event.MouseEvent evt) {
     profile = Authenticator.getProfile();
     profilePanelController.deleteProfile(profile.getCustomerID());
-    new PopupFactory().getPopup(parent, new PopUpPanel("Successfully Deleted!"), 440, 284);
+    JOptionPane.showMessageDialog(parent, "Successfully Deleted!");
     Authenticator.logout();
+    changeView();
   }
+
+  public void changeView() {};
 
   public void viewProfile() {
     CustomerDTO profile = Authenticator.getProfile();

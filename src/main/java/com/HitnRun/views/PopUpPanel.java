@@ -100,6 +100,7 @@ public class PopUpPanel extends javax.swing.JPanel {
 
   public void popUpCloseMousePressed(java.awt.event.MouseEvent evt) {
     this.setVisible(false);
+    repaint();
   }
 
   private javax.swing.JLabel popUpClose;

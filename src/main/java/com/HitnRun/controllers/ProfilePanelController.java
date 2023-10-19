@@ -1,6 +1,7 @@
 package com.HitnRun.controllers;
 
 import com.HitnRun.handlers.DatabaseOperationException;
+import com.HitnRun.handlers.InvalidInputException;
 import com.HitnRun.handlers.VehicleNotFoundException;
 import com.HitnRun.models.CustomerDTO;
 import com.HitnRun.models.RentalDTO;
@@ -10,6 +11,7 @@ import com.HitnRun.repositories.RentalDAO;
 import com.HitnRun.repositories.VehicleDAO;
 import com.HitnRun.utils.Authenticator;
 import com.HitnRun.utils.MSSQLJDBConnector;
+import com.HitnRun.validations.InputValidation;
 import java.sql.Connection;
 import java.util.List;
 
@@ -44,6 +46,15 @@ public class ProfilePanelController {
     return null;
   }
 
+  public void register(CustomerDTO profile) throws InvalidInputException {
+    InputValidation.validateProfile(profile);
+    try {
+      customerDAO.createCustomer(profile);
+    } catch (DatabaseOperationException e) {
+      e.printStackTrace();
+    }
+  }
+
   public VehicleDTO getVehicle(int vehicleId) {
     try {
       vehicle = vehicleDAO.readVehicle(vehicleId);
@@ -56,7 +67,8 @@ public class ProfilePanelController {
     return null;
   }
 
-  public void updateProfile(CustomerDTO profile) {
+  public void updateProfile(CustomerDTO profile) throws InvalidInputException {
+    InputValidation.validateProfile(profile);
     try {
       customerDAO.updateCustomer(profile);
     } catch (DatabaseOperationException e) {
@@ -66,6 +78,7 @@ public class ProfilePanelController {
 
   public void deleteProfile(int profileId) {
     try {
+      rentalDAO.deleteRentalWithCustomerID(profileId);
       customerDAO.deleteCustomer(profileId);
     } catch (DatabaseOperationException e) {
       e.printStackTrace();

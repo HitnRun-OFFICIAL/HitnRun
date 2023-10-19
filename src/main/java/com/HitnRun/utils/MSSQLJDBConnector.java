@@ -19,7 +19,6 @@ public class MSSQLJDBConnector {
       }
       return connection;
     } catch (SQLException e) {
-      e.printStackTrace();
       throw new DatabaseException("Faild to establish a database connection.", e);
     }
   }

@@ -74,8 +74,6 @@ public class VehicleDAO {
     }
   }
 
-  // Add other reads If necessary
-
   // Read all Vehicles
   public List<VehicleDTO> readAllVehicles() throws DatabaseOperationException {
     List<VehicleDTO> vehicles = new ArrayList<>();

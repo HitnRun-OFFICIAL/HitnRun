@@ -19,7 +19,7 @@ public class VehiclePanelController {
     vehicles = new ArrayList<VehicleDTO>();
   }
 
-  public List<VehicleDTO> getVehicleDTOs() {
+  public List<VehicleDTO> getVehicles() {
     try {
       for (VehicleDTO v : vehicleDAO.readAllVehicles()) {
         vehicles.add(v);

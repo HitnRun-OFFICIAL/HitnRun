@@ -119,6 +119,17 @@ public class RentalDAO {
       throw new DatabaseOperationException("Error while deleting rental: " + rentalID, e);
     }
   }
+  // Delete Rental records by Customer ID
+  public void deleteRentalWithCustomerID(int customer) throws DatabaseOperationException {
+    String sql = "DELETE FROM Rental WHERE CustomerID = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+      preparedStatement.setInt(1, customer);
+      preparedStatement.executeUpdate();
+    } catch (SQLException e) {
+      throw new DatabaseOperationException(
+          "Error while deleting rental wuth customer: " + customer, e);
+    }
+  }
 
   // Helper method to map ResultSet to RentalDTO
   private RentalDTO mapResultSetToRental(ResultSet resultSet) throws DatabaseOperationException {
