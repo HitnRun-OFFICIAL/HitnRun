@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.HitnRun.handlers.DatabaseOperationException;
 import com.HitnRun.handlers.VehicleNotFoundException;
 import com.HitnRun.models.VehicleDTO;
-import com.HitnRun.utils.MSSQLJDBConnector;
+import com.HitnRun.utils.HSQLDBConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +19,7 @@ class VehicleDAOTest {
 
   @BeforeAll
   void setUp() {
-    vehicleDAO = new VehicleDAO(MSSQLJDBConnector.getConnection("hitnruntest"));
+    vehicleDAO = new VehicleDAO(HSQLDBConnector.getTestConnection());
 
     // Create a test vehicle to be used in various test methods
     vehicle = new VehicleDTO("test", "test", 1000, "test", "test", "test", 5, 69.0, "path");
@@ -27,7 +27,7 @@ class VehicleDAOTest {
 
   @AfterAll
   void tearDown() throws DatabaseOperationException {
-    try (Connection connection = MSSQLJDBConnector.getConnection("hitnruntest");
+    try (Connection connection = HSQLDBConnector.getTestConnection();
         Statement statement = connection.createStatement()) {
       statement.execute("DELETE FROM " + "vehicles");
     } catch (SQLException e) {

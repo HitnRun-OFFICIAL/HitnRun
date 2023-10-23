@@ -51,6 +51,8 @@ public class VehicleItem extends javax.swing.JPanel {
 
     jPanel1.setOpaque(false);
 
+    status.setVisible(false);
+
     img.setBackground(new java.awt.Color(40, 43, 48));
     img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     img.setIcon(

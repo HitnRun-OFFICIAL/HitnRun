@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.HitnRun.handlers.CustomerNotFoundException;
 import com.HitnRun.handlers.DatabaseOperationException;
 import com.HitnRun.models.CustomerDTO;
-import com.HitnRun.utils.MSSQLJDBConnector;
+import com.HitnRun.utils.HSQLDBConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,10 +15,12 @@ import org.junit.jupiter.api.*;
 class CustomerDAOTest {
   private CustomerDAO customerDAO;
   private CustomerDTO customer;
+  private Connection connection;
 
   @BeforeAll
   void setUp() {
-    customerDAO = new CustomerDAO(MSSQLJDBConnector.getConnection("hitnruntest"));
+    connection = HSQLDBConnector.getTestConnection();
+    customerDAO = new CustomerDAO(connection);
 
     // Create a test customer to be used in various test methods
     customer = new CustomerDTO("test", "test", "test@test.test", "+94700000000", "user", "pass");
@@ -26,7 +28,7 @@ class CustomerDAOTest {
 
   @AfterAll
   void tearDown() throws DatabaseOperationException {
-    try (Connection connection = MSSQLJDBConnector.getConnection("hitnruntest");
+    try (Connection connection = HSQLDBConnector.getTestConnection();
         Statement statement = connection.createStatement()) {
       statement.execute("DELETE FROM " + "customers");
     } catch (SQLException e) {

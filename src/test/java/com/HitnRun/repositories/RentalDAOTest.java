@@ -7,7 +7,7 @@ import com.HitnRun.handlers.RentalNotFoundException;
 import com.HitnRun.models.CustomerDTO;
 import com.HitnRun.models.RentalDTO;
 import com.HitnRun.models.VehicleDTO;
-import com.HitnRun.utils.MSSQLJDBConnector;
+import com.HitnRun.utils.HSQLDBConnector;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -27,7 +27,7 @@ class RentalDAOTest {
   @BeforeAll
   void setUp() {
 
-    Connection connection = MSSQLJDBConnector.getConnection("hitnruntest");
+    Connection connection = HSQLDBConnector.getTestConnection();
 
     try {
       vehicleDAO = new VehicleDAO(connection);
@@ -53,7 +53,7 @@ class RentalDAOTest {
 
   @AfterAll
   void tearDown() throws DatabaseOperationException {
-    try (Connection connection = MSSQLJDBConnector.getConnection("hitnruntest");
+    try (Connection connection = HSQLDBConnector.getTestConnection();
         Statement statement = connection.createStatement()) {
       statement.execute("DELETE FROM " + "rental");
       statement.execute("DELETE FROM " + "staff");
