@@ -38,7 +38,7 @@ $ ./mvnw clean test
 > mvnw.cmd clean test
 ```
 
-## Maven Build
+## Maven Build Executable Jar
 
 ### **Windows**
 Navigate to HitnRun-main using **cd** and run the following commands
