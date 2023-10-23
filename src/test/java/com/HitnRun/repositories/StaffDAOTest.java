@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.HitnRun.handlers.DatabaseOperationException;
 import com.HitnRun.handlers.StaffNotFoundException;
 import com.HitnRun.models.StaffDTO;
-import com.HitnRun.utils.MSSQLJDBConnector;
+import com.HitnRun.utils.HSQLDBConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +19,7 @@ class StaffDAOTest {
 
   @BeforeAll
   void setUp() {
-    staffDAO = new StaffDAO(MSSQLJDBConnector.getConnection("hitnruntest"));
+    staffDAO = new StaffDAO(HSQLDBConnector.getTestConnection());
 
     // Create a test staff member to be used in various test methods
     staff = new StaffDTO("test", "test", "test", "test", "test", "test", "test");
@@ -27,7 +27,7 @@ class StaffDAOTest {
 
   @AfterAll
   void tearDown() throws DatabaseOperationException {
-    try (Connection connection = MSSQLJDBConnector.getConnection("hitnruntest");
+    try (Connection connection = HSQLDBConnector.getTestConnection();
         Statement statement = connection.createStatement()) {
       statement.execute("DELETE FROM " + "staff");
     } catch (SQLException e) {

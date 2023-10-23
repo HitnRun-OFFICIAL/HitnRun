@@ -75,18 +75,68 @@ public class VehicleDAO {
   }
 
   // Read all Vehicles
-  public List<VehicleDTO> readAllVehicles() throws DatabaseOperationException {
+  public List<VehicleDTO> readAllVehicles(String model, String make)
+      throws DatabaseOperationException {
     List<VehicleDTO> vehicles = new ArrayList<>();
-    String sql = "SELECT * FROM Vehicles";
-    try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery()) {
+    String sql = "SELECT * FROM Vehicles WHERE 1=1";
+
+    if (model != null && !model.isEmpty() && !model.toLowerCase().equals("model")) {
+      sql += " AND Model = ?";
+    }
+
+    if (make != null && !make.isEmpty() && !make.toLowerCase().equals("make")) {
+      sql += " AND Make = ?";
+    }
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+      int parameterIndex = 1;
+      if (model != null && !model.isEmpty() && !model.toLowerCase().equals("model")) {
+        preparedStatement.setString(parameterIndex++, model);
+      }
+      if (make != null && !make.isEmpty() && !make.toLowerCase().equals("make")) {
+        preparedStatement.setString(parameterIndex, make);
+      }
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
       while (resultSet.next()) {
         vehicles.add(mapResultSetToVehicle(resultSet));
       }
     } catch (SQLException e) {
       throw new DatabaseOperationException("Error while reading vehicles.", e);
     }
+
     return vehicles;
+  }
+
+  // Read all Models
+  public List<String> readVehicleModel() throws DatabaseOperationException {
+    List<String> models = new ArrayList<>();
+    String sql = "SELECT DISTINCT Model FROM Vehicles";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery()) {
+      while (resultSet.next()) {
+        models.add(resultSet.getString("Model"));
+      }
+    } catch (SQLException e) {
+      throw new DatabaseOperationException("Error while reading vehicle models.", e);
+    }
+    return models;
+  }
+
+  // Read all Makes
+  public List<String> readVehicleMake() throws DatabaseOperationException {
+    List<String> makes = new ArrayList<>();
+    String sql = "SELECT DISTINCT Make FROM Vehicles";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery()) {
+      while (resultSet.next()) {
+        makes.add(resultSet.getString("Make"));
+      }
+    } catch (SQLException e) {
+      throw new DatabaseOperationException("Error while reading vehicle makes.", e);
+    }
+    return makes;
   }
 
   // Update a Vehicle

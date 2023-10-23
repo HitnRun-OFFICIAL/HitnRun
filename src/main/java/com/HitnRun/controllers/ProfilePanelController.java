@@ -10,7 +10,7 @@ import com.HitnRun.repositories.CustomerDAO;
 import com.HitnRun.repositories.RentalDAO;
 import com.HitnRun.repositories.VehicleDAO;
 import com.HitnRun.utils.Authenticator;
-import com.HitnRun.utils.MSSQLJDBConnector;
+import com.HitnRun.utils.HSQLDBConnector;
 import com.HitnRun.validations.InputValidation;
 import java.sql.Connection;
 import java.util.List;
@@ -25,7 +25,7 @@ public class ProfilePanelController {
   private Connection connection;
 
   public ProfilePanelController() {
-    this.connection = MSSQLJDBConnector.getConnection("hitnrun");
+    this.connection = HSQLDBConnector.getConnection();
     rentalDAO = new RentalDAO(connection);
     vehicleDAO = new VehicleDAO(connection);
     customerDAO = new CustomerDAO(connection);

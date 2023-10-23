@@ -138,7 +138,7 @@ class BasePanel extends JPanel {
             }
           },
           "profile");
-      baseContent.add(new VehiclePanel(), "vehicle");
+      baseContent.add(new VehiclePanel(parent), "vehicle");
       baseContent.add(new ContactPanel(), "contact");
       baseContent.add(new AboutPanel(), "about");
       topBar.setButtons(
@@ -170,6 +170,7 @@ public class BaseFrame extends JFrame {
     setName("base"); // NOI18N
     setUndecorated(true);
     setResizable(false);
+    // setIconImage(new ImageIcon(getClass().getResource("img/logo.jpg")).getImage());
 
     getContentPane().add(basePanel, BorderLayout.CENTER);
 

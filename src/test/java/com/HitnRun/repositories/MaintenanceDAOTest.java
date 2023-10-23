@@ -6,7 +6,7 @@ import com.HitnRun.handlers.DatabaseOperationException;
 import com.HitnRun.handlers.MaintenanceNotFoundException;
 import com.HitnRun.models.MaintenanceDTO;
 import com.HitnRun.models.VehicleDTO;
-import com.HitnRun.utils.MSSQLJDBConnector;
+import com.HitnRun.utils.HSQLDBConnector;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -24,7 +24,7 @@ class MaintenanceDAOTest {
   @BeforeAll
   void setUp() {
 
-    Connection connection = MSSQLJDBConnector.getConnection("hitnruntest");
+    Connection connection = HSQLDBConnector.getTestConnection();
 
     try {
       vehicleDAO = new VehicleDAO(connection);
@@ -42,7 +42,7 @@ class MaintenanceDAOTest {
 
   @AfterAll
   void tearDown() throws DatabaseOperationException {
-    try (Connection connection = MSSQLJDBConnector.getConnection("hitnruntest");
+    try (Connection connection = HSQLDBConnector.getTestConnection();
         Statement statement = connection.createStatement()) {
       statement.execute("DELETE FROM " + "maintenance");
       statement.execute("DELETE FROM " + "vehicles");
