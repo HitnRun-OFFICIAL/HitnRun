@@ -89,6 +89,36 @@ public class VehicleDAO {
     return vehicles;
   }
 
+  // Read all Models
+  public List<String> readVehicleModel() throws DatabaseOperationException {
+    List<String> models = new ArrayList<>();
+    String sql = "SELECT DISTINCT Model FROM Vehicles";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery()) {
+      while (resultSet.next()) {
+        models.add(resultSet.getString("Model"));
+      }
+    } catch (SQLException e) {
+      throw new DatabaseOperationException("Error while reading vehicle models.", e);
+    }
+    return models;
+  }
+
+  // Read all Makes
+  public List<String> readVehicleMake() throws DatabaseOperationException {
+    List<String> makes = new ArrayList<>();
+    String sql = "SELECT DISTINCT Make FROM Vehicles";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery()) {
+      while (resultSet.next()) {
+        makes.add(resultSet.getString("Make"));
+      }
+    } catch (SQLException e) {
+      throw new DatabaseOperationException("Error while reading vehicle makes.", e);
+    }
+    return makes;
+  }
+
   // Update a Vehicle
   public void updateVehicle(VehicleDTO vehicle) throws DatabaseOperationException {
     String sql =

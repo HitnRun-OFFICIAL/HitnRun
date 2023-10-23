@@ -170,6 +170,7 @@ public class BaseFrame extends JFrame {
     setName("base"); // NOI18N
     setUndecorated(true);
     setResizable(false);
+    // setIconImage(new ImageIcon(getClass().getResource("img/logo.jpg")).getImage());
 
     getContentPane().add(basePanel, BorderLayout.CENTER);
 

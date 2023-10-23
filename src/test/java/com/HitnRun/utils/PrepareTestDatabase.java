@@ -41,7 +41,7 @@ public class PrepareTestDatabase {
           + //
           "    LicensePlate VARCHAR(20),"
           + //
-          "    Description TEXT,"
+          "    Description VARCHAR(400),"
           + //
           "    Color VARCHAR(20),"
           + //
@@ -81,9 +81,9 @@ public class PrepareTestDatabase {
           + //
           "    VehicleID INT,"
           + //
-          "    RentalDate DATETIME,"
+          "    RentalDate TIMESTAMP,"
           + //
-          "    ReturnDate DATETIME,"
+          "    ReturnDate TIMESTAMP,"
           + //
           "    RentalFee DECIMAL(10, 2),"
           + //
@@ -99,9 +99,9 @@ public class PrepareTestDatabase {
           + //
           "    VehicleID INT,"
           + //
-          "    MaintenanceDate DATETIME,"
+          "    MaintenanceDate TIMESTAMP,"
           + //
-          "    Description TEXT,"
+          "    Description VARCHAR(400),"
           + //
           "    Cost DECIMAL(10, 2),"
           + //
@@ -110,15 +110,16 @@ public class PrepareTestDatabase {
           ");";
 
   public static void createDatabase() {
-    try (Connection connection = MSSQLJDBConnector.getConnection();
+    try (Connection connection = HSQLDBConnector.getTestConnection();
         Statement statement = connection.createStatement()) {
       // Create the "hitnrun" database
-      statement.executeUpdate(CREATE_DATABASE);
-      statement.executeUpdate(USE_DATABASE);
+      // statement.executeUpdate(CREATE_DATABASE);
+      // statement.executeUpdate(USE_DATABASE);
 
       // Create tables within the "hitnrun" database
       statement.executeUpdate(CREATE_TABLES);
     } catch (SQLException e) {
+      e.printStackTrace();
       throw new DatabaseException("Failed to create the database or tables.", e);
     }
   }

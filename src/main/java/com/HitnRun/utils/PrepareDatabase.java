@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PrepareDatabase {
-  private static final String CREATE_DATABASE = "CREATE DATABASE hitnrun";
-  private static final String USE_DATABASE = "USE hitnrun";
+  // private static final String CREATE_DATABASE = "CREATE DATABASE hitnrun";
+  // private static final String USE_DATABASE = "USE hitnrun";
   private static final String CREATE_TABLES =
       ""
           + //
@@ -41,7 +41,7 @@ public class PrepareDatabase {
           + //
           "    LicensePlate VARCHAR(20),"
           + //
-          "    Description TEXT,"
+          "    Description VARCHAR(400),"
           + //
           "    Color VARCHAR(20),"
           + //
@@ -101,7 +101,7 @@ public class PrepareDatabase {
           + //
           "    MaintenanceDate DATETIME,"
           + //
-          "    Description TEXT,"
+          "    Description VARCHAR(400),"
           + //
           "    Cost DECIMAL(10, 2),"
           + //
@@ -364,11 +364,11 @@ public class PrepareDatabase {
           "    (615, 215, '2023-08-10 10:30:00', 'Power steering service', 160.00);";
 
   public static void createDatabase() {
-    try (Connection connection = MSSQLJDBConnector.getConnection();
+    try (Connection connection = HSQLDBConnector.getConnection();
         Statement statement = connection.createStatement()) {
       // Create the "hitnrun" database
-      statement.executeUpdate(CREATE_DATABASE);
-      statement.executeUpdate(USE_DATABASE);
+      // statement.executeUpdate(CREATE_DATABASE);
+      // statement.executeUpdate(USE_DATABASE);
 
       // Create tables within the "hitnrun" database
       statement.executeUpdate(CREATE_TABLES);
@@ -380,6 +380,7 @@ public class PrepareDatabase {
       statement.executeUpdate(INSERT_RENTAL);
       statement.executeUpdate(INSERT_MAINTENANCE);
     } catch (SQLException e) {
+      e.printStackTrace();
       throw new DatabaseException("Failed to create the database or tables.", e);
     }
   }

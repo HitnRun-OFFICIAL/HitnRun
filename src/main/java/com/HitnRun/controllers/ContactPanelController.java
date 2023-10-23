@@ -3,7 +3,7 @@ package com.HitnRun.controllers;
 import com.HitnRun.handlers.DatabaseOperationException;
 import com.HitnRun.models.StaffDTO;
 import com.HitnRun.repositories.StaffDAO;
-import com.HitnRun.utils.MSSQLJDBConnector;
+import com.HitnRun.utils.HSQLDBConnector;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ public class ContactPanelController {
   private List<StaffDTO> staffs;
 
   public ContactPanelController() {
-    this.connection = MSSQLJDBConnector.getConnection("hitnrun");
+    this.connection = HSQLDBConnector.getConnection();
     this.staffDAO = new StaffDAO(connection);
     this.staffs = new ArrayList<StaffDTO>();
   }

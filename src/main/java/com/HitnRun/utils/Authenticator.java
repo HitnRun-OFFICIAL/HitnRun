@@ -10,9 +10,7 @@ public class Authenticator {
 
   public static boolean AuthenticateCustomer(String username, String password)
       throws DatabaseOperationException, CustomerNotFoundException {
-    profile =
-        new CustomerDAO(MSSQLJDBConnector.getConnection("hitnrun"))
-            .readCustomerByUsername(username);
+    profile = new CustomerDAO(HSQLDBConnector.getConnection()).readCustomerByUsername(username);
     if (profile.getPassword().equals(password)) {
       Authenticator.setProfile(profile);
       return true;
