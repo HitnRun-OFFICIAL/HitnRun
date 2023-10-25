@@ -38,7 +38,8 @@ $ ./mvnw clean test
 > mvnw.cmd clean test
 ```
 
-## Maven Build Executable Jar
+## Maven Commands
+## Build and Execute
 
 ### **Windows**
 Navigate to HitnRun-main using **cd** and run the following commands
@@ -46,3 +47,17 @@ Navigate to HitnRun-main using **cd** and run the following commands
 >mvn clean package
 >java -jar target/HitnRun-1.0-SNAPSHOT.jar
 ```
+
+## Prepare Database
+
+### **Windows**
+Prepare test Database
+```
+>mvn test-compile exec:java -Dexec.mainClass="com.HitnRun.utils.PrepareTestDatabase" -Dexec.classpathScope=test
+>mvn clean test
+
+```
+
+
+
+
