@@ -223,9 +223,11 @@
                             <priority>normal</priority>
                             <stayAlive>false</stayAlive>
                             <restartOnCrash>false</restartOnCrash>
+                            <downloadUrl>https://java.com/en/download/manual.jsp</downloadUrl>
                             <jre>
                               <path>jdk-20</path>
                             </jre>
+                            <icon>src/main/resources/img/Logo.ico</icon>
                         </configuration>
                     </execution>
                 </executions>

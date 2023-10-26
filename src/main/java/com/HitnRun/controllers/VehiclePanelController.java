@@ -14,9 +14,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.ParallelGroup;
-import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JPanel;
 
 public class VehiclePanelController {
@@ -33,9 +30,9 @@ public class VehiclePanelController {
     vehicles = new ArrayList<VehicleDTO>();
   }
 
-  public List<VehicleDTO> getVehicles() {
+  public List<VehicleDTO> getVehicles(String Model, String Make) {
     try {
-      vehicles = vehicleDAO.readAllVehicles();
+      vehicles = vehicleDAO.readAllVehicles(Model, Make);
     } catch (DatabaseOperationException e) {
       e.printStackTrace();
     }
@@ -70,50 +67,58 @@ public class VehiclePanelController {
     return null;
   }
 
-  public void viewItems(JPanel itemPanel, GridLayout gridLayout, PreviewPanel previewPanel, String model, String make) {
-    List<VehicleDTO> list = getVehicles();
-    for (int i = 0; i < list.size(); i += 3) {
-      gridLayout.setRows(gridLayout.getRows() + 1);
-      JPanel testPanel = new JPanel();
-      testPanel.setBackground(new Color(62, 65, 67));
-      GroupLayout gl = new GroupLayout(testPanel);
-      testPanel.setLayout(gl);
-      testPanel.setPreferredSize(new Dimension(900, 320));
-      SequentialGroup h = gl.createSequentialGroup();
-      ParallelGroup v = gl.createParallelGroup(GroupLayout.Alignment.LEADING);
+  public void viewItems(
+      JPanel itemPanel,
+      GridLayout gridLayout,
+      PreviewPanel previewPanel,
+      String model,
+      String make) {
+    List<VehicleDTO> list = getVehicles(model, make);
+    int itemsPerRow = 3;
 
-      h.addGap(29, 29, 29);
-      for (int j = i; j < i + 3; j++) {
-        h.addGap(28, 28, 28);
-        if (list.get(j) != null) {
-          VehicleItem item =
-              new VehicleItem(list.get(j)) {
-                public void itemMousePressed(MouseEvent evt) {
-                  preview(this, previewPanel);
-                  this.setBackground(new Color(50, 53, 58));
-                }
-              };
-          h.addComponent(item);
-          v.addComponent(item);
+    for (int i = 0; i < list.size(); i += itemsPerRow) {
+      JPanel rowPanel = createRowPanel();
+
+      for (int j = i; j < i + itemsPerRow; j++) {
+        if (j < list.size()) {
+          VehicleDTO vehicle = list.get(j);
+          VehicleItem item = createVehicleItem(vehicle, previewPanel);
+          rowPanel.add(item);
         } else {
-          h.addGap(225, 225, 255);
-          v.addGap(300, 300, 300);
+          rowPanel.add(createGapPanel());
         }
-        h.addGap(28, 28, 28);
-      }
-      h.addGap(29, 29, 29);
-
-      gl.setHorizontalGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER).addGroup(h));
-      if (list.get(i + 1) != null) {
-        gl.setVerticalGroup(gl.createSequentialGroup().addGap(15, 15, 15).addGroup(v));
-      } else {
-        gl.setVerticalGroup(
-            gl.createSequentialGroup().addGap(15, 15, 15).addGroup(v).addGap(15, 15, 15));
       }
 
-      itemPanel.add(testPanel);
+      itemPanel.add(rowPanel);
     }
-    preview(new VehicleItem(list.get(0)), previewPanel);
+
+    if (!list.isEmpty()) {
+      preview(new VehicleItem(list.get(0)), previewPanel);
+    }
+  }
+
+  private JPanel createRowPanel() {
+    JPanel panel = new JPanel();
+    panel.setBackground(new Color(62, 65, 67));
+    panel.setPreferredSize(new Dimension(900, 320));
+    return panel;
+  }
+
+  private VehicleItem createVehicleItem(VehicleDTO vehicle, PreviewPanel previewPanel) {
+    VehicleItem item =
+        new VehicleItem(vehicle) {
+          public void itemMousePressed(MouseEvent evt) {
+            preview(this, previewPanel);
+            this.setBackground(new Color(50, 53, 58));
+          }
+        };
+    return item;
+  }
+
+  private JPanel createGapPanel() {
+    JPanel gapPanel = new JPanel();
+    gapPanel.setPreferredSize(new Dimension(225, 300));
+    return gapPanel;
   }
 
   void preview(VehicleItem vi, PreviewPanel previewPanel) {
@@ -122,6 +127,7 @@ public class VehiclePanelController {
     }
     oldItem = vi;
     VehicleDTO v = oldItem.getVehicle();
+    previewPanel.setId(v.getVehicleID());
     previewPanel.setImg(v.getImagePath());
     previewPanel.setMake(v.getMake());
     previewPanel.setModel(v.getModel());

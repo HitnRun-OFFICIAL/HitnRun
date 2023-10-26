@@ -138,7 +138,7 @@ class BasePanel extends JPanel {
             }
           },
           "profile");
-      baseContent.add(new VehiclePanel(), "vehicle");
+      baseContent.add(new VehiclePanel(parent), "vehicle");
       baseContent.add(new ContactPanel(), "contact");
       baseContent.add(new AboutPanel(), "about");
       topBar.setButtons(

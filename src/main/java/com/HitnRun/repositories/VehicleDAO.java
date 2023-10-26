@@ -75,17 +75,37 @@ public class VehicleDAO {
   }
 
   // Read all Vehicles
-  public List<VehicleDTO> readAllVehicles() throws DatabaseOperationException {
+  public List<VehicleDTO> readAllVehicles(String model, String make)
+      throws DatabaseOperationException {
     List<VehicleDTO> vehicles = new ArrayList<>();
-    String sql = "SELECT * FROM Vehicles";
-    try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        ResultSet resultSet = preparedStatement.executeQuery()) {
+    String sql = "SELECT * FROM Vehicles WHERE 1=1";
+
+    if (model != null && !model.isEmpty() && !model.toLowerCase().equals("model")) {
+      sql += " AND Model = ?";
+    }
+
+    if (make != null && !make.isEmpty() && !make.toLowerCase().equals("make")) {
+      sql += " AND Make = ?";
+    }
+
+    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+      int parameterIndex = 1;
+      if (model != null && !model.isEmpty() && !model.toLowerCase().equals("model")) {
+        preparedStatement.setString(parameterIndex++, model);
+      }
+      if (make != null && !make.isEmpty() && !make.toLowerCase().equals("make")) {
+        preparedStatement.setString(parameterIndex, make);
+      }
+
+      ResultSet resultSet = preparedStatement.executeQuery();
+
       while (resultSet.next()) {
         vehicles.add(mapResultSetToVehicle(resultSet));
       }
     } catch (SQLException e) {
       throw new DatabaseOperationException("Error while reading vehicles.", e);
     }
+
     return vehicles;
   }
 

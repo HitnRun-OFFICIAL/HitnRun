@@ -1,14 +1,26 @@
 package com.HitnRun.views;
 
+import com.HitnRun.controllers.RentalController;
+import com.HitnRun.models.RentalDTO;
+import com.HitnRun.utils.Authenticator;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.LayoutStyle;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerModel;
 import javax.swing.SwingConstants;
 
 public class PreviewPanel extends JPanel {
+  private JFrame parent;
   private JLabel color;
   private JLabel colorLbl;
   private JLabel description;
@@ -24,14 +36,20 @@ public class PreviewPanel extends JPanel {
   private JLabel modelLbl;
   private JLabel year;
   private JLabel yearLbl;
-  private JLabel rentBtn;
+  private Button rentBtn;
   private JPanel jPanel3;
+  private int id;
+  private double rentFee;
+  private RentalController rentalController;
 
-  PreviewPanel() {
+  PreviewPanel(JFrame parent) {
+    this.parent = parent;
     initComponents();
   }
 
   private void initComponents() {
+    id = 0;
+    rentFee = 0;
     img = new JLabel();
     makeLbl = new JLabel();
     make = new JLabel();
@@ -47,7 +65,36 @@ public class PreviewPanel extends JPanel {
     rent = new JLabel();
     ratingLbl = new JLabel();
     rating = new JLabel();
-    rentBtn = new JLabel();
+    rentalController = new RentalController();
+    rentBtn =
+        new Button("RENT") {
+          public void btnMousePressed(MouseEvent evt) {
+            JPanel panel = new JPanel();
+
+            SpinnerModel startDateModel =
+                new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH);
+            SpinnerModel endDateModel =
+                new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH);
+            JSpinner startDateSpinner = new JSpinner(startDateModel);
+            JSpinner endDateSpinner = new JSpinner(endDateModel);
+
+            panel.add(startDateSpinner);
+            panel.add(endDateSpinner);
+
+            int result =
+                JOptionPane.showConfirmDialog(
+                    parent, panel, "Select Date Range", JOptionPane.OK_CANCEL_OPTION);
+
+            if (result == JOptionPane.OK_OPTION) {
+              java.sql.Date startDate = (java.sql.Date) startDateSpinner.getValue();
+              java.sql.Date endDate = (java.sql.Date) endDateSpinner.getValue();
+
+              rentalController.rent(
+                  new RentalDTO(
+                      Authenticator.getProfile().getCustomerID(), id, startDate, endDate, rentFee));
+            }
+          }
+        };
     jPanel3 = new JPanel();
 
     jPanel3.setBackground(new java.awt.Color(50, 53, 58));
@@ -102,11 +149,6 @@ public class PreviewPanel extends JPanel {
     description.setFont(new java.awt.Font("Cascadia Code", 0, 15));
     description.setHorizontalAlignment(SwingConstants.TRAILING);
 
-    rentBtn.setBackground(new java.awt.Color(102, 102, 255));
-    rentBtn.setForeground(new java.awt.Color(255, 255, 255));
-    rentBtn.setHorizontalAlignment(SwingConstants.CENTER);
-    rentBtn.setText("RENT");
-    rentBtn.setOpaque(true);
     GroupLayout jPanel3Layout = new GroupLayout(jPanel3);
     jPanel3.setLayout(jPanel3Layout);
     jPanel3Layout.setHorizontalGroup(
@@ -318,6 +360,10 @@ public class PreviewPanel extends JPanel {
                     .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
   }
 
+  public void setId(int id) {
+    this.id = id;
+  }
+
   public void setColor(String color) {
     this.color.setText(color);
   }
@@ -331,6 +377,7 @@ public class PreviewPanel extends JPanel {
   }
 
   public void setRent(double rent) {
+    rentFee = rent;
     this.rent.setText(String.valueOf(rent));
   }
 
