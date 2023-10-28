@@ -13,10 +13,12 @@ import java.util.List;
 public class CustomerDAO {
   private Connection connection;
 
+  // Constructor to initialize the DAO with a database connection
   public CustomerDAO(Connection connection) {
     this.connection = connection;
   }
 
+  // Generate a new customer ID for inserting a new customer into the database
   public int generateCustomerID() throws DatabaseOperationException {
     String sql = "SELECT MAX(CustomerID) FROM Customers";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -31,6 +33,7 @@ public class CustomerDAO {
     }
   }
 
+  // Create a new customer in the database
   public void createCustomer(CustomerDTO customer) throws DatabaseOperationException {
     String sql =
         "INSERT INTO Customers (CustomerID, FirstName, LastName, Email, Phone, Username,"

@@ -24,6 +24,7 @@ public class VehiclePanel extends JPanel {
   private GridLayout gridLayout;
   private VehiclePanelController vehiclePanelController;
 
+  //constructor  
   public VehiclePanel(JFrame parent) {
     this.parent = parent;
     initComponents();
@@ -31,7 +32,7 @@ public class VehiclePanel extends JPanel {
   }
 
   private void initComponents() {
-
+    // Initialize the components of the GUI.
     jPanel1 = new PreviewPanel(parent);
     jPanel2 = new JPanel();
     modelCombo = new JComboBox<>();

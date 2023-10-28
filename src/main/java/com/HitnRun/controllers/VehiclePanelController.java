@@ -20,6 +20,7 @@ import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JPanel;
 
 public class VehiclePanelController {
+  // Variables to manage database connection and vehicle data
   private Connection connection;
   private VehicleDAO vehicleDAO;
   private List<VehicleDTO> vehicles;
@@ -27,26 +28,28 @@ public class VehiclePanelController {
   private List<String> makes;
   private VehicleItem oldItem;
 
+  // Constructor to initialize the database connection and create the controller
   public VehiclePanelController() {
-    connection = HSQLDBConnector.getConnection();
-    vehicleDAO = new VehicleDAO(connection);
-    vehicles = new ArrayList<VehicleDTO>();
+    connection = HSQLDBConnector.getConnection(); // Get connection
+    vehicleDAO = new VehicleDAO(connection); // Intialize class instance
+    vehicles = new ArrayList<VehicleDTO>(); // Initialize an empty list for vehicle data
   }
 
   public List<VehicleDTO> getVehicles(String Model, String Make) {
     try {
-      vehicles = vehicleDAO.readAllVehicles(Model, Make);
+      vehicles = vehicleDAO.readAllVehicles(Model, Make); // Read all vehicles from the database
     } catch (DatabaseOperationException e) {
       e.printStackTrace();
     }
-    return vehicles;
+    return vehicles; // Return the list of vehicles
   }
 
+  // Method to retrieve an array of vehicle models
   public String[] getModels() {
     try {
       models = new ArrayList<>();
-      models.add("Model");
-      models.addAll(vehicleDAO.readVehicleModel());
+      models.add("Model"); //Add placeholder value
+      models.addAll(vehicleDAO.readVehicleModel()); // Retrieve Vehicle models from database
 
       return (String[]) Arrays.copyOf(models.toArray(), models.size(), String[].class);
 
@@ -56,11 +59,12 @@ public class VehiclePanelController {
     return null;
   }
 
+  // Method to retrieve an array of vehicle makes
   public String[] getMakes() {
     try {
       makes = new ArrayList<>();
-      makes.add("Make");
-      makes.addAll(vehicleDAO.readVehicleMake());
+      makes.add("Make"); // Placeholder value
+      makes.addAll(vehicleDAO.readVehicleMake());// Retrieve vehicle makes from the database
 
       return (String[]) Arrays.copyOf(makes.toArray(), makes.size(), String[].class);
 
@@ -70,6 +74,7 @@ public class VehiclePanelController {
     return null;
   }
 
+  // Method to display vehicle items in a panel
   public void viewItems(
       JPanel itemPanel,
       GridLayout gridLayout,
@@ -124,11 +129,13 @@ public class VehiclePanelController {
   }
 
   void preview(VehicleItem vi, PreviewPanel previewPanel) {
+    // Check if there is an oldItem selected and if it's not the same as the current selection.
     if (oldItem != vi && oldItem != null) {
-      oldItem.setBackground(new Color(30, 33, 38));
+      oldItem.setBackground(new Color(30, 33, 38));  // Set the background color of the old item
     }
-    oldItem = vi;
+    oldItem = vi; //update the old item
     VehicleDTO v = oldItem.getVehicle();
+    //Preview updates
     previewPanel.setId(v.getVehicleID());
     previewPanel.setImg(v.getImagePath());
     previewPanel.setMake(v.getMake());

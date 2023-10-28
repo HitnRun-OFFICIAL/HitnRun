@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.kordamp.ikonli.swing.FontIcon;
 
+// Define a class named BasePanel that extends JPanel.
 class BasePanel extends JPanel {
   private JFrame parent;
   private JPanel baseContent;
@@ -29,18 +30,21 @@ class BasePanel extends JPanel {
   private TopBar topBar;
   private CardLayout basePanelCardLayout;
 
+  // Constructor for BasePanel.
   BasePanel(JFrame parent) {
     this.parent = parent;
     initComponents();
     checkAuth();
   }
 
+  // Initialize components in the BasePanel.
   void initComponents() {
     topBar = new TopBar(parent);
     baseContent = new JPanel();
 
     basePanelCardLayout = new CardLayout();
 
+    // Create TopBarButton instances for navigation, each with an associated action.
     logoutLbl =
         new TopBarButton("logout", FontIcon.of(MaterialDesign.MDI_LOGIN, 32, Color.WHITE)) {
           void lblMousePressed(MouseEvent evt) {
@@ -75,6 +79,7 @@ class BasePanel extends JPanel {
           }
         };
 
+    // Set the background, cursor, and dimensions of the BasePanel and its components.
     setBackground(new Color(40, 43, 48));
     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     setMaximumSize(new Dimension(1280, 768));
@@ -126,6 +131,7 @@ class BasePanel extends JPanel {
                         GroupLayout.PREFERRED_SIZE)));
   }
 
+  // Check user authentication and update the UI accordingly.
   public final void checkAuth() {
     if (Authenticator.getProfile().getUsername() == null) {
       topBar.setButtons(new ArrayList<TopBarButton>());
@@ -150,14 +156,17 @@ class BasePanel extends JPanel {
   }
 }
 /** @author 5H4D0W */
+// Define a class named BaseFrame that extends JFrame.
 public class BaseFrame extends JFrame {
 
   private JPanel basePanel;
 
+  // Constructor for BaseFrame.
   public BaseFrame() {
     initComponents();
   }
 
+  // Initialize components in the BaseFrame.
   private void initComponents() {
 
     basePanel = new BasePanel(this);
@@ -177,6 +186,7 @@ public class BaseFrame extends JFrame {
     pack();
   }
 
+  // Main method to launch the application.
   public static void main(String args[]) {
     FlatDarkLaf.setup();
     EventQueue.invokeLater(

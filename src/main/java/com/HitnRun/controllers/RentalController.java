@@ -11,6 +11,8 @@ public class RentalController {
   private RentalDTO rental;
   private Connection connection;
 
+  // constructor to initializes the database connection and rental data access object.
+    public RentalController() {
   public RentalController() {
     this.connection = HSQLDBConnector.getConnection();
     rentalDAO = new RentalDAO(connection);
@@ -18,7 +20,7 @@ public class RentalController {
 
   public void rent(RentalDTO rental) {
     try {
-      rentalDAO.createRental(rental);
+      rentalDAO.createRental(rental); //Add records
     } catch (DatabaseOperationException e) {
       e.printStackTrace();
     }
