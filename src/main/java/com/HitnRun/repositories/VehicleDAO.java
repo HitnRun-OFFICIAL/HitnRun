@@ -16,7 +16,7 @@ public class VehicleDAO {
   public VehicleDAO(Connection connection) {
     this.connection = connection;
   }
-  //Generate VehicleID by getting max and increasing it by 1
+  // Generate VehicleID by getting max and increasing it by 1
   public int generateVehicleID() throws DatabaseOperationException {
     String sql = "SELECT MAX(VehicleID) FROM Vehicles";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -31,7 +31,7 @@ public class VehicleDAO {
     }
   }
 
-  //Create a NEw vehicle in database
+  // Create a NEw vehicle in database
   public void createVehicle(VehicleDTO vehicle) throws DatabaseOperationException {
     String sql =
         "INSERT INTO Vehicles (VehicleID, Make, Model, Year, LicensePlate, Description,"

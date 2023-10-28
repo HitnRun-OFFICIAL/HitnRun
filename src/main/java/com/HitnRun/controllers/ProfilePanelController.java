@@ -24,7 +24,7 @@ public class ProfilePanelController {
   private VehicleDAO vehicleDAO;
   private VehicleDTO vehicle;
   private Connection connection;
-  //Custructor to initialize the controller and database connections
+  // Custructor to initialize the controller and database connections
   public ProfilePanelController() {
     this.connection = HSQLDBConnector.getConnection();
     rentalDAO = new RentalDAO(connection);

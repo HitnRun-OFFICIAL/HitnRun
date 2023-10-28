@@ -41,7 +41,7 @@ public class ProfilePanel extends javax.swing.JPanel {
   private CustomerDTO profile;
   private ProfilePanelController profilePanelController;
 
-//Constructor
+  // Constructor
   public ProfilePanel(JFrame parent) {
     this.parent = parent;
     initComponents();
@@ -50,7 +50,7 @@ public class ProfilePanel extends javax.swing.JPanel {
   }
 
   private void initComponents() {
-    //Initialize the components of the GUI.
+    // Initialize the components of the GUI.
     jLabel1 = new javax.swing.JLabel();
     jLabel2 = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
@@ -524,14 +524,14 @@ public class ProfilePanel extends javax.swing.JPanel {
   }
 
   private void updateBtnMouseExited(java.awt.event.MouseEvent evt) {
-     // Reset the background color when the mouse exits the "Update" button.
+    // Reset the background color when the mouse exits the "Update" button.
     updateBtn.setBackground(new Color(115, 132, 219));
   }
 
-/*
-    It retrieves user profile information, updates it with new values from input fields,
-    and then attempts to update the profile using the profilePanelController.
-*/
+  /*
+      It retrieves user profile information, updates it with new values from input fields,
+      and then attempts to update the profile using the profilePanelController.
+  */
   private void updateBtnMousePressed(java.awt.event.MouseEvent evt) {
     profile = Authenticator.getProfile();
     profile.setFirstName(firstname.getText());
@@ -552,12 +552,12 @@ public class ProfilePanel extends javax.swing.JPanel {
   }
 
   private void deleteBtnMouseMoved(java.awt.event.MouseEvent evt) {
-     // Change the background color when the mouse is over the "Delete" button.
+    // Change the background color when the mouse is over the "Delete" button.
     deleteBtn.setBackground(new java.awt.Color(255, 67, 57));
   }
 
   private void deleteBtnMouseExited(java.awt.event.MouseEvent evt) {
-      // Reset the background color when the mouse exits the "Delete" button.
+    // Reset the background color when the mouse exits the "Delete" button.
     deleteBtn.setBackground(new java.awt.Color(255, 51, 51));
   }
 
@@ -569,11 +569,11 @@ public class ProfilePanel extends javax.swing.JPanel {
     changeView();
   }
 
-    // This method might be used to change the view but is currently empty.
+  // This method might be used to change the view but is currently empty.
   public void changeView() {};
 
-    // Load and display the user's profile information in input fields.
-    // If the profile information is not available, placeholders are used.
+  // Load and display the user's profile information in input fields.
+  // If the profile information is not available, placeholders are used.
   public void viewProfile() {
     CustomerDTO profile = Authenticator.getProfile();
     if (profile.getUsername() == null) {
@@ -592,9 +592,9 @@ public class ProfilePanel extends javax.swing.JPanel {
       password.setText("********");
     }
   }
-// Fetch a list of rental items using profilePanelController and display them.
-    // It adds instances of "HistoryItem" to the "itemView" for each rental item.
-    // The layout is adjusted using the "gridLayout."
+  // Fetch a list of rental items using profilePanelController and display them.
+  // It adds instances of "HistoryItem" to the "itemView" for each rental item.
+  // The layout is adjusted using the "gridLayout."
   private void viewItems() {
     List<RentalDTO> list = profilePanelController.getRentals();
     for (RentalDTO rental : list) {

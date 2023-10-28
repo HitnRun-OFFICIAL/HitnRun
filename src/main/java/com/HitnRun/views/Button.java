@@ -24,7 +24,7 @@ public class Button extends JLabel {
     initComponents();
   }
 
-  //Initialize the button's components, set properties, and add event listeners.
+  // Initialize the button's components, set properties, and add event listeners.
   void initComponents() {
     setBackground(bg);
     setFont(new java.awt.Font("Cascadia Code", 0, 18));
@@ -51,13 +51,13 @@ public class Button extends JLabel {
           }
         });
   }
-  //Handle the mouse movement event by changing the button's background color.
+  // Handle the mouse movement event by changing the button's background color.
   public void btnMouseMoved(MouseEvent evt) {
     setBackground(
         new Color((bg.getRed() + 10) % 256, (bg.getGreen() + 10) % 256, (bg.getBlue() + 10) % 256));
   }
 
-  //Handle the mouse exit event by restoring the button's background color.
+  // Handle the mouse exit event by restoring the button's background color.
   public void btnMouseExited(MouseEvent evt) {
     setBackground(bg);
   }

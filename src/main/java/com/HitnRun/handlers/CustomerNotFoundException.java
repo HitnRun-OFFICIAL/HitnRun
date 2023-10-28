@@ -1,6 +1,6 @@
 package com.HitnRun.handlers;
 
-//Dions comments
+// Dions comments
 // Define a custom exception class called "CustomerNotFoundException" that extends the built-in
 // "Exception" class.
 public class CustomerNotFoundException extends Exception {

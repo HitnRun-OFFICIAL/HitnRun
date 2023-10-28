@@ -24,7 +24,7 @@ public class VehiclePanel extends JPanel {
   private GridLayout gridLayout;
   private VehiclePanelController vehiclePanelController;
 
-  //constructor  
+  // constructor
   public VehiclePanel(JFrame parent) {
     this.parent = parent;
     initComponents();

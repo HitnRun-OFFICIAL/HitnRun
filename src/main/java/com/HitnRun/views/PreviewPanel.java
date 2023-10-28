@@ -42,17 +42,17 @@ public class PreviewPanel extends JPanel {
   private double rentFee;
   private RentalController rentalController;
 
-//constructor
+  // constructor
   PreviewPanel(JFrame parent) {
     this.parent = parent;
     initComponents();
   }
 
-// Initialize login components
+  // Initialize login components
   private void initComponents() {
     id = 0;
     rentFee = 0;
-     // Create JLabels and other UI components.
+    // Create JLabels and other UI components.
     img = new JLabel();
     makeLbl = new JLabel();
     make = new JLabel();
@@ -93,10 +93,12 @@ public class PreviewPanel extends JPanel {
                     parent, panel, "Select Date Range", JOptionPane.OK_CANCEL_OPTION);
 
             if (result == JOptionPane.OK_OPTION) {
-              java.sql.Date startDate = (java.sql.Date) startDateSpinner.getValue();
-              java.sql.Date endDate = (java.sql.Date) endDateSpinner.getValue();
+              java.sql.Date startDate =
+                  new java.sql.Date(((Date) startDateSpinner.getValue()).getTime());
+              java.sql.Date endDate =
+                  new java.sql.Date(((Date) endDateSpinner.getValue()).getTime());
 
-            // Perform the rental operation by calling the rentalController.
+              // Perform the rental operation by calling the rentalController.
               rentalController.rent(
                   new RentalDTO(
                       Authenticator.getProfile().getCustomerID(), id, startDate, endDate, rentFee));
@@ -373,7 +375,7 @@ public class PreviewPanel extends JPanel {
                     .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
   }
 
-    //Setters 
+  // Setters
   public void setId(int id) {
     this.id = id;
   }

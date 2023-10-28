@@ -18,7 +18,9 @@ class VehicleDAOTest {
 
   @BeforeAll
   void setUp() {
-    vehicleDAO = new VehicleDAO(HSQLDBConnector.getTestConnection());// Get a test connection from the HSQLDBConnector
+    vehicleDAO =
+        new VehicleDAO(
+            HSQLDBConnector.getTestConnection()); // Get a test connection from the HSQLDBConnector
 
     // Create a test vehicle to be used in various test methods
     vehicle = new VehicleDTO("test", "test", 1000, "test", "test", "test", 5, 69.0, "path");

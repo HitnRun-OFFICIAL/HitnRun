@@ -12,6 +12,9 @@ public class MaintenanceNotFoundException extends Exception {
   // Constructor for creating an instance of MaintenanceNotFoundException with a custom error
   // message and a Throwable (exception) that caused it.
   public MaintenanceNotFoundException(String message, Throwable cause) {
-    super(message, cause);// Call the constructor of the parent class (Exception) with the given message and cause.
+    super(
+        message,
+        cause); // Call the constructor of the parent class (Exception) with the given message and
+    // cause.
   }
 }

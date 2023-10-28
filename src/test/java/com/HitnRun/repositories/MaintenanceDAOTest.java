@@ -23,7 +23,8 @@ class MaintenanceDAOTest {
 
   @BeforeAll
   void setUp() {
-    Connection connection = HSQLDBConnector.getTestConnection();// Get a test connection from the HSQLDBConnector
+    Connection connection =
+        HSQLDBConnector.getTestConnection(); // Get a test connection from the HSQLDBConnector
 
     try {
       vehicleDAO = new VehicleDAO(connection);

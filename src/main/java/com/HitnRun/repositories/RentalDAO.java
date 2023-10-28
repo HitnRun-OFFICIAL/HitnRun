@@ -17,7 +17,7 @@ public class RentalDAO {
     this.connection = connection;
   }
 
-  //Generate RentalID by getting max and increasing it by 1
+  // Generate RentalID by getting max and increasing it by 1
   public int generateRentalID() throws DatabaseOperationException {
     String sql = "SELECT MAX(RentalID) FROM Rental";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

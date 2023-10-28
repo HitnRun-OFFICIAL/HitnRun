@@ -9,7 +9,7 @@ public class CustomerDTO {
   private String email;
   private String phone;
   private String username;
-  private String password; 
+  private String password;
 
   // Default constructor for CustomerDTO.
   public CustomerDTO() {

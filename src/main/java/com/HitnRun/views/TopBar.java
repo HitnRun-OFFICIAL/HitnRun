@@ -24,14 +24,14 @@ class TopBar extends JPanel {
   private TopBarButton closeLbl;
   private JFrame parent;
 
-  //Constructor
+  // Constructor
   TopBar(JFrame parent) {
     this.parent = parent;
     initComponents();
   }
 
   void initComponents() {
-    //Set the Top Bar
+    // Set the Top Bar
     compCoord = null;
     labels = new ArrayList<TopBarButton>();
 

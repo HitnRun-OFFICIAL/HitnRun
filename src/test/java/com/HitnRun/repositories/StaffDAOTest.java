@@ -19,7 +19,9 @@ class StaffDAOTest {
 
   @BeforeAll
   void setUp() {
-    staffDAO = new StaffDAO(HSQLDBConnector.getTestConnection());// Get a test connection from the HSQLDBConnector
+    staffDAO =
+        new StaffDAO(
+            HSQLDBConnector.getTestConnection()); // Get a test connection from the HSQLDBConnector
 
     // Create a test staff member to be used in various test methods
     staff = new StaffDTO("test", "test", "test", "test", "test", "test", "test");

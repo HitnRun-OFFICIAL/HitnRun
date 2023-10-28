@@ -65,7 +65,7 @@ public class HistoryItem extends javax.swing.JPanel {
     setMinimumSize(new java.awt.Dimension(900, 265));
     setPreferredSize(new java.awt.Dimension(900, 265));
 
-    //Vehicle Image dimensions
+    // Vehicle Image dimensions
     vehicleImg.setMaximumSize(new java.awt.Dimension(265, 265));
     vehicleImg.setMinimumSize(new java.awt.Dimension(265, 265));
     vehicleImg.setPreferredSize(new java.awt.Dimension(265, 265));
@@ -271,9 +271,9 @@ public class HistoryItem extends javax.swing.JPanel {
 
   // Populate the panel with data from a RentalDTO object
   public void viewItem() {
-     // Get a list of rental records associated with the user's profile.
+    // Get a list of rental records associated with the user's profile.
     List<RentalDTO> rentals = profilePanelController.getRentals();
-    //Iteration to display all details
+    // Iteration to display all details
     for (RentalDTO rental : rentals) {
       VehicleDTO vehicle = profilePanelController.getVehicle(rental.getVehicleID());
       vehicleImg.setIcon(

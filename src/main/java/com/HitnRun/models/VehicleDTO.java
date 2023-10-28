@@ -17,7 +17,7 @@ public class VehicleDTO {
     // Default constructor
   }
 
-//Parameterized constructor
+  // Parameterized constructor
   public VehicleDTO(
       String make,
       String model,
@@ -39,7 +39,7 @@ public class VehicleDTO {
     this.imagePath = imagePath;
   }
 
-//Getters and setters
+  // Getters and setters
   public int getVehicleID() {
     return this.vehicleID;
   }

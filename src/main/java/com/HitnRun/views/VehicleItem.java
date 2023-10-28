@@ -17,7 +17,7 @@ public class VehicleItem extends javax.swing.JPanel {
   private javax.swing.JLabel year;
   private VehicleDTO vehicle;
 
-    //Constructor
+  // Constructor
   public VehicleItem(VehicleDTO vehicle) {
     this.vehicle = vehicle;
     initComponents();
@@ -186,15 +186,15 @@ public class VehicleItem extends javax.swing.JPanel {
                         Short.MAX_VALUE)));
   }
 
-  //Mouse Pressed Event  
+  // Mouse Pressed Event
   public void itemMousePressed(MouseEvent evt) {}
 
-  //Marks the vehicle as unavailable by setting the visibility of the status label.
+  // Marks the vehicle as unavailable by setting the visibility of the status label.
   public void markUnavailable(boolean visible) {
     status.setVisible(visible);
   }
 
-  //Getter
+  // Getter
   public VehicleDTO getVehicle() {
     return vehicle;
   }
