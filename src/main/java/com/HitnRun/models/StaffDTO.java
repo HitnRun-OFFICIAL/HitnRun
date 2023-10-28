@@ -1,5 +1,6 @@
 package com.HitnRun.models;
 
+// This class represents a Data Transfer Object (DTO) for storing staff information.
 public class StaffDTO {
 
   private int staffID;
@@ -11,10 +12,12 @@ public class StaffDTO {
   private String userName;
   private String password;
 
+  // Default constructor for StaffDTO.
   public StaffDTO() {
     // default constructor
   }
 
+  // Parameterized constructor for StaffDTO.
   public StaffDTO(
       String firstName,
       String lastName,
@@ -23,6 +26,7 @@ public class StaffDTO {
       String phone,
       String userName,
       String password) {
+    // Initialize a StaffDTO object with provided values.
     this.firstName = firstName;
     this.lastName = lastName;
     this.position = position;
@@ -32,6 +36,7 @@ public class StaffDTO {
     this.password = password;
   }
 
+  // Getter and setter methods for the private fields.
   public int getStaffID() {
     return this.staffID;
   }

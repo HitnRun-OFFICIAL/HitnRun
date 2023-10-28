@@ -2,8 +2,9 @@ package com.HitnRun.models;
 
 import java.sql.Date;
 
+// This class represents a Data Transfer Object (DTO) for storing rental information.
 public class RentalDTO {
-
+  // Fields to represent rental information
   private int rentalID;
   private int customerID;
   private int vehicleID;
@@ -11,12 +12,15 @@ public class RentalDTO {
   private Date returnDate;
   private double rentalFee;
 
+  // Default constructor for RentalDTO
   public RentalDTO() {
     // Default constructor
   }
 
+  // Parameterized constructor for RentalDTO
   public RentalDTO(
       int customerID, int vehicleID, Date rentalDate, Date returnDate, double rentalFee) {
+    // Initialize the RentalDTO with provided values.
     this.customerID = customerID;
     this.vehicleID = vehicleID;
     this.rentalDate = rentalDate;
@@ -24,6 +28,7 @@ public class RentalDTO {
     this.rentalFee = rentalFee;
   }
 
+  // Getter and setter methods for the private fields.
   public int getRentalID() {
     return rentalID;
   }

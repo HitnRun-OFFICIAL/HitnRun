@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 
 public class HistoryItem extends javax.swing.JPanel {
 
+  // Declare private class member variables
   private javax.swing.JLabel color;
   private javax.swing.JLabel description;
   private javax.swing.JLabel fee;
@@ -27,13 +28,18 @@ public class HistoryItem extends javax.swing.JPanel {
   private RentalDTO rental;
   private ProfilePanelController profilePanelController;
 
+  // Constructor for the HistoryItem class, taking a RentalDTO object as a parameter
   public HistoryItem(RentalDTO rental) {
     this.rental = rental;
     initComponents();
     viewItem();
   }
 
+  // Initialize the graphical components of the panel
   private void initComponents() {
+    // Component initialization for various labels, text fields, and panels.
+    // (Font, colors, and dimensions are set for labels and text fields)
+    // (Layout configuration is set in GroupLayout)
 
     vehicleImg = new javax.swing.JLabel();
     jLabel3 = new javax.swing.JLabel();
@@ -50,13 +56,16 @@ public class HistoryItem extends javax.swing.JPanel {
     jLabel13 = new javax.swing.JLabel();
     rentedOn = new javax.swing.JLabel();
     jLabel14 = new javax.swing.JLabel();
+    // Create a ProfilePanelController instance
     profilePanelController = new ProfilePanelController();
 
+    // Set background color and preferred size of the panel
     setBackground(new java.awt.Color(35, 35, 35));
     setMaximumSize(new java.awt.Dimension(900, 265));
     setMinimumSize(new java.awt.Dimension(900, 265));
     setPreferredSize(new java.awt.Dimension(900, 265));
 
+    //Vehicle Image dimensions
     vehicleImg.setMaximumSize(new java.awt.Dimension(265, 265));
     vehicleImg.setMinimumSize(new java.awt.Dimension(265, 265));
     vehicleImg.setPreferredSize(new java.awt.Dimension(265, 265));
@@ -260,8 +269,11 @@ public class HistoryItem extends javax.swing.JPanel {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
   }
 
+  // Populate the panel with data from a RentalDTO object
   public void viewItem() {
+     // Get a list of rental records associated with the user's profile.
     List<RentalDTO> rentals = profilePanelController.getRentals();
+    //Iteration to display all details
     for (RentalDTO rental : rentals) {
       VehicleDTO vehicle = profilePanelController.getVehicle(rental.getVehicleID());
       vehicleImg.setIcon(

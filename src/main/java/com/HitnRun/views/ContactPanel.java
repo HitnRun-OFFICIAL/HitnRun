@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import org.kordamp.ikonli.materialdesign.MaterialDesign;
 import org.kordamp.ikonli.swing.FontIcon;
 
+// Define a class called ContactPanel that extends JPanel
 public class ContactPanel extends JPanel {
   private JLabel contactusLbl;
   private JLabel emailIcon;
@@ -27,13 +28,18 @@ public class ContactPanel extends JPanel {
   private JLabel callIcon;
   private ContactPanelController contactPanelController;
 
+  // Constructor for the ContactPanel class
   ContactPanel() {
+    // Initialize the components and view the staff table
     initComponents();
     viewTable();
   }
 
+  // Initialize the GUI components
   void initComponents() {
+    // Create an instance of the ContactPanelController
     contactPanelController = new ContactPanelController();
+    // Create and configure various JLabels, fonts, and colors
     staffInfoLbl = new JLabel();
     emailLbl = new JLabel();
     mobileLbl = new JLabel();
@@ -50,6 +56,7 @@ public class ContactPanel extends JPanel {
     setMaximumSize(new java.awt.Dimension(1280, 768));
     setPreferredSize(new java.awt.Dimension(1280, 728));
 
+    // Set fonts and colors for various labels
     staffInfoLbl.setFont(new java.awt.Font("Cascadia Code", 1, 24));
     staffInfoLbl.setForeground(new java.awt.Color(255, 255, 255));
     staffInfoLbl.setText("Staff Information");
@@ -62,11 +69,14 @@ public class ContactPanel extends JPanel {
     mobileLbl.setForeground(new java.awt.Color(255, 255, 255));
     mobileLbl.setText("+94 77 123 4567");
 
+    // Set an icon and color for locationIcon
     locationIcon.setHorizontalAlignment(SwingConstants.CENTER);
     locationIcon.setIcon(FontIcon.of(MaterialDesign.MDI_MAP_MARKER, 32, Color.WHITE));
 
+    // Set an icon and color for emailIcon
     emailIcon.setIcon(FontIcon.of(MaterialDesign.MDI_EMAIL, 32, Color.WHITE));
 
+    // Set an icon and color for callIcon
     callIcon.setIcon(FontIcon.of(MaterialDesign.MDI_PHONE, 32, Color.WHITE));
 
     addr2Lbl.setFont(new java.awt.Font("Cascadia Code", 1, 18));
@@ -81,6 +91,7 @@ public class ContactPanel extends JPanel {
     addr1Lbl.setForeground(new java.awt.Color(255, 255, 255));
     addr1Lbl.setText("123A, Galle Road,");
 
+    // Create a table for displaying staff information
     staffTable.setModel(
         new DefaultTableModel(
             new Object[][] {
@@ -92,6 +103,7 @@ public class ContactPanel extends JPanel {
             new String[] {"Title 1", "Title 2", "Title 3", "Title 4"}));
     staffViewScroll.setViewportView(staffTable);
 
+    // Set up the layout for this JPanel using GroupLayout
     GroupLayout contactPanelLayout = new GroupLayout(this);
     setLayout(contactPanelLayout);
     contactPanelLayout.setHorizontalGroup(
@@ -191,8 +203,11 @@ public class ContactPanel extends JPanel {
                     .addContainerGap(38, Short.MAX_VALUE)));
   }
 
+  // Method to populate and display the staff information in the table
   private void viewTable() {
+    // Retrieve staff information from the controller
     Object[][] staffs = contactPanelController.getStaffs();
+    // Set the data and column names for the staff table
     staffTable.setModel(
         new DefaultTableModel(
             staffs, new String[] {"FirstName", "LastName", "Email", "Phone", "Position"}));

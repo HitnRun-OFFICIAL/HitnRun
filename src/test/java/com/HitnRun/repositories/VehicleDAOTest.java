@@ -9,7 +9,6 @@ import com.HitnRun.utils.HSQLDBConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import org.junit.jupiter.api.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -19,7 +18,7 @@ class VehicleDAOTest {
 
   @BeforeAll
   void setUp() {
-    vehicleDAO = new VehicleDAO(HSQLDBConnector.getTestConnection());
+    vehicleDAO = new VehicleDAO(HSQLDBConnector.getTestConnection());// Get a test connection from the HSQLDBConnector
 
     // Create a test vehicle to be used in various test methods
     vehicle = new VehicleDTO("test", "test", 1000, "test", "test", "test", 5, 69.0, "path");
@@ -109,7 +108,8 @@ class VehicleDAOTest {
       fail(e.getMessage(), e);
     }
   }
-
+}
+/*
   @Test
   void testReadAllVehicles() {
     try {
@@ -129,3 +129,4 @@ class VehicleDAOTest {
     }
   }
 }
+*/

@@ -6,11 +6,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PrepareTestDatabase {
+  // SQL commands for database and table creation
   private static final String CREATE_DATABASE = "CREATE DATABASE hitnruntest";
   private static final String USE_DATABASE = "USE hitnruntest";
   private static final String CREATE_TABLES =
       ""
-          + //
+          + // Create 'Customers' table
           "CREATE TABLE Customers ("
           + //
           "    CustomerID INT PRIMARY KEY,"
@@ -28,7 +29,7 @@ public class PrepareTestDatabase {
           "    Password VARCHAR(50)"
           + //
           ");"
-          + //
+          + // Create 'Vehicles' table
           "CREATE TABLE Vehicles ("
           + //
           "    VehicleID INT PRIMARY KEY,"
@@ -52,7 +53,7 @@ public class PrepareTestDatabase {
           "    ImagePath VARCHAR(255)"
           + //
           ");"
-          + //
+          + // Create 'Staff' table
           "CREATE TABLE Staff ("
           + //
           "    StaffID INT PRIMARY KEY,"
@@ -72,7 +73,7 @@ public class PrepareTestDatabase {
           "    Password VARCHAR(50),"
           + //
           ");"
-          + //
+          + // Create 'Rental' table
           "CREATE TABLE Rental ("
           + //
           "    RentalID INT PRIMARY KEY,"
@@ -92,7 +93,7 @@ public class PrepareTestDatabase {
           "    FOREIGN KEY (VehicleID) REFERENCES Vehicles(VehicleID)"
           + //
           ");"
-          + //
+          + // Create 'Maintenance' table
           "CREATE TABLE Maintenance ("
           + //
           "    MaintenanceID INT PRIMARY KEY,"

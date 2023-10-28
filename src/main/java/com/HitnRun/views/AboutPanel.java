@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 
 public class AboutPanel extends JPanel {
+  // Declare labels to display information
   private JLabel aboutUsLbl;
   private JLabel abt1Lbl;
   private JLabel abt2Lbl;
@@ -13,21 +14,25 @@ public class AboutPanel extends JPanel {
   private JLabel abt4Lbl;
 
   AboutPanel() {
+    // Initialize label objects
     aboutUsLbl = new JLabel();
     abt2Lbl = new JLabel();
     abt1Lbl = new JLabel();
     abt3Lbl = new JLabel();
     abt4Lbl = new JLabel();
 
+    // Set panel properties
     setBackground(new java.awt.Color(40, 43, 48));
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     setMaximumSize(new java.awt.Dimension(1280, 728));
     setMinimumSize(new java.awt.Dimension(1280, 728));
 
+    // Set properties for the "About Us" label
     aboutUsLbl.setFont(new java.awt.Font("Cascadia Code", 1, 36)); // NOI18N
     aboutUsLbl.setForeground(new java.awt.Color(255, 255, 255));
     aboutUsLbl.setText("About Us");
 
+    // Set properties for other information labels
     abt2Lbl.setFont(new java.awt.Font("Cascadia Code", 1, 18)); // NOI18N
     abt2Lbl.setForeground(new java.awt.Color(255, 255, 255));
     abt2Lbl.setText(
@@ -48,6 +53,7 @@ public class AboutPanel extends JPanel {
     abt4Lbl.setText(
         "to making your journey an unforgettable adventure, and we're ready to help you hit the road in style.");
 
+    // Create a GroupLayout for the panel to manage the layout
     GroupLayout aboutPanelLayout = new GroupLayout(this);
     setLayout(aboutPanelLayout);
     aboutPanelLayout.setHorizontalGroup(
