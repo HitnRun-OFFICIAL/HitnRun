@@ -116,7 +116,7 @@ class VehicleDAOTest {
       // Create vehicles or ensure there are existing vehicles in the database
 
       // Read all vehicles
-      List<VehicleDTO> vehicles = vehicleDAO.readAllVehicles();
+      List<VehicleDTO> vehicles = vehicleDAO.readAllVehicles("model", "make");
       assertNotNull(vehicles);
 
       // Iterate through the vehicles and make assertions
