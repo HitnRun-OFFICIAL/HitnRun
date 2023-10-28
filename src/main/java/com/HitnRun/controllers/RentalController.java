@@ -12,7 +12,6 @@ public class RentalController {
   private Connection connection;
 
   // constructor to initializes the database connection and rental data access object.
-    public RentalController() {
   public RentalController() {
     this.connection = HSQLDBConnector.getConnection();
     rentalDAO = new RentalDAO(connection);

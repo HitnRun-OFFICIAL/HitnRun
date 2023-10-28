@@ -9,16 +9,5 @@ public class HitnRun {
     FlatDarkFlatIJTheme.setup();
     // Launch the main application window.
     BaseFrame.main(args);
-
-    // Uncomment and modify it if you need to connect to a database and handle exceptions.
-    /*
-    try (Connection connection = MSSQLJDBConnector.getConnection()) {
-         System.out.println("Hello!!");
-       } catch (DatabaseException e) {
-         System.err.println("Database Exception: " + e.getMessage());
-       } catch (Exception e) {
-         e.printStackTrace();
-       }
-       */
   }
 }
