@@ -17,7 +17,7 @@ public class RentalController {
     this.connection = HSQLDBConnector.getConnection();
     rentalDAO = new RentalDAO(connection);
   }
-
+// Create a new rental record by adding it to the database
   public void rent(RentalDTO rental) {
     try {
       rentalDAO.createRental(rental); //Add records
