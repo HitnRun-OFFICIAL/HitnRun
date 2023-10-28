@@ -33,7 +33,7 @@ SET FILES NIO TRUE
 SET FILES NIO SIZE 256
 SET FILES LOG TRUE
 SET FILES LOG SIZE 50
-SET FILES CHECK 119
+SET FILES CHECK 164
 SET DATABASE COLLATION "SQL_TEXT" PAD SPACE
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
@@ -54,7 +54,6 @@ GRANT DBA TO SA
 SET SCHEMA SYSTEM_LOBS
 INSERT INTO BLOCKS VALUES(0,2147483647,0)
 SET SCHEMA PUBLIC
-INSERT INTO CUSTOMERS VALUES(101,'Saman','Perera','saman@example.com','+94 77 123 4567','saman','123')
 INSERT INTO CUSTOMERS VALUES(102,'Nimal','Fernando','nimal@example.com','+94 71 234 5678','nimal','123')
 INSERT INTO CUSTOMERS VALUES(103,'Kamal','Silva','kamal@example.com','+94 76 345 6789','kamal','123')
 INSERT INTO CUSTOMERS VALUES(104,'Priyantha','Gunasekara','priyantha@example.com','+94 77 987 6543','priyantha','123')
@@ -69,6 +68,7 @@ INSERT INTO CUSTOMERS VALUES(112,'Dinusha','Silva','dinusha@example.com','+94 76
 INSERT INTO CUSTOMERS VALUES(113,'Kusal','Rathnayake','kusal@example.com','+94 77 098 7654','kusal','123')
 INSERT INTO CUSTOMERS VALUES(114,'Anjali','Gunaratne','anjali@example.com','+94 71 987 6543','anjali','123')
 INSERT INTO CUSTOMERS VALUES(115,'Chathura','Fernando','chathura@example.com','+94 76 876 5432','chathura','123')
+INSERT INTO CUSTOMERS VALUES(116,'fname','lname','ex@example.com','0123456789','user','12345678')
 INSERT INTO VEHICLES VALUES(201,'Toyota','Corolla',2020,'WP AB 1234','Compact sedan','Red',4.50,2000.00,'/img/toyota_corolla.jpg')
 INSERT INTO VEHICLES VALUES(202,'Honda','Civic',2019,'WP CD 5678','Mid-size sedan','Blue',4.20,5000.00,'/img/honda_civic.jpg')
 INSERT INTO VEHICLES VALUES(203,'Suzuki','Swift',2021,'WP EF 9012','Hatchback','Red',4.00,3000.00,'/img/suzuki_swift.jpg')
@@ -99,7 +99,6 @@ INSERT INTO STAFF VALUES(312,'Kasun','Fernando','Manager','kasun@example.com','+
 INSERT INTO STAFF VALUES(313,'Isuru','Perera','Rental Agent','isuru@example.com','+94 77 765 4321','isuru_agent','agent_password')
 INSERT INTO STAFF VALUES(314,'Nadeeka','Wijesinghe','Maintenance Technician','nadeeka@example.com','+94 71 654 3210','nadeeka_maintenance','maintenance_password')
 INSERT INTO STAFF VALUES(315,'Chaminda','Gunasekara','Rental Agent','chaminda@example.com','+94 76 543 2109','chaminda_agent','agent_password')
-INSERT INTO RENTAL VALUES(401,101,201,'2023-10-01 09:00:00.000000','2023-10-05 11:00:00.000000',2500.00)
 INSERT INTO RENTAL VALUES(402,102,203,'2023-10-02 14:00:00.000000','2023-10-07 16:00:00.000000',3200.00)
 INSERT INTO RENTAL VALUES(403,103,202,'2023-10-03 10:00:00.000000','2023-10-06 13:00:00.000000',2800.00)
 INSERT INTO RENTAL VALUES(404,104,205,'2023-10-04 11:30:00.000000','2023-10-08 09:00:00.000000',1800.00)
