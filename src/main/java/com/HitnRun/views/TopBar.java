@@ -24,13 +24,14 @@ class TopBar extends JPanel {
   private TopBarButton closeLbl;
   private JFrame parent;
 
+  //Constructor
   TopBar(JFrame parent) {
     this.parent = parent;
     initComponents();
   }
 
   void initComponents() {
-
+    //Set the Top Bar
     compCoord = null;
     labels = new ArrayList<TopBarButton>();
 
@@ -133,10 +134,12 @@ class TopBar extends JPanel {
                     .addContainerGap()));
   }
 
+  // Called when the mouse button is released
   private void topBarMouseReleased(MouseEvent evt) {
     compCoord = null;
   }
 
+  // Variable to store the initial coordinates of the mouse click
   private void topBarMousePressed(MouseEvent evt) {
     compCoord = evt.getPoint();
   }

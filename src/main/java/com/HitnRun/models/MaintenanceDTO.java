@@ -2,25 +2,30 @@ package com.HitnRun.models;
 
 import java.sql.Date;
 
+// This class represents a Data Transfer Object (DTO) for storing maintenance information.
 public class MaintenanceDTO {
-
+  // Fields to store information about maintenance records
   private int maintenanceID;
   private int vehicleID;
   private Date maintenanceDate;
   private String description;
   private double cost;
 
+  // Default constructor
   public MaintenanceDTO() {
     // Default constructor
   }
 
+  // Parameterized constructor
   public MaintenanceDTO(int vehicleID, Date maintenanceDate, String description, double cost) {
+    // Initialize a new instance of MaintenanceDTO with provided values
     this.vehicleID = vehicleID;
     this.maintenanceDate = maintenanceDate;
     this.description = description;
     this.cost = cost;
   }
 
+  // Getter and setter methods for the private fields.
   public int getMaintenanceID() {
     return this.maintenanceID;
   }

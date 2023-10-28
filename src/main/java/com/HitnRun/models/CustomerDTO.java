@@ -1,5 +1,6 @@
 package com.HitnRun.models;
 
+// This class represents a Data Transfer Object (DTO) for storing customer information.
 public class CustomerDTO {
 
   private int customerID;
@@ -8,13 +9,14 @@ public class CustomerDTO {
   private String email;
   private String phone;
   private String username;
-  private String password; // Security Issue may need to change Data type
-  // Might need to implement a User Interface to make user accounts more managable
+  private String password; 
 
+  // Default constructor for CustomerDTO.
   public CustomerDTO() {
     // default constructor
   }
 
+  // Parameterized constructor for CustomerDTO.
   public CustomerDTO(
       String firstName,
       String lastName,
@@ -22,7 +24,7 @@ public class CustomerDTO {
       String phone,
       String username,
       String password) {
-    // constructor
+    // Constructor that initializes the object with customer information.
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -31,6 +33,7 @@ public class CustomerDTO {
     this.password = password;
   }
 
+  // Getter and setter methods for the private fields.
   public int getCustomerID() {
     return this.customerID;
   }

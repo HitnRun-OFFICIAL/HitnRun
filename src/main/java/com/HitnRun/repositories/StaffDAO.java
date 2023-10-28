@@ -16,7 +16,7 @@ public class StaffDAO {
   public StaffDAO(Connection connection) {
     this.connection = connection;
   }
-
+  //Generate StaffID by getting max and increasing it by 1
   public int generateStaffID() throws DatabaseOperationException {
     String sql = "SELECT MAX(StaffID) FROM Staff";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
