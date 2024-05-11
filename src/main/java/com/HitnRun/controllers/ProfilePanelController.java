@@ -15,6 +15,7 @@ import com.HitnRun.validations.InputValidation;
 import java.sql.Connection;
 import java.util.List;
 
+// class controller for the profile panel, handles its interactions
 public class ProfilePanelController {
   private CustomerDAO customerDAO;
   private CustomerDTO customer;
@@ -23,19 +24,19 @@ public class ProfilePanelController {
   private VehicleDAO vehicleDAO;
   private VehicleDTO vehicle;
   private Connection connection;
-
+  // Custructor to initialize the controller and database connections
   public ProfilePanelController() {
     this.connection = HSQLDBConnector.getConnection();
     rentalDAO = new RentalDAO(connection);
     vehicleDAO = new VehicleDAO(connection);
     customerDAO = new CustomerDAO(connection);
   }
-
+  // Retrieve and return the customer's profile information
   public CustomerDTO getCustomer() {
     customer = Authenticator.getProfile();
     return customer;
   }
-
+  // Get and return the list of rentals associated with the customer's profile
   public List<RentalDTO> getRentals() {
     try {
       rentals = rentalDAO.readAllRentalsForCustomer(Authenticator.getProfile().getCustomerID());
@@ -45,7 +46,7 @@ public class ProfilePanelController {
     }
     return null;
   }
-
+  // Register a new customer profile in the system
   public void register(CustomerDTO profile) throws InvalidInputException {
     InputValidation.validateProfile(profile);
     try {
@@ -54,7 +55,7 @@ public class ProfilePanelController {
       e.printStackTrace();
     }
   }
-
+  // Get and return information about a specific vehicle
   public VehicleDTO getVehicle(int vehicleId) {
     try {
       vehicle = vehicleDAO.readVehicle(vehicleId);
@@ -66,7 +67,7 @@ public class ProfilePanelController {
     }
     return null;
   }
-
+  // Update an existing customer profile
   public void updateProfile(CustomerDTO profile) throws InvalidInputException {
     InputValidation.validateProfile(profile);
     try {
@@ -75,7 +76,7 @@ public class ProfilePanelController {
       e.printStackTrace();
     }
   }
-
+  // Delete a customer profile and associated rentals
   public void deleteProfile(int profileId) {
     try {
       rentalDAO.deleteRentalWithCustomerID(profileId);

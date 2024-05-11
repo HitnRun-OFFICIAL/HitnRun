@@ -14,6 +14,7 @@ abstract class TopBarButton extends JLabel {
   private String toolTipText;
   private Icon icon;
 
+  // Constructor
   TopBarButton(String toolTipText, Icon icon) {
     this.toolTipText = toolTipText;
     this.icon = icon;
@@ -21,6 +22,7 @@ abstract class TopBarButton extends JLabel {
   }
 
   void initComponents() {
+    // Initialize GUI
     setBackground(new Color(0, 0, 0));
     setForeground(new Color(255, 255, 255));
     setHorizontalAlignment(SwingConstants.CENTER);
@@ -32,6 +34,7 @@ abstract class TopBarButton extends JLabel {
     setMinimumSize(new Dimension(32, 32));
     setOpaque(true);
     setPreferredSize(new Dimension(32, 32));
+    // Listner
     addMouseMotionListener(
         new MouseMotionAdapter() {
           public void mouseMoved(MouseEvent evt) {

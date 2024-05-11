@@ -32,11 +32,13 @@ class LoginForm extends JPanel {
   private JTextField loginUsername;
   private JPasswordField loginPassword;
 
+  // constructor
   LoginForm(BasePanel parent) {
     this.parent = parent;
     initComponents();
   }
 
+  // Initialize the graphical components of the panel
   void initComponents() {
     jLabel1 = new JLabel();
     jLabel4 = new JLabel();
@@ -383,6 +385,7 @@ public class LoginPanel extends JPanel {
     lastname.setMinimumSize(new java.awt.Dimension(60, 30));
     lastname.setPreferredSize(new java.awt.Dimension(60, 30));
 
+    // Button Action
     nextBtn =
         new Button("Next") {
           public void btnMousePressed(MouseEvent evt) {

@@ -19,7 +19,8 @@ class CustomerDAOTest {
 
   @BeforeAll
   void setUp() {
-    connection = HSQLDBConnector.getTestConnection();
+    connection =
+        HSQLDBConnector.getTestConnection(); // Get a test connection from the HSQLDBConnector
     customerDAO = new CustomerDAO(connection);
 
     // Create a test customer to be used in various test methods

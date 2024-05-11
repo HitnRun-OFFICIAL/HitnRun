@@ -42,14 +42,17 @@ public class PreviewPanel extends JPanel {
   private double rentFee;
   private RentalController rentalController;
 
+  // constructor
   PreviewPanel(JFrame parent) {
     this.parent = parent;
     initComponents();
   }
 
+  // Initialize login components
   private void initComponents() {
     id = 0;
     rentFee = 0;
+    // Create JLabels and other UI components.
     img = new JLabel();
     makeLbl = new JLabel();
     make = new JLabel();
@@ -65,10 +68,13 @@ public class PreviewPanel extends JPanel {
     rent = new JLabel();
     ratingLbl = new JLabel();
     rating = new JLabel();
+    // Create a new RentalController instance for handling rental operations.
     rentalController = new RentalController();
+    // Create a custom button ("RENT") with mouse press event handling.
     rentBtn =
         new Button("RENT") {
           public void btnMousePressed(MouseEvent evt) {
+            // Display a date selection panel.
             JPanel panel = new JPanel();
 
             SpinnerModel startDateModel =
@@ -81,23 +87,32 @@ public class PreviewPanel extends JPanel {
             panel.add(startDateSpinner);
             panel.add(endDateSpinner);
 
+            // Show a confirmation dialog to select date range.
             int result =
                 JOptionPane.showConfirmDialog(
                     parent, panel, "Select Date Range", JOptionPane.OK_CANCEL_OPTION);
 
             if (result == JOptionPane.OK_OPTION) {
-              java.sql.Date startDate = (java.sql.Date) startDateSpinner.getValue();
-              java.sql.Date endDate = (java.sql.Date) endDateSpinner.getValue();
+              java.sql.Date startDate =
+                  new java.sql.Date(((Date) startDateSpinner.getValue()).getTime());
+              java.sql.Date endDate =
+                  new java.sql.Date(((Date) endDateSpinner.getValue()).getTime());
 
+              // Perform the rental operation by calling the rentalController.
               rentalController.rent(
                   new RentalDTO(
                       Authenticator.getProfile().getCustomerID(), id, startDate, endDate, rentFee));
             }
           }
         };
+
+    // Create a JPanel for additional layout and styling.
     jPanel3 = new JPanel();
 
     jPanel3.setBackground(new java.awt.Color(50, 53, 58));
+    // Configure the layout and styling of various components.
+    // (Code for layout, colors, fonts, and component positioning)
+
     img.setHorizontalAlignment(SwingConstants.CENTER);
 
     makeLbl.setForeground(new java.awt.Color(115, 138, 219));
@@ -360,6 +375,7 @@ public class PreviewPanel extends JPanel {
                     .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
   }
 
+  // Setters
   public void setId(int id) {
     this.id = id;
   }

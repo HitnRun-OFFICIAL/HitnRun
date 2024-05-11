@@ -8,9 +8,11 @@ import java.sql.Statement;
 public class PrepareDatabase {
   // private static final String CREATE_DATABASE = "CREATE DATABASE hitnrun";
   // private static final String USE_DATABASE = "USE hitnrun";
+
+  // SQL query to create tables in the database
   private static final String CREATE_TABLES =
       ""
-          + //
+          + // SQL statement for creating Customers table
           "CREATE TABLE Customers ("
           + //
           "    CustomerID INT PRIMARY KEY,"
@@ -28,7 +30,7 @@ public class PrepareDatabase {
           "    Password VARCHAR(50)"
           + //
           ");"
-          + //
+          + // SQL statement for creating Vehicles table
           "CREATE TABLE Vehicles ("
           + //
           "    VehicleID INT PRIMARY KEY,"
@@ -52,7 +54,7 @@ public class PrepareDatabase {
           "    ImagePath VARCHAR(255)"
           + //
           ");"
-          + //
+          + // SQL statement for creating Staff table
           "CREATE TABLE Staff ("
           + //
           "    StaffID INT PRIMARY KEY,"
@@ -72,7 +74,7 @@ public class PrepareDatabase {
           "    Password VARCHAR(50),"
           + //
           ");"
-          + //
+          + // SQL statement for creating Rental table
           "CREATE TABLE Rental ("
           + //
           "    RentalID INT PRIMARY KEY,"
@@ -92,7 +94,7 @@ public class PrepareDatabase {
           "    FOREIGN KEY (VehicleID) REFERENCES Vehicles(VehicleID)"
           + //
           ");"
-          + //
+          + // SQL statement for creating Maintenance table
           "CREATE TABLE Maintenance ("
           + //
           "    MaintenanceID INT PRIMARY KEY,"
@@ -109,9 +111,10 @@ public class PrepareDatabase {
           + //
           ");";
 
+  // SQL queries to insert initial data into tables
   private static final String INSERT_CUSTOMERS =
       ""
-          + //
+          + // SQL statement to insert customer data
           "INSERT INTO Customers (CustomerID, FirstName, LastName, Email, Phone,"
           + " Username, Password)"
           + //
@@ -164,7 +167,7 @@ public class PrepareDatabase {
 
   private static final String INSERT_VEHICLE =
       ""
-          + //
+          + // SQL statement to insert vehicle data
           "INSERT INTO Vehicles (VehicleID, Make, Model, Year, LicensePlate, Description,"
           + " Color, Rating, Rent, ImagePath)"
           + //
@@ -217,7 +220,7 @@ public class PrepareDatabase {
 
   private static final String INSERT_STAFF =
       ""
-          + //
+          + // SQL statement to insert staff data
           "INSERT INTO Staff (StaffID, FirstName, LastName, Position, Email, Phone,"
           + " Username, Password)"
           + //
@@ -273,7 +276,7 @@ public class PrepareDatabase {
 
   private static final String INSERT_RENTAL =
       ""
-          + //
+          + // SQL statement to insert rental data
           "INSERT INTO Rental (RentalID, CustomerID, VehicleID, RentalDate,"
           + " ReturnDate, RentalFee)"
           + //
@@ -326,7 +329,7 @@ public class PrepareDatabase {
 
   private static final String INSERT_MAINTENANCE =
       ""
-          + //
+          + // SQL statement to insert maintenance data
           "INSERT INTO Maintenance (MaintenanceID, VehicleID, MaintenanceDate,"
           + " Description, Cost)"
           + //
@@ -363,6 +366,7 @@ public class PrepareDatabase {
           + //
           "    (615, 215, '2023-08-10 10:30:00', 'Power steering service', 160.00);";
 
+  // Method to create the database and insert initial data
   public static void createDatabase() {
     try (Connection connection = HSQLDBConnector.getConnection();
         Statement statement = connection.createStatement()) {
@@ -387,6 +391,7 @@ public class PrepareDatabase {
 
   public static void main(String[] args) {
     try {
+      // Create the database and insert initial data
       createDatabase();
       System.out.println("Database and tables created successfully.");
     } catch (DatabaseException e) {

@@ -11,14 +11,16 @@ public class RentalController {
   private RentalDTO rental;
   private Connection connection;
 
+  // constructor to initializes the database connection and rental data access object.
   public RentalController() {
+
     this.connection = HSQLDBConnector.getConnection();
     rentalDAO = new RentalDAO(connection);
   }
-
+  // Create a new rental record by adding it to the database
   public void rent(RentalDTO rental) {
     try {
-      rentalDAO.createRental(rental);
+      rentalDAO.createRental(rental); // Add records
     } catch (DatabaseOperationException e) {
       e.printStackTrace();
     }

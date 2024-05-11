@@ -17,6 +17,7 @@ public class MaintenanceDAO {
     this.connection = connection;
   }
 
+  // Generate new maintainaceID by getting max MaintenanceID and adding 1 to it
   public int generateMaintenanceID() throws DatabaseOperationException {
     String sql = "SELECT MAX(MaintenanceID) FROM Maintenance";
     try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
