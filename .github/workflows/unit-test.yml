@@ -34,3 +34,4 @@ jobs:
       
       - name: Stop container
         run: docker-compose -f "docker-compose.yml" down
+        
